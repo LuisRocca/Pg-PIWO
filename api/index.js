@@ -21,7 +21,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => { // este false es para que no guarde la data!
+conn.sync({ force: true }).then(() => { // este false es para que no guarde la data!
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

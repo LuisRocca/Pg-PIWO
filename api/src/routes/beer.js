@@ -1,33 +1,21 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
 const { User, Beer } = require("../db.js");
+const {showAll} = require("../methods/index.js");
 
 const router = Router();
 
-router.post("/", async (req, res) => {
-    try {
-   const { name, username, email, age, beers } = req.body;
-   const userAdd = await User.create({
-      
-      name: name,
-      username: username,
-      email: email,
-      age: age,
-    });
-  
-    for (const i of beers) {
-      const beer = await Beer.findOne({
-        where: {
-          id: i,
-        },
-      });
-  
-    beer.addUser(userAdd);
+router.get("/", async (req, res) => {
+  try {
+    const beers = await showAll();
+    Beer.bulkCreate(
+      beers
+    )
+    res.json(beers)
   }
-    res.json(activityAdd);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error" });
-  }});
+  catch (err) {
+    console.log(err);
+  }
+})
 
   module.exports = router;

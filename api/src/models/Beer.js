@@ -25,12 +25,12 @@ module.exports = (sequelize) => {
     impression: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) { this.setDataValue('impression', value.toLowerCase()); }
+        // set(value) { this.setDataValue('impression', value.toLowerCase()); }
     },
     aroma: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) { this.setDataValue('aroma', value.toLowerCase()); }
+        // set(value) { this.setDataValue('aroma', value.toLowerCase()); }
     },
     flavor: {
         type: DataTypes.STRING,
@@ -44,12 +44,10 @@ module.exports = (sequelize) => {
     IBU: {
         type: DataTypes.FLOAT,
         allowNull: false,
-        validate: { min: 0 },
     }, 
     ABV: {
         type: DataTypes.FLOAT,
         allowNull: false,
-        validate: { min: 0 },
     }, 
     history: {
         type: DataTypes.STRING,
