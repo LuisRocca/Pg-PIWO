@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
   },
 
    calification: {
-    type: DataTypes.ENUM( "1", "2", "3", "4", "5", ),
+    type: DataTypes.INTEGER,  //ENUM( "1", "2", "3", "4", "5", ),
     allowNull: true,
    },
 
