@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { Op } = require("sequelize");
 const { User, Beer } = require("../db.js");
 const router = Router();
 

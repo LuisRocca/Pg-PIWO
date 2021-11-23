@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) { this.setDataValue('name', value.toLowerCase()); },
+        // set(value) { this.setDataValue('name', value.toLowerCase()); },
     }, 
     price: {
         type: DataTypes.FLOAT,
@@ -35,10 +35,13 @@ module.exports = (sequelize) => {
     flavor: {
         type: DataTypes.TEXT,
         allowNull: true,
-        set(value) { this.setDataValue('flavor', value.toLowerCase()); }
+
+      
+        // set(value) { this.setDataValue('flavor', value.toLowerCase()); }
+
       }, 
     image: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         defaultValue: "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
     }, 
     IBU: {
