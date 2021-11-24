@@ -62,8 +62,6 @@ export default function Home () {
                 }): <h1>No beers</h1>}
             </div>
         </div>  
-
-        
     )      
 
 }
