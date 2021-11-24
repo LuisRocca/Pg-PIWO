@@ -21,7 +21,7 @@ module.exports = {
                     history: e.history ? e.history : "AQUI VOY A HARDCODEAR UNA HISTORY RANDOM",
                     image: "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
                 })))
-                // console.log(beersData);
+               
                 return beersData;
             })
             .catch(err => console.log(err));

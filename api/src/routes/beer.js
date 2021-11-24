@@ -5,6 +5,7 @@ const {getCategories, showAll} = require("../methods/index.js");
 
 const router = Router();
 
+
 router.get("/", async (req, res) => {
   const {name} = req.query
   const beersT = await showAll()
@@ -51,6 +52,7 @@ router.get("/:id", async (req, res) => {
     res.status(404).send('id no valido')
   }
 })
+
 
 
 

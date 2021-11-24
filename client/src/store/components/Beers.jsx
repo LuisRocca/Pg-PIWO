@@ -6,6 +6,7 @@ export default function Beers ({ID,name, impression, aroma, ingredients, flavor,
 
     return (
         <div className={Style.box}>
+          <Link to = {`/beers/${ID}`}>
             <div>
                 <h3>
                     {name}
@@ -20,6 +21,7 @@ export default function Beers ({ID,name, impression, aroma, ingredients, flavor,
             <div>
                 <img src={image} alt="No image found" weight='150px' height='150px'/>
             </div>
+            </Link>
         </div>
     )
 }
