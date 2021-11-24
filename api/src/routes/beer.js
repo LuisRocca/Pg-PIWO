@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
 const { User, Beer } = require("../db.js");
-const {showAll} = require("../methods/index.js");
+const {getCategories, showAll} = require("../methods/index.js");
 
 const router = Router();
 
@@ -16,6 +16,12 @@ router.get("/", async (req, res) => {
      res.status(200).send(byName) :
       res.status(404).send('no se ha encontrado ninguna cerveza')
      }
+<<<<<<< HEAD
+=======
+     else {
+       res.json(beersT)
+     }
+>>>>>>> master
    
     
     // const beers = await showAll();
