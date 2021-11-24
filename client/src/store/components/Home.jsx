@@ -8,7 +8,7 @@ import Paged from "./Paging.jsx";
 
 // import Beer from './Beers.jsx';
 
-export default function Home () {
+export default function Home () { 
     const dispatch = useDispatch();
     const beers = useSelector((state) => state.beers)
     const [currentPage, setCurrentPage] = useState(1);

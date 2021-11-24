@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect } from "react";
 import { getBeerDetails } from '../actions';
 import {useDispatch, useSelector} from 'react-redux';
-import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 export default function DetailBeer({props}) {
     const dispatch = useDispatch()
@@ -21,7 +20,7 @@ export default function DetailBeer({props}) {
 
                     return (
 
-                    <div >
+                    <div key = {e.ID}>
                         <div>
                             <img src={e.image} alt="img not found" width="200px" height="200px" style={{borderRadius: '20px'}}/>
                         </div>
