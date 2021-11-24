@@ -19,8 +19,9 @@ module.exports = {
                     IBU: e.stats?.ibu ? e.stats.ibu.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM ",
                     ABV: e.stats?.abv ? e.stats.abv.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM",
                     history: e.history ? e.history : "AQUI VOY A HARDCODEAR UNA HISTORY RANDOM",
+                    image: "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
                 })))
-                console.log(beersData);
+                // console.log(beersData);
                 return beersData;
             })
             .catch(err => console.log(err));
