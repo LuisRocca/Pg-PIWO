@@ -13,7 +13,7 @@ export default function DetailBeer({props}) {
     const beersDetail = useSelector((state) => state.beerId)
     console.log(beersDetail);
 
-    return (
+    return (   
         <div>
             {
                 Array.isArray(beersDetail) ? beersDetail.map ((e) => {
