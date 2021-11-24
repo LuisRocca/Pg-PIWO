@@ -14,3 +14,15 @@ export function getBeers () {
         }
     }
 }
+export function getBeersDetails(id){
+    return async function (dispatch){
+        try{
+            const r = await axios (`http://localhost:3001/beers/${id}`) 
+           
+            return dispatch({type: 'GET_BEERS_DETAIL', payload: r.data})
+        }
+        catch (err){
+            console.log('mal id')
+        }
+    }
+}

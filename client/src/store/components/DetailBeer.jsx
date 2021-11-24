@@ -5,31 +5,33 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 function DetailBeer(props) {
-    const dispatch = useDispatch()
     const {id} = props.match.params
+    const dispatch = useDispatch()
     const beersDetail = useSelector((state) => state.beerDetail)
-    if(!beersDetail.length){
-        dispatch(getBeersDetails(id))
-    }
+    let {name, impression, aroma, ingredients, flavor, IBU, ABV, history, image} = beersDetail[0]
+   
+    useEffect(() => {
+    dispatch(getBeersDetails(id))
+   }, [dispatch, id])
+    
     return (
         <div>
-            {beersDetail.map( e =>
-                (<div>
-                    <h2> {e.name} </h2>
+                <div>
+                 
+                    <h2> {name} </h2>
                      <div>
-                     <h4> {e.impression} </h4> 
-                      <h4> {e.aroma} </h4>  
-                     <h4> {e.ingredients} </h4> 
-                     <h4> {e.flavor} </h4> 
-                    <h4> {e.IBU} </h4> 
-                     <h4> {e.ABV} </h4> 
-                    <h4> {e.history} </h4> 
+                     <p> {impression} </p> 
+                      <p> {aroma} </p>  
+                     <p> {ingredients} </p> 
+                     <p> {flavor} </p> 
+                    <p> {IBU} </p> 
+                     <p> {ABV} </p> 
+                    <p> {history} </p> 
                     </div>
-                  <img src={e.image} alt="no se encontro imagen" /> 
+                  {/* <img src={image} alt="no se encontro imagen" />  */}
                     </div>
-                
-                ))}
                     <div>
+          
                     <Link to= '/beers'>
                         <button> back </button>
                     </Link>
