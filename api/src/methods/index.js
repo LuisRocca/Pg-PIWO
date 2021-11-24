@@ -20,7 +20,7 @@ module.exports = {
                     ABV: e.stats?.abv ? e.stats.abv.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM",
                     history: e.history ? e.history : "AQUI VOY A HARDCODEAR UNA HISTORY RANDOM",
                 })))
-                console.log(beersData);
+               
                 return beersData;
             })
             .catch(err => console.log(err));
