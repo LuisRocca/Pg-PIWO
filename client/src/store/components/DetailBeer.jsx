@@ -1,41 +1,65 @@
 import React from 'react'
 import { useEffect } from "react";
-import { getBeersDetails } from '../actions';
+import { getBeerDetails } from '../actions';
 import {useDispatch, useSelector} from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-function DetailBeer(props) {
+export default function DetailBeer({props}) {
     const dispatch = useDispatch()
-    const {id} = props.match.params
-    const beersDetail = useSelector((state) => state.beerDetail)
-    if(!beersDetail.length){
-        dispatch(getBeersDetails(id))
-    }
+    
+    useEffect(() => {
+        dispatch(getBeerDetails(props))
+    }, [dispatch])
+    
+    const beersDetail = useSelector((state) => state.beerId)
+    console.log(beersDetail);
+
     return (
         <div>
-            {beersDetail.map( e =>
-                (<div>
-                    <h2> {e.name} </h2>
-                     <div>
-                     <h4> {e.impression} </h4> 
-                      <h4> {e.aroma} </h4>  
-                     <h4> {e.ingredients} </h4> 
-                     <h4> {e.flavor} </h4> 
-                    <h4> {e.IBU} </h4> 
-                     <h4> {e.ABV} </h4> 
-                    <h4> {e.history} </h4> 
+            {
+                Array.isArray(beersDetail) ? beersDetail.map ((e) => {
+
+                    return (
+
+                    <div >
+                        <div>
+                            <img src={e.image} alt="img not found" width="200px" height="200px" style={{borderRadius: '20px'}}/>
+                        </div>
+                        <div>
+                            <h1>Name: {e.name}</h1>
+                        </div>
+                        <div>
+                            <h3>ABV: {e.ABV}</h3>
+                        </div>
+                        <div>
+                            <h3>IBU: {e.IBU}</h3>
+                        </div>
+                        <div>
+                            <p>history: {e.history}</p>
+                        </div>
+                        <div>
+                            <p>impression: {e.impression}</p>
+                        </div>
+                        <div>
+                            <p>aroma: {e.aroma}</p>
+                        </div>
+                        <div>
+                            <p>flavor: {e.flavor}</p>
+                        </div>
+                        <div>
+                            <p>ingredients: {e.ingredients}</p>
+                        </div>
                     </div>
-                  <img src={e.image} alt="no se encontro imagen" /> 
-                    </div>
-                
-                ))}
-                    <div>
-                    <Link to= '/beers'>
-                        <button> back </button>
-                    </Link>
-                    </div>
+                    
+                    ) 
+                }) : <p>Wait for changes</p>
+            }
+            <div>
+                <Link to= '/beers'>
+                    <button>Back to the main page</button>
+                </Link>
+            </div> 
         </div>
     )
 }
 
-export default DetailBeer

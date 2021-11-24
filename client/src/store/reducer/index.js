@@ -1,6 +1,7 @@
 const initialState = {
     beers: [],
-    allBeers: []
+    allBeers: [],
+    beerId: {}
 }
 
 function rootReducer (state = initialState, action) {
@@ -13,7 +14,13 @@ function rootReducer (state = initialState, action) {
                 beers: state.beers.concat(action.payload),
                 allBeers: state.allBeers.concat(action.payload)
             }
-            
+        
+        case 'GET_BEER_BY_ID':
+            return {
+                ...state,
+                beerId: action.payload
+            }
+
         default:
             return state;
     }

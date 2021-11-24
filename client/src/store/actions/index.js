@@ -14,3 +14,18 @@ export function getBeers () {
         }
     }
 }
+
+export function getBeerDetails (id) {
+    return async function (dispatch) {
+        try {
+            let beerId = await axios.get(`http://localhost:3001/beers/${id}`)
+            return dispatch({
+                type: 'GET_BEER_BY_ID',
+                payload: beerId.data
+            })
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+}

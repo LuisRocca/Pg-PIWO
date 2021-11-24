@@ -31,7 +31,7 @@ export default function Home () {
     return (
         <div>
             <div>
-                <h1>PROBANDO</h1>
+                <h1>BEER E-COM</h1>
             </div>
 
             <div>
