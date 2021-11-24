@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getBeers} from "../actions/index.js";
 import Beers from "./Beers.jsx";
 import Paged from "./Paging.jsx";
+import Search from './search.jsx';
 
 // import Beer from './Beers.jsx';
 
@@ -32,6 +33,12 @@ export default function Home () {
         <div>
             <div>
                 <h1>PROBANDO</h1>
+            </div>
+
+            <div>
+               <Search>
+            
+               </Search>
             </div>
 
             <div>

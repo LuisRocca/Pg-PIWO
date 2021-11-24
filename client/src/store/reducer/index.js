@@ -15,11 +15,19 @@ function rootReducer (state = initialState, action) {
                 beers: state.beers.concat(action.payload),
                 allBeers: state.allBeers.concat(action.payload)
             }
+
             case 'GET_BEERS_DETAIL':
                 return{
                     ...state,
                     beerDetail: action.payload
                 }
+
+
+            case 'GET_BEERS_NAME':
+            return{
+                ...state,
+                beers:action.payload
+            }
 
         default:
             return state;
