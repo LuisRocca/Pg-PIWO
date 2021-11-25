@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import {useDispatch} from 'react-redux'
-import { getBeersName } from "../actions";
+import { getBeersName } from "../Redux/actions";
 
 export default function Search(){
     const dispatch = useDispatch();
