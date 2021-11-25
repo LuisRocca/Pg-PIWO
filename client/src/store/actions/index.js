@@ -24,8 +24,9 @@ export function getBeersDetails(id){
         }
         catch (err){
             console.log('mal id')
-
-
+        }
+    }
+}
 
 export function getBeersName(name){
     return async function(dispatch){
