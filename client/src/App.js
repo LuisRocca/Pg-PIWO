@@ -2,8 +2,8 @@
 import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 // import Beers from "./store/components/Beers.jsx";
-import Home from "./store/components/Home.jsx";
-import DetailBeer from "./store/components/DetailBeer.jsx";
+import Home from "./components/Home";
+import DetailBeer from "./components/DetailBeer";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Style from './Beers.module.css'
+import Style from '../css/Beers.module.css'
 
 export default function Beers ({ID,name, impression, aroma, ingredients, flavor, IBU, ABV, history, image}) {
 

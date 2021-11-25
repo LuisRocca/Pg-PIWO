@@ -28,11 +28,6 @@ export default function Home () {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
     }, [])
-
-
-    
-
-
     console.log(beers)
     console.log('Styles' ,stylesBeer)
     return (
