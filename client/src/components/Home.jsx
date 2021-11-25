@@ -28,7 +28,7 @@ export default function Home () {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
     }, [])
-    console.log(beers)
+    console.log(beers[0])
     console.log('Styles' ,stylesBeer)
     return (
         <div>
@@ -48,12 +48,13 @@ export default function Home () {
                     <div className={styles.containerBeer}>
                     {/* {currentBeer ? currentBeer.filter( el =>  */}
                     {currentBeer ? beers.filter( el =>
-                    el.ID.length < 3 ? el.ID[0] === s.id : el.ID.slice(0, 2) == s.id
+                    el.id.length < 3 ? el.id[0] === s.id : el.id.slice(0, 2) == s.id
                     ).map((e) => {
-                        return (
-                            <div key={e.ID}>
+                        
+                        return (   
+                            <div key={e.id}>
                                 <Beers
-                                ID = {e.ID}
+                                id = {e.id}
                                 name = {e.name}
                                 // impression = {e.impression}
                                 // aroma = {e.aroma}

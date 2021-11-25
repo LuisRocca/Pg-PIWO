@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from "react";
-import { getBeersDetails } from '../Redux/actions';  
+import { getBeersDetails, getReviews } from '../Redux/actions';  
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,11 +9,14 @@ export default function DetailBeer({props}) {
     const dispatch = useDispatch()
     
     useEffect(() => {
+        dispatch(getReviews(props))
         dispatch(getBeersDetails(props))
     }, [dispatch])
-    
+    console.log(props)
+    const review = useSelector((state) => state.reviews )
     const beersDetail = useSelector((state) => state.beerId)
-    console.log(beersDetail);
+
+     console.log(beersDetail);
 
     return (   
         <div>

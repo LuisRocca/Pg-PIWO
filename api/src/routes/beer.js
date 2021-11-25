@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   const {name} = req.query
-  const beersT = await showAll()
+  const beersT = await Beer.findAll()
   try {
     if(name){
       const byName = beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
@@ -20,12 +20,6 @@ router.get("/", async (req, res) => {
        res.json(beersT)
      }
    
-    
-    // const beers = await showAll();
-    // Beer.bulkCreate(
-    //   beers
-    //   )
-    // res.json(beers)
   }
   catch (err) {
     console.log(err);
@@ -47,7 +41,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id
   const beersAll = await showAll()
   if(id){
-    const beersId = beersAll.filter(i => i.ID === id)
+    const beersId = beersAll.filter(i => i.id === id)
     beersId.length ? res.status(200).send(beersId) :
     res.status(404).send('id no valido')
   }
