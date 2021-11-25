@@ -3,12 +3,12 @@ const Beer = require("../models/Beer");
 
 module.exports = {
     showAll: () => {
-        let beers = axios.get(`https://raw.githubusercontent.com/gthmb/bjcp-2015-json/master/json/styleguide-2015.json`)
+        let beers = axios.get(`http://localhost:4000/styleguide`)
             .then(r => r.data)
             .then(results => {
                 let beersData = [];
                 let beersData2 = [];
-                results.styleguide.class[0].category.forEach(e => beersData2.push(e.subcategory))
+                results.class[0].category.forEach(e => beersData2.push(e.subcategory))
                 // console.log(beersData2);
                 beersData2.forEach(e => e.forEach(e => beersData.push({
                     id: e.id,
@@ -20,7 +20,7 @@ module.exports = {
                     IBU: e.stats?.ibu ? e.stats.ibu.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM ",
                     ABV: e.stats?.abv ? e.stats.abv.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM",
                     history: e.history ? e.history : "AQUI VOY A HARDCODEAR UNA HISTORY RANDOM",
-                    image: "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
+                    image: e.image? e.image : "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
                 })))
                
                 return beersData;
