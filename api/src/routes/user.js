@@ -22,16 +22,16 @@ router.post("/", async (req, res) => {
       age: age,
     });
   
-    for (const i of beers) {
-      const beer = await Beer.findOne({
-        where: {
-          id: i,
-        },
-      });
+  //   for (const i of beers) {
+  //     const beer = await Beer.findOne({
+  //       where: {
+  //         id: i,
+  //       },
+  //     });
   
-    beer.addUser(userAdd);
-  }
-    res.json({ Exito: "usuario creado "});
+  //   beer.addUser(userAdd);
+  // }
+    res.json({userAdd, Exito: "usuario creado "});
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Error" });

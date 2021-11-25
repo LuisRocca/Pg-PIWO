@@ -21,9 +21,8 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
         // console.log("linea 38 <--->" , newRew)
         Review.update(
           { commentary, calification },
-          {
-            where: { userId: idUser, beerId: idBeer },
-          }
+          {   where: { userId: idUser, beerId: idBeer }, },
+       
         ).then((rev) => {
           res.status(201).json(rev);
         });
@@ -56,5 +55,21 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
     })
 
   });
+
+  // Ruta --> localhost:3001/review/beer/idBeer <--LOS COMENTARIOS DE UNA CERVEZA
+
+  router.get('/beer/:idBeer', (req, res) => {
+    const {idBeer} = req.params;
+
+    Review.findAll({ where: { beerId: idBeer, },})
+    .then((review) =>{
+        res.status(200).send(review) 
+    }) .catch((err)=>{
+        console.log(err)
+          res.status(400).json(err)
+        })
+  });
+ 
+  
 
 module.exports = router;
