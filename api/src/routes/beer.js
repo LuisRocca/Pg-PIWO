@@ -1,11 +1,7 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
-<<<<<<< HEAD
-const {showAll} = require("../methods/index.js");
-=======
 const { User, Beer } = require("../db.js");
 const {getCategories, showAll} = require("../methods/index.js");
->>>>>>> master
 
 const router = Router();
 
