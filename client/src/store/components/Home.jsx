@@ -9,7 +9,7 @@ import Search from './search.jsx';
 
 // import Beer from './Beers.jsx';
 
-export default function Home () {
+export default function Home () { 
     const dispatch = useDispatch();
     const beers = useSelector((state) => state.beers)
     const [currentPage, setCurrentPage] = useState(1);
@@ -32,7 +32,7 @@ export default function Home () {
     return (
         <div>
             <div>
-                <h1>PROBANDO</h1>
+                <h1>BEER E-COM</h1>
             </div>
 
             <div>

@@ -15,26 +15,11 @@ function rootReducer (state = initialState, action) {
                 beers: state.beers.concat(action.payload),
                 allBeers: state.allBeers.concat(action.payload)
             }
-<<<<<<< HEAD
-
-            case 'GET_BEERS_DETAIL':
-                return{
-                    ...state,
-                    beerDetail: action.payload
-                }
-
-
-            case 'GET_BEERS_NAME':
-            return{
-                ...state,
-                beers:action.payload
-=======
         
         case 'GET_BEER_BY_ID':
             return {
                 ...state,
                 beerId: action.payload
->>>>>>> tarea-producto-1.2
             }
 
         default:
