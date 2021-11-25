@@ -3,7 +3,7 @@
  
  
  
- Ppara levantar el servidor-json -> Pararse en la carpeta api y escribir el siguiente comando en la consola: json-server -w -p 4000  api.json
+ Para levantar el servidor-json -> Pararse en la carpeta api y escribir el siguiente comando en la consola: json-server -w -p 4000  api.json
  
  MAC : sudo npm i -g json-server
  
