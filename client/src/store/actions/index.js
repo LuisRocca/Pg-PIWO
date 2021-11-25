@@ -15,28 +15,17 @@ export function getBeers () {
     }
 }
 
-export function getBeersDetails(id){
-    return async function (dispatch){
-        try{
-            const r = await axios (`http://localhost:3001/beers/${id}`) 
-           
-            return dispatch({type: 'GET_BEERS_DETAIL', payload: r.data})
+export function getBeerDetails (id) {
+    return async function (dispatch) {
+        try {
+            let beerId = await axios.get(`http://localhost:3001/beers/${id}`)
+            return dispatch({
+                type: 'GET_BEER_BY_ID',
+                payload: beerId.data
+            })
         }
-        catch (err){
-            console.log('mal id')
-        }
-    }
-}
-
-export function getBeersName(name){
-    return async function(dispatch){
-        try{
-            let b = await axios (`http://localhost:3001/beers/?name=${name}`)
-            return dispatch ({type: 'GET_BEERS_NAME',payload: b.data})
-        }
-        catch(err){
-            console.log(err)
-
+        catch (err) {
+            console.log(err);
         }
     }
 }
