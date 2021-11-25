@@ -1,4 +1,5 @@
 const {default: axios} = require("axios");
+const Beer = require("../models/Beer");
 
 module.exports = {
     showAll: () => {
@@ -10,7 +11,7 @@ module.exports = {
                 results.styleguide.class[0].category.forEach(e => beersData2.push(e.subcategory))
                 // console.log(beersData2);
                 beersData2.forEach(e => e.forEach(e => beersData.push({
-                    ID: e.id,
+                    id: e.id,
                     name: e.name,
                     impression: e.impression ? e.impression : "AQUI VOY A HARDCODEAR UNA IMPRESSION RANDOM",
                     aroma: e.aroma,
