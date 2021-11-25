@@ -35,11 +35,7 @@ module.exports = (sequelize) => {
     flavor: {
         type: DataTypes.TEXT,
         allowNull: true,
-<<<<<<< HEAD
-        set(value) { this.setDataValue('flavor', value.toLowerCase()); }
-=======
         // set(value) { this.setDataValue('flavor', value.toLowerCase()); }
->>>>>>> master
       }, 
     image: {
         type: DataTypes.STRING,
