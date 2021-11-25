@@ -11,21 +11,31 @@ router.post("/", async (req, res) => {
       username: username,
       email: email,
       age: age,
+      beers: beers,
     });
-  
-    for (const i of beers) {
-      const beer = await Beer.findOne({
-        where: {
-          id: i,
+
+    res.send(userAdd);
+    }
+    catch (err) {
+      console.log(err);
+    }
+});
+
+  router.get("/", async (req, res) => {
+    try {
+      const users = await User.findAll({
+        include: {
+          model: Beer,
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
         },
       });
-  
-    beer.addUser(userAdd);
-  }
-    res.json(activityAdd);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error" });
-  }});
+      return res.json(users);
+    } catch (error) {
+      res.status(400).send("Algo no esta bien!");
+    }
+  });
 
 module.exports = router;

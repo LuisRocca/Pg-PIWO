@@ -1,0 +1,80 @@
+.form {
+    border-radius: 20px ;
+    background-color: rgb(75, 69, 62);
+    border: 2rem rgb(221, 157, 7) solid;
+    height: 200px;
+    width: 400px;
+    text-align: left;
+    padding: 20vw;
+    margin: 5px;
+    padding-top: 2vw;
+    
+    /* align-content: center; */
+    /* list-style: none; */
+    /* display: grid; */
+}
+.create {
+    display: inline-block;
+}
+.delete {
+    /* display: flex; */
+    margin: 3px;
+}
+.h10 {
+    text-align: center;
+    color: rgb(212, 150, 5);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.h9 {
+    text-align: center;
+    color: rgb(61, 140, 206);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.buttoncreate {
+    text-align: center;
+}
+.remove {
+    display: flex;
+}
+.punto {
+    list-style: none;
+}
+.error {
+    color: rgb(251, 33, 33);
+    font-size: 16px;
+    font-size: bold;
+    text-align: center;
+    /* padding-bottom: -10px; */
+  }
+  
+input.danger {
+    border: 2px solid red;
+  }
+
+.label {
+    font-weight: bold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    padding: 1vw;
+    margin-top: 1vw;
+    color: wheat;
+
+    
+}
+.inputform {
+    width: 300px;    
+}
+.check{
+    justify-content: center;
+}
+.button {
+    border-radius: 10px;
+    font-size: 120%;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(155, 110, 5);
+    margin: 3px;
+}
+
+.duration{
+    width: 4rem;
+}
