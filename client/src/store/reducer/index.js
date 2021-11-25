@@ -21,7 +21,13 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 beerId: action.payload
             }
-
+        
+        case 'GET_BEERS_NAME':
+            return{
+                ...state,
+                beers:action.payload
+            }
+        
         default:
             return state;
     }

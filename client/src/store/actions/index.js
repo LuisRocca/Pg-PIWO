@@ -29,3 +29,17 @@ export function getBeerDetails (id) {
         }
     }
 }
+
+export function getBeersName(name){
+    return async function(dispatch){
+        try{
+            let b = await axios (`http://localhost:3001/beers/?name=${name}`)
+            return dispatch ({
+                type: 'GET_BEERS_NAME',
+                payload: b.data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
