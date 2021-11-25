@@ -10,52 +10,52 @@ module.exports = (sequelize) => {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        set(value) { this.setDataValue('name', value.toLowerCase()); },
+        // set(value) { this.setDataValue('name', value.toLowerCase()); },
     }, 
     price: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
         validate: { min: 0.1 },
     }, 
     stock: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate: { min: 0 },
     }, 
     impression: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
         // set(value) { this.setDataValue('impression', value.toLowerCase()); }
     },
     aroma: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
         // set(value) { this.setDataValue('aroma', value.toLowerCase()); }
     },
     flavor: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        set(value) { this.setDataValue('flavor', value.toLowerCase()); }
+        type: DataTypes.TEXT,
+        allowNull: true,
+        // set(value) { this.setDataValue('flavor', value.toLowerCase()); }
       }, 
     image: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         defaultValue: "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
     }, 
     IBU: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
     }, 
     ABV: {
         type: DataTypes.FLOAT,
-        allowNull: false,
+        allowNull: true,
     }, 
     history: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.TEXT,
+        allowNull: true
     }, 
     ingredients: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.TEXT,
+        allowNull: true
     }
   });
 };
