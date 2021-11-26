@@ -1,19 +1,11 @@
 const { Router } = require("express");
-const { User, Beer } = require("../db.js");
+const { Admin, Beer } = require("../db.js");
 const router = Router();
-
-// localhost:3001/users body: {
-//     "name": "Juliokk",
-//     "username": "JulioPerucho",
-//     "email": "ju155512@gmail.com",
-//     "age" : "34",
-//     "beers": [2]
-// }
 
 router.post("/", async (req, res) => {
     try {
    const { name, username, email, age, beers } = req.body;
-   const userAdd = await User.create({
+   const adminAdd = await Admin.create({
       
       name: name,
       username: username,
@@ -22,7 +14,7 @@ router.post("/", async (req, res) => {
       beers: beers,
     });
 
-    res.send(userAdd);
+    res.send(adminAdd);
     }
     catch (err) {
       console.log(err);
@@ -31,7 +23,7 @@ router.post("/", async (req, res) => {
 
   router.get("/", async (req, res) => {
     try {
-      const users = await User.findAll({
+      const admins = await Admin.findAll({
         include: {
           model: Beer,
           attributes: ["name"],
@@ -40,11 +32,10 @@ router.post("/", async (req, res) => {
           },
         },
       });
-      return res.json(users);
+      return res.json(admins);
     } catch (error) {
       res.status(400).send("Algo no esta bien!");
     }
   });
-    res.json({userAdd, Exito: "usuario creado "});
 
 module.exports = router;
