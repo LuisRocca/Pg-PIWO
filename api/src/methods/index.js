@@ -13,19 +13,24 @@ module.exports = {
                 beersData2.forEach(e => e.forEach(e => beersData.push({
                     id: e.id,
                     name: e.name,
-                    impression: e.impression ? e.impression : "AQUI VOY A HARDCODEAR UNA IMPRESSION RANDOM",
+                    impression: e.impression ? e.impression : "Dato no proporcionado por el fabricante",
                     aroma: e.aroma,
-                    ingredients: e.ingredients ? e.ingredients : "AQUI VOY A HARDCODEAR INGREDIENTES RANDOM",
+                    price: e.price,
+                    stock: e.stock,
+                    ingredients: e.ingredients ? e.ingredients : "Dato no proporcionado por el fabricante",
                     flavor: e.flavor,
-                    IBU: e.stats?.ibu ? e.stats.ibu.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM ",
-                    ABV: e.stats?.abv ? e.stats.abv.high : "AQUI VOY A HARDCODEAR UN VALOR RANDOM",
-                    history: e.history ? e.history : "AQUI VOY A HARDCODEAR UNA HISTORY RANDOM",
+                    examples: Array.isArray(e.examples) ? e.examples.join(', ') : "Dato no proporcionado por el fabricante",
+                    IBU: e.stats?.ibu ? e.stats.ibu.high : "10",
+                    ABV: e.stats?.abv ? e.stats.abv.high : "5",
+                    history: e.history ? e.history : "Dato no proporcionado por el fabricante",
                     image: e.image? e.image : "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
                 })))
                
                 return beersData;
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err)
+            }) 
         return beers;
     },
     getCategories: async() => {
