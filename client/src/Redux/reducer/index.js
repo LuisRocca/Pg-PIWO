@@ -1,21 +1,26 @@
-import { GET_BEERS, 
+import {
+        GET_BEERS, 
         GET_BEERS_BY_ID, 
         GET_BEERS_NAME, 
-        GET_STYLES } from "../actions";
+        GET_STYLES,
+        GET_REVIEW,
+    } from "../actions";
 
 const initialState = {
     beers: [],
     allBeers: [],
     beerId: {},
-    stylesBeer: []
+    stylesBeer: [],
+    reviews: [],
 }
+
 
 function rootReducer (state = initialState, action) {
     switch (action.type) {
         case GET_BEERS:
             state.beers.length = 0;
             state.allBeers.length = 0;
-            state.beerDetail.length = 0;
+     
             return {
                 ...state,
                 beers: state.beers.concat(action.payload),
@@ -26,6 +31,12 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 beerId: action.payload
+            }
+
+        case GET_REVIEW:
+            return {
+                ...state,
+                reviews: action.payload
             }
         
         case GET_BEERS_NAME:

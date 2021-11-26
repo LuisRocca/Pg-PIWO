@@ -1,33 +1,36 @@
 import React from 'react'
 import { useEffect } from "react";
-import { getBeersDetails } from '../Redux/actions';  
+import { getBeersDetails, getReviews } from '../Redux/actions';  
 import {useDispatch, useSelector} from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import "../css/DetailBeers.css"
 
 export default function DetailBeer({props}) {
     const dispatch = useDispatch()
     
     useEffect(() => {
+        dispatch(getReviews(props))
         dispatch(getBeersDetails(props))
     }, [dispatch])
-    
+    console.log(props)
+    const review = useSelector((state) => state.reviews )
     const beersDetail = useSelector((state) => state.beerId)
-    console.log(beersDetail);
+
+     console.log(beersDetail);
 
     return (   
-        <div>
+        <div  >
             {
                 Array.isArray(beersDetail) ? beersDetail.map ((e) => {
 
                     return (
-
-                    <div key = {e.ID}>
-                        <div>
-                            <img src={e.image} alt="img not found" width="200px" height="200px" style={{borderRadius: '20px'}}/>
+                    <div key = {e.ID} className="container" >
+                        <div className="left-column"> 
+                            <img  src={e.image} alt="img not found" width="200px" height="200px" style={{borderRadius: '20px'}}/>
                         </div>
+                     <div className="right-column">   
                         <div>
-                            <h1>Name: {e.name}</h1>
+                            <h1> {e.name}</h1>
                         </div>
                         <div>
                             <h3>ABV: {e.ABV}</h3>
@@ -35,21 +38,26 @@ export default function DetailBeer({props}) {
                         <div>
                             <h3>IBU: {e.IBU}</h3>
                         </div>
+                        {/* <div>
+                            <h4>HISTORY: {e.history}</h4>
+                        </div> */}
                         <div>
-                            <p>history: {e.history}</p>
+                            <h4>IMPRESSION: {e.impression}</h4>
                         </div>
-                        <div>
-                            <p>impression: {e.impression}</p>
-                        </div>
-                        <div>
+                        {/* <div>
                             <p>aroma: {e.aroma}</p>
-                        </div>
-                        <div>
+                        </div> */}
+                        {/* <div>
                             <p>flavor: {e.flavor}</p>
-                        </div>
+                        </div> */}
                         <div>
-                            <p>ingredients: {e.ingredients}</p>
+                            <h4>INGREDIENTS: {e.ingredients}</h4>
                         </div>
+                        <div class="product-price">
+                           
+                                 <a href="#" class="cart-btn">Add to cart</a>
+                         </div>
+                    </div>
                     </div>
                     
                     ) 
@@ -57,7 +65,7 @@ export default function DetailBeer({props}) {
             }
             <div>
                 <Link to= '/beers'>
-                    <button>Back to the main page</button>
+                    <button>Back to home</button>
                 </Link>
             </div> 
         </div>
