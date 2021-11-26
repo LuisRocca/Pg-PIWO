@@ -1,0 +1,13 @@
+.box {
+    width: 350px;
+    max-width: 350px;
+    height: 350px;
+    margin: 10px 30px;
+    padding: 10px;
+    box-shadow: black inset -5px -5px 5px;
+    border: solid 1px black;
+    border-radius: 30px;
+    background-color:rgba(255, 255, 255, 0.904);
+    transition: 1s ease;
+    cursor: pointer;
+}

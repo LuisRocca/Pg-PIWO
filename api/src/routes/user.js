@@ -2,6 +2,14 @@ const { Router } = require("express");
 const { User, Beer } = require("../db.js");
 const router = Router();
 
+// localhost:3001/users body: {
+//     "name": "Juliokk",
+//     "username": "JulioPerucho",
+//     "email": "ju155512@gmail.com",
+//     "age" : "34",
+//     "beers": [2]
+// }
+
 router.post("/", async (req, res) => {
     try {
    const { name, username, email, age, beers } = req.body;
@@ -37,5 +45,20 @@ router.post("/", async (req, res) => {
       res.status(400).send("Algo no esta bien!");
     }
   });
+  
+  //   for (const i of beers) {
+  //     const beer = await Beer.findOne({
+  //       where: {
+  //         id: i,
+  //       },
+  //     });
+  
+  //   beer.addUser(userAdd);
+  // }
+    res.json({userAdd, Exito: "usuario creado "});
+    catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error" });
+  };
 
 module.exports = router;
