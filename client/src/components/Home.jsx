@@ -64,6 +64,9 @@ export default function Home () {
                                 ABV = {e.ABV}
                                 // history = {e.history}
                                 image = {e.image}
+                                price = {e.price}
+                                stock = {e.stock}
+                                examples = {e.examples}
                                 />
                             </div>
                         )
