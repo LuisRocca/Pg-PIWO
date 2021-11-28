@@ -12,7 +12,7 @@ export default function DetailBeer({props}) {
         dispatch(getReviews(props))
         dispatch(getBeersDetails(props))
     }, [dispatch])
-    console.log(props)
+   
     const review = useSelector((state) => state.reviews )
     const beersDetail = useSelector((state) => state.beerId)
 
@@ -59,6 +59,24 @@ export default function DetailBeer({props}) {
                 }) : <p>Wait for changes</p>
             }
             <div>
+                <div className="contenedor-review">
+                    {
+                        review && review.map( re => (
+                            <div>
+                                <p>
+                                    UserName: {re.user.username}
+                                </p>
+                                <p>
+                                    Comentario: {re.review.commentary}
+                                </p>
+                                <p>
+                                    Comentario: {re.review.calification}
+                                </p>
+                                
+                            </div>
+                        ))
+                    }
+                </div>
                 <Link to= '/beers'>
                     <button>Back to the main page</button>
                 </Link>
