@@ -54,7 +54,6 @@ export default function DetailBeer({props}) {
                             <h4>INGREDIENTS: {e.ingredients}</h4>
                         </div>
                         <div class="product-price">
-                           
                                  <a href="#" class="cart-btn">Add to cart</a>
                          </div>
                     </div>
