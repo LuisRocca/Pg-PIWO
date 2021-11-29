@@ -1,33 +1,36 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Style from '../css/Beers.module.css'
+import '../css/Beers.css'
 
 export default function Beers ({id, name, impression, aroma, ingredients, flavor, IBU, ABV, history, image, examples, price, stock}) {
 
     return (
-        <div className={Style.box}>
+        <div className="box">
+            <div class="product">
+            <img src={image} alt=" " />
+			    <div class="buttons">
+			        <a class="buy" href=" ">Add to cart</a>
+                    <Link to={`/beers/${id}`}>
+                        <a class="preview" href=" ">View item</a>
+                    </Link>
+		        </div>
+	        </div>
+            <div className='info'>
             <Link to={`/beers/${id}`}>
-            <div>
-                <h3>
-                    {name}
-                </h3>
-            </div>
-            <div>
-                <h5>IBU: {IBU}</h5>
-            </div>
-            <div>
-                <h5>ABV: {ABV}</h5>
-            </div>
-            <div>
-                <h5>Price: {price} USD</h5>
-            </div>
-            <div>
-                <h5>Stock: {stock}</h5>
-            </div>
-            <div>
-                <img src={image} alt="Not found" weight='150px' height='150px'/>
-            </div>
+                <h4>{name}</h4>
             </Link>
+                <span className='description'> 
+                    IBU: {IBU} <br/>
+                    ABV: {ABV} <br/>
+                </span>
+                <span className='price'>US${price}</span>
+            <a class='buy_now' href=' '>Buy Now</a>
+            </div>
+            <div className='details'>
+                <span className='stock'>
+                    Stock: {stock} <br/>
+                </span>
+            </div>
         </div>
     )
 }

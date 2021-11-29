@@ -33,13 +33,11 @@ export default function Home () {
     return (
         <div>
             <div>
-                <h1>BEER E-COM</h1>
+                <h1>PIWO BEER MARKET</h1>
             </div>
 
             <div>
-               <Search>
-            
-               </Search>
+               <Search/>           
             </div>
             <div>
                 {stylesBeer && stylesBeer.map( s =>(

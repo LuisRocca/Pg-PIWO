@@ -6,7 +6,7 @@
 }
 .containerBeer{
     white-space: nowrap;
-    margin: 70px 0px;
+    margin: 70px 70px;
     padding-bottom: 10px; 
     display: flex;
     flex-direction: row;
