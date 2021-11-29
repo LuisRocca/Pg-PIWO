@@ -1,195 +1,195 @@
 .box {
-    display: block;
-    position: relative;
-    width: 295px;
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    margin: 50px 12px;
-  }
-  .product {
-    display: block;
-    position: relative;
-    height: 270px;
-    width: 250px;
-    overflow: hidden;
-  }
-  
-  .product img {
-    width: 290px;
-    height: 270px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  .buttons {
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 118%;
-    height: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    -webkit-transition: opacity 0.25s ease-in;
-    -ms-transition: opacity 0.25s ease-in;
-    -moz-transition: opacity 0.25s ease-in;
-    -o-transition: opacity 0.25s ease-in;
-    transition: opacity 0.25s ease-in;
-  }
-  
-  .product:hover .buttons,
-  .product:hover a {
-    opacity: 1;
-  }
-  
-  .buttons a {
-    display: block;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    margin: auto;
-    margin-top: 100px;
-    width: 115px;
-    border-radius: 2px;
-    padding: 15px 40px;
-    font-family: Helvetica, sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #fff;
-    text-decoration: none;
-    opacity: 0;
-    text-align: center;
-  }
-  
-  a.buy {
-    top: 20%;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
-    background: #1abc9c;
-    background-position: 0 -15px;
-    background-size: 400px 80px;
-    background-repeat: no-repeat;
-    box-shadow: 0 3px 0 #16a085;
-    -webkit-transition: background-position 0.2s ease-in;
-    -ms-transition: background-position 0.2s ease-in;
-    -moz-transition: background-position 0.2s ease-in;
-    -o-transition: background-position 0.2s ease-in;
-    transition: background-position 0.2s ease-in;
-  }
-  
-  a.buy:active {
-    top: 21%;
-    box-shadow: 0 0px 0 #16a085;
-  }
-  
-  a.preview {
-    bottom: 20%;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
-  
-    background: #3498db;
-    background-position: 0 -15px;
-    background-size: 400px 80px;
-    background-repeat: no-repeat;
-    box-shadow: 0 3px 0 #2980b9;
-  
-    -webkit-transition: background-position 0.2s ease-in;
-    -ms-transition: background-position 0.2s ease-in;
-    -moz-transition: background-position 0.2s ease-in;
-    -o-transition: background-position 0.2s ease-in;
-    transition: background-position 0.2s ease-in;
-  }
-  
-  .preview:hover,
-  .buy_now:hover {
-    background-position: 0 0;
-  }
-  
-  .preview:active,
-  .buy_now:active {
-    -webkit-transform: translateY(2px);
-    -ms-transform: translateY(2px);
-    -moz-transform: translateY(2px);
-    -o-transform: translateY(2px);
-    transform: translateY(2px);
-    box-shadow: none;
-  }
-  .info {
-    padding: 20px;
-    display: block;
-    position: relative;
-    font-size: 20px;
-  }
-  .info h4 {
-    position: relative;
-    padding: 0 0 20px 0;
-    margin: 0 0 20px 0;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 700;
-    font-size: 19px;
-    line-height: 25px;
-    color: #372f2b;
-    letter-spacing: -1px;
-  }
-  
-  .info h4::after {
-    display: block;
-    position: absolute;
-    bottom: 0px;
-    content: "";
-    width: 40px;
-    height: 2px;
-    background: #3b86c4;
-  }
-  .info .description {
-    display: block;
-    padding-bottom: 20px;
-    font-family: "Open Sans", sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: #5f5f5f;
-  }
-  .info .price {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
-    font-size: 24px;
-    font-weight: 900;
-    color: #0a0a09;
-    line-height: 26px;
-  }
-  .buy_now {
-    float: right;
-    position: relative;
-    top: -5px;
-    display: block;
-    padding: 10px 10px;
-    border-radius: 3px;
-  
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 15px;
-    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
-  
-    background: #3498db;
-  
-    -webkit-transition: background-position 0.2s ease-in;
-    -ms-transition: background-position 0.2s ease-in;
-    -moz-transition: background-position 0.2s ease-in;
-    -o-transition: background-position 0.2s ease-in;
-    transition: background-position 0.2s ease-in;
-  
-    box-shadow: 0 3px 0 #2980b9;
-  }
-  .details {
-    border-top: 1px solid #e5e5e5;
-    padding: 18px 20px;
-  }
-  .stock {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #372f2b;
-    background-position: 0 2px;
-  }
+  display: block;
+  position: relative;
+  width: 295px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin: 50px 12px;
+}
+.product {
+  display: block;
+  position: relative;
+  height: 270px;
+  width: 250px;
+  overflow: hidden;
+}
+
+.product img {
+  width: 290px;
+  height: 270px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.buttons {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 118%;
+  height: 100%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  -webkit-transition: opacity 0.25s ease-in;
+  -ms-transition: opacity 0.25s ease-in;
+  -moz-transition: opacity 0.25s ease-in;
+  -o-transition: opacity 0.25s ease-in;
+  transition: opacity 0.25s ease-in;
+}
+
+.product:hover .buttons,
+.product:hover a {
+  opacity: 1;
+}
+
+.buttons a {
+  display: block;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  margin-top: 100px;
+  width: 115px;
+  border-radius: 2px;
+  padding: 15px 40px;
+  font-family: Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0;
+  text-align: center;
+}
+
+a.buy {
+  top: 20%;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+  background: #1abc9c;
+  background-position: 0 -15px;
+  background-size: 400px 80px;
+  background-repeat: no-repeat;
+  box-shadow: 0 3px 0 #16a085;
+  -webkit-transition: background-position 0.2s ease-in;
+  -ms-transition: background-position 0.2s ease-in;
+  -moz-transition: background-position 0.2s ease-in;
+  -o-transition: background-position 0.2s ease-in;
+  transition: background-position 0.2s ease-in;
+}
+
+a.buy:active {
+  top: 21%;
+  box-shadow: 0 0px 0 #16a085;
+}
+
+a.preview {
+  bottom: 20%;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+
+  background: #3498db;
+  background-position: 0 -15px;
+  background-size: 400px 80px;
+  background-repeat: no-repeat;
+  box-shadow: 0 3px 0 #2980b9;
+
+  -webkit-transition: background-position 0.2s ease-in;
+  -ms-transition: background-position 0.2s ease-in;
+  -moz-transition: background-position 0.2s ease-in;
+  -o-transition: background-position 0.2s ease-in;
+  transition: background-position 0.2s ease-in;
+}
+
+.preview:hover,
+.buy_now:hover {
+  background-position: 0 0;
+}
+
+.preview:active,
+.buy_now:active {
+  -webkit-transform: translateY(2px);
+  -ms-transform: translateY(2px);
+  -moz-transform: translateY(2px);
+  -o-transform: translateY(2px);
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.info {
+  padding: 20px;
+  display: block;
+  position: relative;
+  font-size: 20px;
+}
+.info h4 {
+  position: relative;
+  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color: #372f2b;
+  letter-spacing: -1px;
+}
+
+.info h4::after {
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  content: "";
+  width: 40px;
+  height: 2px;
+  background: #3b86c4;
+}
+.info .description {
+  display: block;
+  padding-bottom: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #5f5f5f;
+}
+.info .price {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #0a0a09;
+  line-height: 26px;
+}
+.buy_now {
+  float: right;
+  position: relative;
+  top: -5px;
+  display: block;
+  padding: 10px 10px;
+  border-radius: 3px;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 15px;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+
+  background: #3498db;
+
+  -webkit-transition: background-position 0.2s ease-in;
+  -ms-transition: background-position 0.2s ease-in;
+  -moz-transition: background-position 0.2s ease-in;
+  -o-transition: background-position 0.2s ease-in;
+  transition: background-position 0.2s ease-in;
+
+  box-shadow: 0 3px 0 #2980b9;
+}
+.details {
+  border-top: 1px solid #e5e5e5;
+  padding: 18px 20px;
+}
+.stock {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #372f2b;
+  background-position: 0 2px;
+}

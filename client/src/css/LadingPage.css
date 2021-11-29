@@ -1,0 +1,41 @@
+.LandingPage{
+  background-image: url(https://estaticos.miarevista.es/media/cache/1140x_thumb/uploads/images/gallery/5a5795b35bafe814130f6681/cervezasabores-ppal_0.jpg);
+  background-position: center center;
+  background-attachment: fixed;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+
+.Margin-LandingPage{
+  margin: 38vh 0 0 5vh;
+}
+
+.Title-LandingPage{
+  
+  font-size: 57px;
+  color: #e68831;
+  text-shadow: -2px 2px black;
+}
+
+.Info-LandingPage{
+  font-size: 45px;
+  color:white;
+  text-shadow: 1px 1px #b3b3b3;
+  font-weight: bold;
+  margin-bottom: 2em;
+  
+}
+
+.animation{
+  animation: rock 2s infinite linear;
+  cursor: pointer;
+}
+
+
+@keyframes rock{
+  50%{
+      transform: translateY(1rem);
+  }
+}

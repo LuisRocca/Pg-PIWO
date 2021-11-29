@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { getBeersDetails, getReviews } from "../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "../css/DetailBeer.module.css";
+import "../css/DetailBeers.css";
 
 export default function DetailBeer({ props }) {
   const dispatch = useDispatch();
@@ -96,4 +96,3 @@ export default function DetailBeer({ props }) {
     </div>
   );
 }
-

@@ -11,19 +11,39 @@ router.get("/", async (req, res) => {
   const beersT = await Beer.findAll()
   try {
     if(name){
-      const byName = beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
-      byName.length ? 
-     res.status(200).send(byName) :
+      const byName = 
+      // const byName = await Beer.findAll({  
+      //   where: {
+      //     name: {
+      //       [Op.iLike]: `%${name}%`,
+      //     },
+      //   },
+      // });
+       beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
+       byName.length ? 
+      res.status(200).send(byName) :
       res.status(404).send('no se ha encontrado ninguna cerveza')
      }
      else {
        res.json(beersT)
      }   
   }
-  catch (err) {
+    catch (err) {
     console.log(err);
-  }  
-});
+  }
+  
+})
+
+// router.get("/", async (req, res) => {
+//   const beer = await showAll()
+//   try {
+//     res.json(beer)
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// })
+
 
 router.get('/categories', async(req, res, next) => {
   try{
@@ -43,35 +63,6 @@ router.get("/:id", async (req, res) => {
     res.status(404).send('id no valido')
   }
 });
-
-router.post('/:idBeer/category/:idCategory', (req, res) => {
-  const {idBeer, idCategory} = req.params;
-  Beer.findByPk(idBeer)
-      .then((product) => {
-          product.addCategories(idCategory)
-          .then((newCategory) => {
-              res.status(201).json({message: 'Se agregó categoría', newCategory})
-          })
-      })
-      .catch((err) => {
-          throw new Error(err)
-      });
-});
-
-router.delete('/:idBeer/category/:idCategory', (req, res)=>{
-const {idBeer, idCategory} = req.params;
-Beer.findByPk(idBeer)
-.then((beer)=>{a
-  beer.removeCategories(idCategory)
-  .then((newCategory)=> {
-    res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})
-  })
-})
-.catch((err)=>{
-  throw new Error(err)
-})
-
-})
 
 
   module.exports = router;
