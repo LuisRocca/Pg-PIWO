@@ -56,6 +56,10 @@ module.exports = (sequelize) => {
     ingredients: {
         type: DataTypes.TEXT,
         allowNull: true
+    },
+    examples: {
+        type: DataTypes.TEXT,
+        allowNull: true,
     }
   });
 };
