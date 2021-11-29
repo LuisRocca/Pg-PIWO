@@ -27,19 +27,20 @@ export default function Home () {
     useEffect(() => {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
-    }, [])
+    }, [dispatch, stylesBeer])
     console.log(beers[0])
     console.log('Styles' ,stylesBeer)
     return (
         <div>
+            <Link to="/admin">
+          <button className={styles.button}>Admin Panel</button>
+            </Link>
             <div>
-                <h1>BEER E-COM</h1>
+                <h1>PIWO BEER MARKET</h1>
             </div>
 
             <div>
-               <Search>
-            
-               </Search>
+               <Search/>           
             </div>
             <div>
                 {stylesBeer && stylesBeer.map( s =>(
@@ -64,6 +65,9 @@ export default function Home () {
                                 ABV = {e.ABV}
                                 // history = {e.history}
                                 image = {e.image}
+                                price = {e.price}
+                                stock = {e.stock}
+                                examples = {e.examples}
                                 />
                             </div>
                         )

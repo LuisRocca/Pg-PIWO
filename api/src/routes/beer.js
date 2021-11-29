@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { Op } = require("sequelize");
-const { User, Beer } = require("../db.js");
+const { User, Beer, Category } = require("../db.js");
 const {getCategories, showAll} = require("../methods/index.js");
 
 const router = Router();
@@ -18,15 +18,12 @@ router.get("/", async (req, res) => {
      }
      else {
        res.json(beersT)
-     }
-   
+     }   
   }
   catch (err) {
     console.log(err);
-  }
-  
-})
-
+  }  
+});
 
 router.get('/categories', async(req, res, next) => {
   try{
@@ -45,7 +42,37 @@ router.get("/:id", async (req, res) => {
     beersId.length ? res.status(200).send(beersId) :
     res.status(404).send('id no valido')
   }
+});
+
+router.post('/:idBeer/category/:idCategory', (req, res) => {
+  const {idBeer, idCategory} = req.params;
+  Beer.findByPk(idBeer)
+      .then((product) => {
+          product.addCategories(idCategory)
+          .then((newCategory) => {
+              res.status(201).json({message: 'Se agregó categoría', newCategory})
+          })
+      })
+      .catch((err) => {
+          throw new Error(err)
+      });
+});
+
+router.delete('/:idBeer/category/:idCategory', (req, res)=>{
+const {idBeer, idCategory} = req.params;
+Beer.findByPk(idBeer)
+.then((beer)=>{a
+  beer.removeCategories(idCategory)
+  .then((newCategory)=> {
+    res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})
+  })
 })
+.catch((err)=>{
+  throw new Error(err)
+})
+
+})
+
 
   module.exports = router;
 

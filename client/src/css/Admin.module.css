@@ -56,12 +56,14 @@ input.danger {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
     padding: 1vw;
     margin-top: 1vw;
-    color: wheat;
-
-    
+    color: wheat;    
 }
 .inputform {
     width: 300px;    
+}
+.inputnotes {
+    width: 600px;
+    padding: 2vw;
 }
 .check{
     justify-content: center;
@@ -74,7 +76,6 @@ input.danger {
     background-color: rgb(155, 110, 5);
     margin: 3px;
 }
-
-.duration{
-    width: 4rem;
+.id{
+    width: 5rem;
 }

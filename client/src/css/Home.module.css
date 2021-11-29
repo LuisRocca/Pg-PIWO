@@ -6,8 +6,16 @@
 }
 .containerBeer{
     white-space: nowrap;
-    margin: 70px 0px;
+    margin: 70px 70px;
     padding-bottom: 10px; 
     display: flex;
     flex-direction: row;
+}
+.button {
+    border-radius: 10px;
+    font-size: 120%;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(155, 110, 5);
+    margin: 3px;
 }

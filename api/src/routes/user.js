@@ -40,11 +40,10 @@ router.post("/", async (req, res) => {
           },
         },
       });
-      return res.json(users);
-    } catch (error) {
-      res.status(400).send("Algo no esta bien!");
-    }
-  });
-    res.json({userAdd, Exito: "usuario creado "});
+      return res.json(activities);
+  } catch (error) {
+    res.status(400).send("Algo no esta bien!");
+  }
+});
 
 module.exports = router;
