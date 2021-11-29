@@ -27,6 +27,16 @@ router.get("/", async (req, res) => {
   
 })
 
+// router.get("/", async (req, res) => {
+//   const beer = await showAll()
+//   try {
+//     res.json(beer)
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// })
+
 
 router.get('/categories', async(req, res, next) => {
   try{
