@@ -62,8 +62,20 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
     const {idBeer} = req.params;
 
     Review.findAll({ where: { beerId: idBeer, },})
-    .then((review) =>{
-        res.status(200).send(review) 
+
+    .then(async (review) =>{
+      const resul = review.map(async i => { 
+        // console.log("linea 68", i.userId )
+         const user = await User.findByPk(i.userId)
+        //  console.log(user)  
+          return {
+            review: i.dataValues,
+            user
+          }    
+       }) 
+       const data = await Promise.all(resul)
+       console.log("77 linea", data)
+        res.status(200).json(data) 
     }) .catch((err)=>{
         console.log(err)
           res.status(400).json(err)

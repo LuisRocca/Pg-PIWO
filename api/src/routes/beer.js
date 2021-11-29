@@ -11,9 +11,17 @@ router.get("/", async (req, res) => {
   const beersT = await Beer.findAll()
   try {
     if(name){
-      const byName = beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
-      byName.length ? 
-     res.status(200).send(byName) :
+      const byName = 
+      // const byName = await Beer.findAll({  
+      //   where: {
+      //     name: {
+      //       [Op.iLike]: `%${name}%`,
+      //     },
+      //   },
+      // });
+       beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
+       byName.length ? 
+      res.status(200).send(byName) :
       res.status(404).send('no se ha encontrado ninguna cerveza')
      }
      else {
@@ -21,7 +29,7 @@ router.get("/", async (req, res) => {
      }
    
   }
-  catch (err) {
+    catch (err) {
     console.log(err);
   }
   
@@ -55,11 +63,7 @@ router.get("/:id", async (req, res) => {
     beersId.length ? res.status(200).send(beersId) :
     res.status(404).send('id no valido')
   }
-})
-
-
-
-
+});
 
 
   module.exports = router;
