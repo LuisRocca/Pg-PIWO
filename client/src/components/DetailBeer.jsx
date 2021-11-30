@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { getBeersDetails, getReviews } from "../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addCart } from '../Redux/actions/index.js';
 import "../css/DetailBeers.css";
 
 export default function DetailBeer({ props }) {
@@ -13,10 +14,16 @@ export default function DetailBeer({ props }) {
     dispatch(getBeersDetails(props));
   }, [dispatch]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(addCart(props))
+    alert('Added to cart!')
+}
+
   const review = useSelector((state) => state.reviews);
   const beersDetail = useSelector((state) => state.beerId);
 
-  console.log(beersDetail);
+  // console.log(beersDetail);
 
   return (
     <div>
@@ -62,7 +69,7 @@ export default function DetailBeer({ props }) {
                   <h4>INGREDIENTS: {e.ingredients}</h4>
                 </div>
                 <div className="product-price">
-                  <a href="#" className="cart-btn">
+                  <a href="#" className="cart-btn" onClick={(e) => handleClick(e)}>
                     Add to cart
                   </a>
                 </div>

@@ -5,6 +5,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Home from "./components/Home";
 import DetailBeer from "./components/DetailBeer";
 import LandingPage from './components/landingPage';
+// import Cart from './components/Cart/Cart.jsx';
+import Order from './components/Cart/Order.jsx';
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
       <div>
         <Switch>
           <Route exact path = '/' component = {LandingPage}></Route>
+          <Route exact path = '/order' component = {Order}></Route>
           <Route exact path = '/beers' component = {Home}></Route>
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
         </Switch>

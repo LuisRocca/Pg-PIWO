@@ -1,16 +1,29 @@
 import React from 'react'
+import { addCart, delCart, delAllCart } from '../../Redux/actions';
 // import Beers from '../Beers'
 // import {Link} from 'react-router-dom';
 // import {useState, useEffect} from 'react';
-// import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
-const Cart = (name, price) => {
+
+
+export default function Cart ({id, name, price, image, total}) {
+  const dispatch = useDispatch()
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    dispatch(delCart(id))
+  }
+
   return (
     <div>
-      <h1>{name}</h1>
-      <h3>{price}</h3>
+      <div>
+        <button onClick={(e) => handleOnClick(e)}>X</button>
+      </div>
+      <h3>{name}</h3>
+      <h3>US${price}</h3>
+      <img src={image} alt="Not found" height='200vw' weight='200vw'/>
+      {/* <h5>TOTAL = US${total + price}</h5> */}
     </div>
   )
 }
 
-export default Cart

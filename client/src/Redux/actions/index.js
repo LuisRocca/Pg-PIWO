@@ -136,3 +136,30 @@ export function addCart(id){
         }
     }   
 }
+
+export function delCart(id){
+    return async function (dispatch){
+        try {
+            return dispatch({
+                type: DEL_CART,
+                payload: id
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export function delAllCart () {
+    return async function (dispatch) {
+        try {
+            return dispatch({
+                type: DEL_ALL_CART
+            })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}

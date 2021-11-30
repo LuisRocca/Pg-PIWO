@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { useHistory } from 'react-router';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers} from "../Redux/actions";
+import {getBeers, getStylesOfBeers, delAllCart} from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import Paged from "./Paging.jsx";
 import Search from './search.jsx';
@@ -13,7 +14,9 @@ import Cart from './Cart/Cart.jsx';
 
 export default function Home () { 
     const dispatch = useDispatch();
+    const history = useHistory()
     const { beers, stylesBeer, cart }= useSelector((state) => state)
+
     // const [currentPage, setCurrentPage] = useState(1);
     // const beersPerPage = 9;
 
@@ -31,6 +34,12 @@ export default function Home () {
     }, [])
     // console.log('beers:',beers)
     // console.log('Styles' ,stylesBeer)
+    // const clickToDelete = (e) => {
+    //     e.preventDefault();
+    //     dispatch(delAllCart())
+    //   }
+
+
     return (
         <div>
             <div>
@@ -40,6 +49,26 @@ export default function Home () {
             <div>
                <Search/>           
             </div>
+            {/* <div>
+                <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
+                {cart ? cart.map((e) => {
+                    return (
+                        <div>
+                            <Cart 
+                            id = {e.id}
+                            name = {e.name}
+                            price = {e.price}
+                            image = {e.image}
+                            // total = {e.price}
+                            />
+                            <h2>TOTAL ES {e.price}</h2>
+
+                        </div>
+                        )
+                }): <h4>NO HAY NADA EN EL CARRITO</h4>}
+                        
+            </div> */}
+            <button onClick={() => history.push('/order')}>Orders</button>
             <div>
                 {stylesBeer && stylesBeer.map( s =>(
                 <section className={styles.select}>
@@ -71,19 +100,9 @@ export default function Home () {
                         )
                     }): <h1>No beers</h1>}
                     </div>
+                    
                 </section>
                 ))}
-                   <div>
-                        {cart ? cart.map((e) => {
-                            return (
-                                //  <Cart 
-                                //  name = {e.name}
-                                //  price = {e.price}
-                                //  />
-                                console.log(e)
-                            )
-                        }): <h4>NO HAY NADA EN EL CARRITO FLACO</h4>}
-                    </div>
             </div>
                 {/* <Paged beersPerPage = {beersPerPage} beers = {beers.length} paged = {paging}/> */}
         </div>

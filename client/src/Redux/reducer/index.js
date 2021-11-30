@@ -34,7 +34,7 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 beers: state.beers.concat(action.payload),
-                allBeers: state.allBeers.concat(action.payload)
+                allBeers: state.allBeers.concat(action.payload),
             }
         
         case GET_BEERS_BY_ID:
@@ -81,9 +81,14 @@ function rootReducer (state = initialState, action) {
         case DEL_CART:
             return{
             ...state,
-            cart: state.cart.filter((p) => p.id === action.payload)
+            cart: state.cart.filter((p) => p.id !== action.payload)
         }
 
+        case DEL_ALL_CART:
+            return {
+                ...state,
+                cart: []
+            }
         default:
             return state;
         
