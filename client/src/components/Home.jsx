@@ -7,29 +7,30 @@ import Beers from "./Beers.jsx";
 import Paged from "./Paging.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css'
+import Cart from './Cart/Cart.jsx';
 
 // import Beer from './Beers.jsx';
 
 export default function Home () { 
     const dispatch = useDispatch();
-    const { beers, stylesBeer }= useSelector((state) => state)
-    const [currentPage, setCurrentPage] = useState(1);
-    const beersPerPage = 9;
+    const { beers, stylesBeer, cart }= useSelector((state) => state)
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const beersPerPage = 9;
 
-    const paging = (pageNumber) => {
-        setCurrentPage(pageNumber)
-    }
+    // const paging = (pageNumber) => {
+    //     setCurrentPage(pageNumber)
+    // }
 
-    const indexOfLastBeer = currentPage * beersPerPage;
-    const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
-    const currentBeer = beers.slice(indexOfFirstBeer, indexOfLastBeer);
+    // const indexOfLastBeer = currentPage * beersPerPage;
+    // const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
+    // const currentBeer = beers.slice(indexOfFirstBeer, indexOfLastBeer);
 
     useEffect(() => {
         dispatch(getBeers())
-        stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
+        stylesBeer ? dispatch(getStylesOfBeers()) : console.log('No hay estilos')
     }, [])
-    console.log(beers[0])
-    console.log('Styles' ,stylesBeer)
+    // console.log('beers:',beers)
+    // console.log('Styles' ,stylesBeer)
     return (
         <div>
             <div>
@@ -45,7 +46,7 @@ export default function Home () {
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
                     {/* {currentBeer ? currentBeer.filter( el =>  */}
-                    {currentBeer ? beers.filter( el =>
+                    {beers ? beers.filter( el =>
                     el.id.length < 3 ? el.id[0] === s.id : el.id.slice(0, 2) == s.id
                     ).map((e) => {
                         
@@ -72,6 +73,17 @@ export default function Home () {
                     </div>
                 </section>
                 ))}
+                   <div>
+                        {cart ? cart.map((e) => {
+                            return (
+                                //  <Cart 
+                                //  name = {e.name}
+                                //  price = {e.price}
+                                //  />
+                                console.log(e)
+                            )
+                        }): <h4>NO HAY NADA EN EL CARRITO FLACO</h4>}
+                    </div>
             </div>
                 {/* <Paged beersPerPage = {beersPerPage} beers = {beers.length} paged = {paging}/> */}
         </div>
