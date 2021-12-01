@@ -1,6 +1,8 @@
 const { Router } = require("express");
-const { Op } = require("sequelize");
-const { User, Beer } = require("../db.js");
+// const { Op } = require("sequelize");
+// const { User, Beer } = require("../db.js");
+const { conn } = require("../db");
+const { User, Beer, Review } = conn.models;
 const {getCategories, showAll} = require("../methods/index.js");
 
 const router = Router();
@@ -64,6 +66,48 @@ router.get("/:id", async (req, res) => {
     res.status(404).send('id no valido')
   }
 });
+
+router.post("/create",  (req, res) => {
+  
+  const { id , name , style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples} = req.body;
+  const cerveza = { id , name , style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples }
+    Beer.create(cerveza)
+    .then((newBeer) =>{
+      return res.status(200).json({ mesage:"exito",  newBeer})
+    })
+ .catch((error) =>{
+  console.log(error)
+  res.status(404).send(error)
+})
+   
+});
+
+router.put("/modify/:id",  (req, res) => {
+  const {id} = req.params
+  const { name , style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples} = req.body;
+  Beer.update({
+    name , style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples
+ },{where: {id}})
+ .then((beer)=>{
+   res.status(200).send('Modificado correctamente')
+  })
+ .catch((err)=>{
+   res.status(400).json(err)
+   console.log(err)
+  }) 
+});
+
+router.delete("/:id", (req, res) =>{
+  const {id} = req.params;
+	Beer.destroy({
+		where: { id: id }
+	}).then((resp) => {
+		res.status(200).send("Producto con id: " + id + " fue eliminado")
+	}).catch(function (err) {
+		console.log("delete failed with error: " + err);
+		
+	});
+})
 
 
   module.exports = router;

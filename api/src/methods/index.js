@@ -12,6 +12,7 @@ module.exports = {
                 // console.log(beersData2);
                 beersData2.forEach(e => e.forEach(e => beersData.push({
                     id: e.id,
+                    style: e.style, 
                     name: e.name,
                     impression: e.impression ? e.impression : "Dato no proporcionado por el fabricante",
                     aroma: e.aroma,
@@ -25,7 +26,7 @@ module.exports = {
                     history: e.history ? e.history : "Dato no proporcionado por el fabricante",
                     image: e.image? e.image : "https://www.billsbeercans.com/~billsbee/canstore/images/IMG_2947.JPG"
                 })))
-               
+           
                 return beersData;
             })
             .catch(err => {

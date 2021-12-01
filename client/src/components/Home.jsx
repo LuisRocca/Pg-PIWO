@@ -13,23 +13,21 @@ import styles from '../css/Home.module.css'
 export default function Home () { 
     const dispatch = useDispatch();
     const { beers, stylesBeer }= useSelector((state) => state)
-    const [currentPage, setCurrentPage] = useState(1);
-    const beersPerPage = 9;
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const beersPerPage = 9;
 
-    const paging = (pageNumber) => {
-        setCurrentPage(pageNumber)
-    }
+    // const paging = (pageNumber) => {
+    //     setCurrentPage(pageNumber)
+    // }
 
-    const indexOfLastBeer = currentPage * beersPerPage;
-    const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
-    const currentBeer = beers.slice(indexOfFirstBeer, indexOfLastBeer);
+    // const indexOfLastBeer = currentPage * beersPerPage;
+    // const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
+    // const currentBeer = beers.slice(indexOfFirstBeer, indexOfLastBeer);
 
     useEffect(() => {
         dispatch(getBeers())
-        stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
+        stylesBeer?dispatch(getStylesOfBeers()) : console.log(stylesBeer)
     }, [])
-    console.log(beers[0])
-    console.log('Styles' ,stylesBeer)
     return (
         <div>
             <div>
@@ -45,10 +43,7 @@ export default function Home () {
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
                     {/* {currentBeer ? currentBeer.filter( el =>  */}
-                    {currentBeer ? beers.filter( el =>
-                    el.id.length < 3 ? el.id[0] === s.id : el.id.slice(0, 2) == s.id
-                    ).map((e) => {
-                        
+                    {beers && stylesBeer? beers.filter( el =>el.style === s.name).map((e) => {
                         return (   
                             <div key={e.id}>
                                 <Beers
