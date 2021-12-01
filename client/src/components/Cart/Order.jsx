@@ -32,6 +32,7 @@ export default function Order () {
                 name = {e.name}
                 price = {e.price}
                 image = {e.image}
+                quantity = {e.quantity}
                 />
             </div>
           </div>

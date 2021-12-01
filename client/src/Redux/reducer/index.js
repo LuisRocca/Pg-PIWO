@@ -73,10 +73,14 @@ function rootReducer (state = initialState, action) {
         
         case ADD_CART:
             let newItem = state.beers.find((p) => p.id === action.payload)
-            return{
+            let itemInCart = state.cart.find((i) => i.id === newItem.id)
+            return itemInCart ? {
                 ...state,
-                cart: state.cart.concat(newItem)
-            }
+                cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e)
+            } : {
+                ...state,
+                cart: [...state.cart, {...newItem, quantity: 1}]
+                }
             
         case DEL_CART:
             return{

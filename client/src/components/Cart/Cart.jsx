@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 
 
-export default function Cart ({id, name, price, image, total}) {
+export default function Cart ({id, name, price, image, quantity}) {
   const dispatch = useDispatch()
   const handleOnClick = (e) => {
     e.preventDefault();
@@ -22,6 +22,7 @@ export default function Cart ({id, name, price, image, total}) {
       <h3>{name}</h3>
       <h3>US${price}</h3>
       <img src={image} alt="Not found" height='200vw' weight='200vw'/>
+      <h4>US${price} x {quantity}u = US${price * quantity}</h4>
       {/* <h5>TOTAL = US${total + price}</h5> */}
     </div>
   )

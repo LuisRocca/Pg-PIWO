@@ -17,6 +17,8 @@ export default function Home () {
     const history = useHistory()
     const { beers, stylesBeer, cart }= useSelector((state) => state)
 
+    console.log(beers);
+
     // const [currentPage, setCurrentPage] = useState(1);
     // const beersPerPage = 9;
 

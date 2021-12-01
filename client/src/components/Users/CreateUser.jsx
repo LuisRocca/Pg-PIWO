@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux"
-import { createUsers } from '../../actions/index.js';
+import {useDispatch, useSelector} from 'react-redux';
+import { CREATE_USERS} from "../../Redux/actions/index.js"
 import { useHistory } from 'react-router-dom';
+import {createUsers} from '../../Redux/actions/index.js'
 
 const CreateUser = () => {
+
+  const {users} = useSelector((state) => state)
+  console.log(users);
   const [input, setInput] = useState({
     username: '',
     email: '',
@@ -57,6 +61,7 @@ const getBase64 = file => {
 
 console.log("create",input)
   return (
+    <div>
 
     <form onSubmit={(e) => User(e, input)}>
     <div class="form-row">
@@ -105,7 +110,7 @@ console.log("create",input)
     <button type="submit" class="btn btn-primary">Sign in</button>
 
   </form>
-
+  </div>
 )
 }
 

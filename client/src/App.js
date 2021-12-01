@@ -7,6 +7,8 @@ import DetailBeer from "./components/DetailBeer";
 import LandingPage from './components/landingPage';
 // import Cart from './components/Cart/Cart.jsx';
 import Order from './components/Cart/Order.jsx';
+import CreateUser from './components/Users/CreateUser';
+//import PasswordReset from './components/Users/CreateUser'//
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route exact path = '/order' component = {Order}></Route>
           <Route exact path = '/beers' component = {Home}></Route>
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
+          <Route exact path = '/users' component = {CreateUser}></Route>
+          <Route path='/createuser' render={() => <CreateUser />}  />
         </Switch>
       </div>
     </BrowserRouter>
