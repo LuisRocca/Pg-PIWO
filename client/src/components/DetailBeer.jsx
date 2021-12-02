@@ -11,7 +11,7 @@ export default function DetailBeer({ props }) {
   useEffect(() => {
     dispatch(getReviews(props));
     dispatch(getBeersDetails(props));
-  }, [dispatch]);
+  }, [dispatch, props]);
 
   const review = useSelector((state) => state.reviews);
   const beersDetail = useSelector((state) => state.beerId);

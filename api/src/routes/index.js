@@ -5,6 +5,7 @@ const { Router } = require('express');
 const beerRouter = require('./beer.js');
 const userRouter = require('./user.js');
 const reviewRouter = require('./review.js');
+const categoryRouter = require('./category.js');
 
 const router = Router();
 
@@ -13,10 +14,9 @@ const router = Router();
 router.use('/review', reviewRouter);
 router.use('/beers', beerRouter);
 router.use('/users', userRouter);
+router.use('/categories', categoryRouter);
 
 // router.use('/')
-
-
 
 module.exports = router;
  

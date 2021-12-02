@@ -4,6 +4,12 @@ export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
 export const GET_BEERS_NAME = 'GET_BEERS_NAME'
 export const GET_STYLES = 'GET_STYLES'
 export const GET_REVIEW = 'GET_REVIEW'
+export const GET_USERS = 'GET_USER'
+export const POST_USER = 'POST_USER'
+export const POST_PRODUCT = 'POST_PRODUCT'
+export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
+export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
+
 
 export function getBeers () {
     return async function (dispatch) {
@@ -74,5 +80,54 @@ export function getStylesOfBeers(){
         catch (err){
             console.log(err)
         }
+    }   
+}
+
+export function postUser(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.post('http://localhost:3001/users', payload)
+            return dispatch({type: POST_USER, payload: data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export function getUsers(){
+    return async function(dispatch){
+        try{
+            var info = await axios.get ("http://localhost:3001/users");
+            return dispatch ({
+                type: GET_USERS,
+                payload: info.data
+            })
+        } catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export function postProduct(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.post('http://localhost:3001/categories/create', {...payload})
+            return dispatch({type: POST_PRODUCT, payload: data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+
+export function addBeersOfCategory(beer){
+    return async function (dispatch){
+        return dispatch({type: ADD_BEERS_OF_CATEGORY, payload: beer})
+    }   
+}
+export function delBeersCategory(beer){
+    return async function (dispatch){
+        return dispatch({type: DELETE_BEERS_CATEGORY, payload: beer})
     }   
 }

@@ -27,5 +27,15 @@ const { DataTypes } = require('sequelize');
         min: 18,
         }
     },
+    password: {
+      type: DataTypes.STRING,
+       required: true 
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+       required: true,
+       default: false 
+      },
   }); 
  };
