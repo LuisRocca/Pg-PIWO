@@ -22,6 +22,7 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
+    // otherCart: ''
 }
 
 
@@ -73,25 +74,36 @@ function rootReducer (state = initialState, action) {
         
         case ADD_CART:
             let newItem = state.beers.find((p) => p.id === action.payload)
+            
             let itemInCart = state.cart.find((i) => i.id === newItem.id)
+            // window.localStorage.setItem('carrito', JSON.stringify(state.cart))
             return itemInCart ? {
                 ...state,
-                cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e)
-            } : {
+                cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
+            }
+             : {
                 ...state,
-                cart: [...state.cart, {...newItem, quantity: 1}]
+                cart: [...state.cart, {...newItem, quantity: 1}],
                 }
             
         case DEL_CART:
-            return{
+            let itemDel = state.cart.find((e) => e.id === action.payload);
+            return itemDel.quantity > 1 ? {
+                ...state,
+                cart: state.cart.map((e) => e.id === action.payload ? {...e, quantity: e.quantity - 1} : e),
+                // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
+            }
+            : {
             ...state,
-            cart: state.cart.filter((p) => p.id !== action.payload)
+            cart: state.cart.filter((p) => p.id !== action.payload),
+            // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
         }
 
         case DEL_ALL_CART:
             return {
                 ...state,
-                cart: []
+                cart: [],
+                cart: window.localStorage.removeItem('carrito')
             }
         default:
             return state;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import '../css/Beers.css'
 import { addCart } from '../Redux/actions/index.js';
@@ -7,9 +7,11 @@ import { addCart } from '../Redux/actions/index.js';
 export default function Beers ({id, name, impression, aroma, ingredients, flavor, IBU, ABV, history, image, examples, price, stock}) {
 
 const dispatch = useDispatch()
+const {cart} = useSelector((state) => state)
 const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
+    window.localStorage.setItem('carrito', JSON.stringify(cart))
 }
     return (
         <div className="box">
