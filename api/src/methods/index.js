@@ -8,7 +8,12 @@ module.exports = {
             .then(results => {
                 let beersData = [];
                 let beersData2 = [];
-                results.class[0].category.forEach(e => beersData2.push(e.subcategory))
+                results.class[0].category.forEach(e => beersData2.push(e.subcategory.map(beer => {
+                    return{
+                        ...beer,
+                        style: e.name
+                    }
+                })))
                 // console.log(beersData2);
                 beersData2.forEach(e => e.forEach(e => beersData.push({
                     id: e.id,
@@ -17,6 +22,7 @@ module.exports = {
                     aroma: e.aroma,
                     price: e.price,
                     stock: e.stock,
+                    style: e.style,
                     ingredients: e.ingredients ? e.ingredients : "Dato no proporcionado por el fabricante",
                     flavor: e.flavor,
                     examples: Array.isArray(e.examples) ? e.examples.join(', ') : "Dato no proporcionado por el fabricante",
