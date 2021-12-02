@@ -6,8 +6,9 @@ export const GET_STYLES = 'GET_STYLES'
 export const GET_REVIEW = 'GET_REVIEW'
 export const GET_USERS = 'GET_USER'
 export const POST_USER = 'POST_USER'
-export const GET_PRODUCTS = 'GET_PRODUCTS'
 export const POST_PRODUCT = 'POST_PRODUCT'
+export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
+export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
 
 
 export function getBeers () {
@@ -111,7 +112,7 @@ export function getUsers(){
 export function postProduct(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.post('http://localhost:3001/products', payload)
+            const { data } = await axios.post('http://localhost:3001/categories/create', {...payload})
             return dispatch({type: POST_PRODUCT, payload: data})
         }
         catch(err){
@@ -120,16 +121,13 @@ export function postProduct(payload){
     }
 }
 
-export function getProducts(){
-    return async function(dispatch){
-        try{
-            var info = await axios.get ("http://localhost:3001/products");
-            return dispatch ({
-                type: GET_PRODUCTS,
-                payload: info.data
-            })
-        } catch (error){
-            console.log(error)
-        }
-    }
+export function addBeersOfCategory(beer){
+    return async function (dispatch){
+        return dispatch({type: ADD_BEERS_OF_CATEGORY, payload: beer})
+    }   
+}
+export function delBeersCategory(beer){
+    return async function (dispatch){
+        return dispatch({type: DELETE_BEERS_CATEGORY, payload: beer})
+    }   
 }

@@ -1,79 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getBeers, postProduct } from "../Redux/actions";
+import { getBeers, postProduct, addBeersOfCategory, delBeersCategory } from "../Redux/actions";
 import style from "../css/Admin.module.css";
 
 export default function Admin() {
   const dispatch = useDispatch();
   
-  const allBeers = useSelector((state) => state.beers);
+  const {beers, beersOfCategory} = useSelector((state) => state);
   
-  const [errors, setErrors] = useState({});
+  // const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
-    id: "",
     name: "",
-    notes: "",
-    beers: [],
+    beer: '',
   });
 
-  function handleChangeName(e) {
-    setInput({ ...input, [e.target.name]: e.target.value });
-    setErrors(validate({ ...input, [e.target.name]: e.target.value }));
-  }
-
-  function handleChangeId(e) {
-    setInput({ ...input, [e.target.name]: e.target.value });
-    setErrors(validate({ ...input, [e.target.name]: e.target.value }));
-  }
-
-  function handleCheckUsername(e) {
-    if (e.target.checked) {
-      setInput({ ...input, username: e.target.value });
-    }
-    setErrors(validate({ ...input, username: e.target.value }));
-  }
-
-  function handleCheckAge(e) {
-    if (e.target.checked) {
-      setInput({ ...input, age: e.target.value });
-    }
-    setErrors(validate({ ...input, age: e.target.value }));
-  }
-
-  function handleSelectBeer(e) {
+  const handleChange = ({target: {name, value }}) => {
     setInput({
-      ...input,
-      beers: [...input.beers, e.target.value],
+        ...input,
+        [name]: value,
     });
-    setErrors(
-      validate({ ...input, beers: [...input.beers, e.target.value] })
-    );
-  }
+    console.log('Estado:', input)
+};
 
-  function handleRemoveBeer(e) {
-    setInput({
-      ...input,
-      beers: input.beers.filter((beer) => beer !== e),
-    });
-  }
+  // function handleCheckUsername(e) {
+  //   if (e.target.checked) {
+  //     setInput({ ...input, username: e.target.value });
+  //   }
+  //   setErrors(validate({ ...input, username: e.target.value }));
+  // }
+
+  // function handleCheckAge(e) {
+  //   if (e.target.checked) {
+  //     setInput({ ...input, age: e.target.value });
+  //   }
+  //   setErrors(validate({ ...input, age: e.target.value }));
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (
-      input.id !== "" &&
-      input.name !== "" &&
-      input.notes !== "" &&
-      input.beers.length !== 0 
-    ) {
-      dispatch(postProduct(input));
+    if (input.name !== "" && input.beer !== "") {
+      dispatch(postProduct({...input, beersOfCategory}));
       alert("Successfully added Beer Products!!!");
-      setInput({
-        id: "", 
+      setInput({ 
         name: "",
-        notes: "",
-        beers: [],
+        beer: '',
       });
     } else {
       alert(
@@ -81,10 +53,16 @@ export default function Admin() {
       );
     }
   }
-
+  function handleAddBeer(e){
+    e.preventDefault()
+    // console.log(input.beer)
+    dispatch(addBeersOfCategory(input.beer))
+  }
+  function elimBeer(e){
+    dispatch(delBeersCategory(e.target.value))
+  }
   useEffect(() => {
     dispatch(getBeers());
-    dispatch(getProducts());
   }, [dispatch]);
 
   return (
@@ -96,89 +74,28 @@ export default function Admin() {
 
         <div className={style.form}>
         <h2 className={style.h9}>ADMIN PANEL</h2>
-          <h1 className={style.h10}>BEER PRODUCTS</h1>
-          <form onSubmit={(e) => handleSubmit(e)}>
+          <h1 className={style.h10}>Create Category</h1>
+          <form onSubmit={handleSubmit}>
             <div>
-              <label className={style.label}>Add Products: </label>
-              <input
-                className={style.inputform}
-                type="text"
-                value={input.name}
-                name="name"
-                autoComplete="off"
-                onChange={(e) => handleChangeName(e)}
-              />
-              {errors.name && <p className={style.error}>{errors.name}</p>}
-            </div>
+              <label className={style.label}>Name: </label>
+              <input className={style.inputform} type="text" value={input.name} name="name" autoComplete='off' onChange={handleChange}/>
+              {/* {errors.name && <p className={style.error}>{errors.name}</p>} */}
+            </div>         
 
-            <div>
-              <label className={style.label}>ID </label>
-              <input className={style.id}
-                type="number"
-                value={input.id}
-                name="id"
-                autoComplete="off"
-                onChange={(e) => handleChangeId(e)}
-              />{" "}
+            <label className={style.label}>Beers: </label>
+            <select name='beer' onChange={handleChange}>
+              <option value="">Select Beers</option>
+              {beers.map((beer) => ( <option key={beer.name} value={beer.name}>{beer.name}</option>))}
+            </select>{/* {errors.beer && (<p className={style.error}>{errors.beer}</p>)}*/}
 
-              {errors.id && (
-                <p className={style.error}>{errors.id}</p>
-              )}
-            </div>            
-
-            <div>
-              <label className={style.label}>Notes:</label>
-              <input
-                className={style.inputnotes}
-                type="text"
-                value={input.notes}
-                name="notes"
-                autoComplete="off"
-                onChange={(e) => handleChangeName(e)}
-              />
-              {errors.notes && <p className={style.error}>{errors.notes}</p>}
-            </div>   
-            <label className={style.label}>Sub-Category: </label>
-            <select onChange={(e) => handleSelectBeer(e)}>
-              <option value="">Select a Beer</option>
-              {allBeers && allBeers.sort((a, b) => {
-                    if (a.name > b.name) {
-                      return 1;
-                    }
-                    if (a.name < b.name) {
-                      return -1;
-                    }
-                    return 0;
-                  })?.map((beer) => (
-                <option key={beer.id} value={beer.id}>
-                  {beer.name}
-                </option>
-              ))}</select>
-            {errors.beers && (
-              <p className={style.error}>{errors.beers}</p>
-            )}            
             <div className={style.buttoncreate}>
-              <button className={style.button} type="submit">
-                Create Beer Products
-              </button>
+              <button className={style.button} type="submit">Create</button>
             </div>
           </form>
+          <button onClick={handleAddBeer}>+</button>
           
           <div className={style.remove}>
-            {input.beers.map((beer) => (
-              <div className={style.delete}>
-                <p>
-                  {beer}{" "}
-                  <button
-                    className={style.button}
-                    onClick={() => handleRemoveBeer(beer)}
-                  >
-                    {" "}
-                    X{" "}
-                  </button>
-                </p>
-              </div>
-            ))}
+            {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={elimBeer} className={style.delete}>{beer}</li>)}
           </div>
         </div>
       </div>
@@ -186,22 +103,13 @@ export default function Admin() {
   );
 }
 
-function validate(input) {
-  let errors = {};
-  if (!input.name) {
-    errors.name = "Complete the Name Field of the Beer";
-  }
-  if (!input.id) {
-    errors.id = "Complete the ID field";
-  }
-  if (!input.ifff) {
-    errors.ifffff = "Check a box corresponding to the % AVB";
-  }
-  if (!input.idgred) {
-    errors.idddss = "Check a box corresponding to the ingredients";
-  }
-  if (input.beers.length === 0) {
-    errors.beers = "Select the corresponding beers(sub-categories)";
-  }
-  return errors;
-}
+// function validate(input) {
+//   let errors = {};
+//   if (!input.name) {
+//     errors.name = "Complete the Name Field of the Beer";
+//   }
+//   if (input.beers.length === 0) {
+//     errors.beers = "Select the corresponding beers(sub-categories)";
+//   }
+//   return errors;
+// }

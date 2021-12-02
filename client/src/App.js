@@ -7,6 +7,7 @@ import DetailBeer from "./components/DetailBeer";
 import Admin from "./components/Admin";
 import LandingPage from './components/landingPage';
 
+
 function App() {
   return (
     <BrowserRouter>

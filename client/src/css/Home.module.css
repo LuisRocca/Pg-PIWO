@@ -19,3 +19,8 @@
     background-color: rgb(155, 110, 5);
     margin: 3px;
 }
+.beerprod{
+    display: flex;
+    justify-content: center;
+    /* border: black solid 5px; */
+}
