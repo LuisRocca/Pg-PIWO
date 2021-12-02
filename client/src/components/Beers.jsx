@@ -7,7 +7,7 @@ export default function Beers ({id, name, impression, aroma, ingredients, flavor
     return (
         <div className="box">
             <div class="product">
-            <img src={image} alt=" " />
+            <img class='imgbeer'src={image} alt=" " />
 			    <div class="buttons">
 			        <a class="buy" href=" ">Add to cart</a>
                     <Link to={`/beers/${id}`}>

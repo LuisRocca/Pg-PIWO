@@ -17,12 +17,16 @@ export default function Home () {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
     }, [dispatch, stylesBeer])
-    console.log(beers[0])
-    console.log('Styles' ,stylesBeer)
+    // console.log(beers[0])
+    // console.log('Styles' ,stylesBeer)
+    console.log(stylesBeer)
     return (
         <div>
-            <Link to="/admin">
-          <button className={styles.button}>Admin Panel</button>
+            <Link to="/admin/createCa">
+          <button className={styles.button}>Admin Panel Ca</button>
+            </Link>
+            <Link to="/admin/createBeer">
+          <button className={styles.button}>Admin Panel Beer</button>
             </Link>
             <div>
                 <h1>PIWO BEER MARKET</h1>
@@ -34,6 +38,7 @@ export default function Home () {
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
                     {s.beers ? s.beers.map((e) => {
+                        // console.log(e)
                         return (   
                             <div key={e.id}>
                                 <Beers

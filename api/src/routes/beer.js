@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { conn } = require("../db");
-const { User, Beer, Review, Category } = conn.models;
-const {getCategories, showAll} = require("../methods/index.js");
+const { Beer, Category } = conn.models;
+const {getImgs} = require("../methods/index.js");
 
 const router = Router();
 
@@ -10,41 +10,51 @@ router.get("/", async (req, res) => {
   const {name} = req.query
   const beersT = await Beer.findAll({
     include: [
-    {
+      {
       model: Category,
       attributes: ['name'],
       through: { 
         attributes: []
-      
-    }}
-  ]})
-  try {
-    if(name){
-      const byName = 
-      // const byName = await Beer.findAll({  
-      //   where: {
-      //     name: {
-      //       [Op.iLike]: `%${name}%`,
-      //     },
+        
+      }}
+    ]})
+    try {
+      if(name){
+        const byName = 
+        // const byName = await Beer.findAll({  
+          //   where: {
+            //     name: {
+              //       [Op.iLike]: `%${name}%`,
+              //     },
       //   },
       // });
-       beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
-       byName.length ? 
+      beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
+      byName.length ? 
       res.status(200).send(byName) :
       res.status(404).send('no se ha encontrado ninguna cerveza')
-     }
-     else {
-       res.json(beersT)
-     }   
+    }
+    else {
+      res.json(beersT)
+    }   
   }
-    catch (err) {
+  catch (err) {
     console.log(err);
   }
   
 })
 
+
+router.get('/images',async(req, res) =>{
+  try {
+    const images =await getImgs()
+    res.status(200).json(images)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // router.get("/", async (req, res) => {
-//   const beer = await showAll()
+  //   const beer = await showAll()
 //   try {
 //     res.json(beer)
 //   }
@@ -60,7 +70,7 @@ router.get('/categories', async(req, res, next) => {
       include: [
       {
         model: Beer,
-        attributes: ['name', 'IBU', 'price', 'ABV','image', 'stock'],
+        attributes: ['id','name', 'IBU', 'price', 'ABV','image', 'stock','image',],
         through: { 
           attributes: []
         }
@@ -74,56 +84,53 @@ router.get('/categories', async(req, res, next) => {
 
 // ruta destinada para los detalles 
 
-router.get("/:id", async (req, res) => {
-  const id = req.params.id
-  const beersAll = await Beer.findAll()
-  if(id){
-    const beersId = beersAll.filter(i => i.id === id)
-    beersId.length ? res.status(200).send(beersId) :
-    res.status(404).send('id no valido')
-  }
-});
 
 router.post('/:idBeer/category/:idCategory', (req, res) => {
   const {idBeer, idCategory} = req.params;
   Beer.findByPk(idBeer)
-      .then((product) => {
-          product.addCategories(idCategory)
+  .then((product) => {
+    product.addCategories(idCategory)
           .then((newCategory) => {
-              res.status(201).json({message: 'Se agregó categoría', newCategory})
+            res.status(201).json({message: 'Se agregó categoría', newCategory})
           })
-      })
+        })
       .catch((err) => {
-          throw new Error(err)
+        throw new Error(err)
       });
-});
+    });
+
 
 router.delete('/:idBeer/category/:idCategory', (req, res)=>{
-const {idBeer, idCategory} = req.params;
-Beer.findByPk(idBeer)
-.then((beer)=>{a
-  beer.removeCategories(idCategory)
-  .then((newCategory)=> {
-    res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})
+  const {idBeer, idCategory} = req.params;
+  Beer.findByPk(idBeer)
+  .then((beer)=>{a
+    beer.removeCategories(idCategory)
+    .then((newCategory)=> {
+      res.status(201).json({message: "Se elimino correctamente la categoria", newCategory})
+    })
+  })
+  .catch((err)=>{
+    throw new Error(err)
   })
 })
-.catch((err)=>{
-  throw new Error(err)
-})
 
-})
 
 //  ESTAS RUTAS SON CREAR MODIFICAR Y ELIMINAR CERVEZAS
 
 router.post("/create",  async(req, res) => {
   
-  const {  name, style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples} = req.body;
-  const cerveza = { name , price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples }  
-  const beer = await Beer.create(cerveza)
-  const category = await Category.findAll({where: {name: style}})
-  beer.addCategory(category)
-  res.status(202).send('Creado')
+  try{ 
+    const {  name, style, price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples} = req.body;
+    const cerveza = { name , price , stock , impression , aroma , image: img , IBU , ABV , history , ingredients , examples }  
+    const beer = await Beer.create(cerveza)
+    const category = await Category.findAll({where: {name: style}})
+    beer.addCategory(category)
+    res.status(202).send('Creado')
+  }catch(error){
+    console.log(error)
+  }
 });
+
 
 router.put("/modify/:id",  (req, res) => {
   const {id} = req.params
@@ -134,20 +141,32 @@ router.put("/modify/:id",  (req, res) => {
  .then((beer)=>{
    res.status(200).send('Modificado correctamente')
   })
- .catch((err)=>{
-   res.status(400).json(err)
-   console.log(err)
+  .catch((err)=>{
+    res.status(400).json(err)
+    console.log(err)
   }) 
 });
+
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id
+  const beersAll = await Beer.findAll()
+  if(id){
+    const beersId = beersAll.filter(i => i.id === id)
+    beersId.length ? res.status(200).send(beersId) :
+    res.status(404).send('id no valido')
+  }
+});
+
 
 router.delete("/:id", (req, res) =>{
   const {id} = req.params;
 	Beer.destroy({
-		where: { id: id }
+    where: { id: id }
 	}).then((resp) => {
-		res.status(200).send("Producto con id: " + id + " fue eliminado")
+    res.status(200).send("Producto con id: " + id + " fue eliminado")
 	}).catch(function (err) {
-		console.log("delete failed with error: " + err);
+    console.log("delete failed with error: " + err);
 		
 	});
 })

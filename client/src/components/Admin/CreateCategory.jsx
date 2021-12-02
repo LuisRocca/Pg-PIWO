@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getBeers, postProduct, addBeersOfCategory, delBeersCategory } from "../Redux/actions";
-import style from "../css/Admin.module.css";
+import { getBeers, postProduct, addBeersOfCategory, delBeersCategory } from "../../Redux/actions";
+import style from "../../css/CreateCa.module.css";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -22,12 +22,7 @@ export default function Admin() {
         [name]: value,
     });
     console.log('Estado:', input)
-};
-
-  // function handleCheckUsername(e) {
-  //   if (e.target.checked) {
-  //     setInput({ ...input, username: e.target.value });
-  //   }
+}; //   }
   //   setErrors(validate({ ...input, username: e.target.value }));
   // }
 
@@ -93,7 +88,6 @@ export default function Admin() {
             </div>
           </form>
           <button onClick={handleAddBeer}>+</button>
-          
           <div className={style.remove}>
             {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={elimBeer} className={style.delete}>{beer}</li>)}
           </div>
@@ -102,6 +96,11 @@ export default function Admin() {
     </div>
   );
 }
+
+  // function handleCheckUsername(e) {
+  //   if (e.target.checked) {
+  //     setInput({ ...input, username: e.target.value });
+ 
 
 // function validate(input) {
 //   let errors = {};

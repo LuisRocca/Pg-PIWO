@@ -9,6 +9,7 @@ export const POST_USER = 'POST_USER'
 export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
+export const CREATE_BEER = 'CREATE_BEER'
 
 
 export function getBeers () {
@@ -130,4 +131,15 @@ export function delBeersCategory(beer){
     return async function (dispatch){
         return dispatch({type: DELETE_BEERS_CATEGORY, payload: beer})
     }   
+}
+export function postBeer(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.post('http://localhost:3001/beers/create', {...payload})
+            return dispatch({type: CREATE_BEER, payload: data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 }
