@@ -13,7 +13,7 @@ export default function Order () {
   const { cart, otherCart, localCart } = useSelector((state) => state)
 
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
-  console.log(carrito)
+  // console.log(carrito)
   // carrito? carrito.map(el => dispatch(addCart(el.id))): console.log('carrito', carrito)
   const clickToDelete = (e) => {
     e.preventDefault();

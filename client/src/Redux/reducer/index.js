@@ -13,7 +13,6 @@ import {
         MOD_CART,
     } from "../actions"
 
-// const carrito = JSON.stringify(window.localStorage.getItem('carrito'))? : []
 
 const initialState = {
     beers: [],
@@ -25,7 +24,7 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
-    // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
+
 }
 
 
@@ -34,7 +33,6 @@ function rootReducer (state = initialState, action) {
         case GET_BEERS:
             state.beers.length = 0;
             state.allBeers.length = 0;
-            // window.localStorage.setItem('carrito', JSON.stringify(state.cart))
      
             return {
                 ...state,
@@ -80,18 +78,13 @@ function rootReducer (state = initialState, action) {
             let newItem = state.beers.find((p) => p.id === action.payload)
             
             let itemInCart = state.cart.find((i) => i.id === newItem.id)
-            // if (state.cart.length > 0) {
-            //     localStorage.setItem('carrito', JSON.stringify(state.cart))
-            // }
             return itemInCart ? {
                 ...state,
                 cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
-                // localCart: state.localCart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
             }
              : {
                 ...state,
                 cart: [...state.cart, {...newItem, quantity: 1}],
-                // localCart: [...state.localCart, {...newItem, quantity: 1}],
                 }
             
         case DEL_CART:
@@ -99,12 +92,10 @@ function rootReducer (state = initialState, action) {
             return itemDel.quantity > 1 ? {
                 ...state,
                 cart: state.cart.map((e) => e.id === action.payload ? {...e, quantity: e.quantity - 1} : e),
-                // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
             }
             : {
             ...state,
             cart: state.cart.filter((p) => p.id !== action.payload),
-            // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
         }
 
         case DEL_ALL_CART:
