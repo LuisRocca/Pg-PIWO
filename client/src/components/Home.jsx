@@ -8,7 +8,6 @@ import Beers from "./Beers.jsx";
 import Paged from "./Paging.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css'
-import Cart from './Cart/Cart.jsx';
 
 // import Beer from './Beers.jsx';
 
@@ -16,27 +15,14 @@ export default function Home () {
     const dispatch = useDispatch();
     const history = useHistory()
     let { beers, stylesBeer, cart }= useSelector((state) => state)
-    window.localStorage.getItem('carrito')
     // console.log(beers);
 
     useEffect(() => {
         dispatch(getBeers())
         stylesBeer ? dispatch(getStylesOfBeers()) : console.log('No hay estilos')
         // console.log(window.localStorage.getItem('carrito'));
-        if (cart.length === 0) {
-            let localCart = window.localStorage.getItem('carrito')
-        //    localCart = JSON.parse(localCart)
-            console.log(localCart);
 
-            // cart.map((e) => dispatch(addCart(e.id)))
-
-            
-        } else {
-            window.localStorage.setItem('carrito', cart)
-            
-        }
-        // cart ? window.localStorage.setItem('carrito', cart) : cart = window.localStorage.getItem('carrito');
-    }, [])
+    }, [cart])
     // console.log('beers:',beers)
     // console.log('Styles' ,stylesBeer)
     // const clickToDelete = (e) => {

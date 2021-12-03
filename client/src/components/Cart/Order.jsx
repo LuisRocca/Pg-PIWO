@@ -12,30 +12,16 @@ export default function Order () {
   const history = useHistory()
   const { cart, otherCart, localCart } = useSelector((state) => state)
 
-  // console.log(JSON.parse(otherCart))
-  // console.log('carrito perro', cart)
-  // let storage = window.localStorage
-  // storage.setItem('carrito', JSON.stringify(cart))
-  // storage.setItem('carrito', cart)
-  // console.log(window.localStorage.carrito);
-
-  // console.log('hola', JSON.parse(storage))
-
-  // let cartStorage = JSON.parse(storage.getItem('carrito'))
-
-  // console.log('chua',cartStorage)
-
-  // console.log(cart);
-
-  // let newCart = JSON.parse(window.localStorage.getItem('carrito'))
-
+  const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
+  console.log(carrito)
+  // carrito? carrito.map(el => dispatch(addCart(el.id))): console.log('carrito', carrito)
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  cart && cart.map((e => {
+  carrito && carrito.map((e => {
     total = total + (e.price * e.quantity);
   }))
 
@@ -43,7 +29,7 @@ export default function Order () {
 <div>
   <div>
     <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
-    {cart ? cart.map((e) => {
+    {carrito ? carrito.map((e) => {
         return (
           <div>
             <div>
