@@ -1,10 +1,11 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes, Sequelize, UUIDV4 } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define('beer', {
       id: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4
         // autoIncrement: true
         },
     name: {
@@ -32,6 +33,7 @@ module.exports = (sequelize) => {
         allowNull: true,
         // set(value) { this.setDataValue('aroma', value.toLowerCase()); }
     },
+
     flavor: {
         type: DataTypes.TEXT,
         allowNull: true,

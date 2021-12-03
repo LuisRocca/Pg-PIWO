@@ -12,7 +12,7 @@ export default function DetailBeer({ props }) {
   useEffect(() => {
     dispatch(getReviews(props));
     dispatch(getBeersDetails(props));
-  }, [dispatch]);
+  }, [dispatch, props]);
 
   const handleClick = (e) => {
     e.preventDefault();
