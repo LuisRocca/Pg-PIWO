@@ -211,12 +211,15 @@ export function userAdmin(id) {
 
 
 export function addCart(id){
-    return async function (dispatch){
+
+
+    return async function (dispatch, getState){
         try{
-            return dispatch({
+            dispatch({
                 type: ADD_CART, 
                 payload: id
             })
+        // localStorage.setItem('carrito', JSON.stringify(getState().localCart));
         }
         catch (err){
             console.log(err)

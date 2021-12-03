@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { useHistory } from 'react-router';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers, delAllCart} from "../Redux/actions";
+import {getBeers, getStylesOfBeers, delAllCart, addCart} from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import Paged from "./Paging.jsx";
 import Search from './search.jsx';
@@ -15,24 +15,27 @@ import Cart from './Cart/Cart.jsx';
 export default function Home () { 
     const dispatch = useDispatch();
     const history = useHistory()
-    const { beers, stylesBeer, cart }= useSelector((state) => state)
-
+    let { beers, stylesBeer, cart }= useSelector((state) => state)
+    window.localStorage.getItem('carrito')
     // console.log(beers);
-
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const beersPerPage = 9;
-
-    // const paging = (pageNumber) => {
-    //     setCurrentPage(pageNumber)
-    // }
-
-    // const indexOfLastBeer = currentPage * beersPerPage;
-    // const indexOfFirstBeer = indexOfLastBeer - beersPerPage;
-    // const currentBeer = beers.slice(indexOfFirstBeer, indexOfLastBeer);
 
     useEffect(() => {
         dispatch(getBeers())
         stylesBeer ? dispatch(getStylesOfBeers()) : console.log('No hay estilos')
+        // console.log(window.localStorage.getItem('carrito'));
+        if (cart.length === 0) {
+            let localCart = window.localStorage.getItem('carrito')
+        //    localCart = JSON.parse(localCart)
+            console.log(localCart);
+
+            // cart.map((e) => dispatch(addCart(e.id)))
+
+            
+        } else {
+            window.localStorage.setItem('carrito', cart)
+            
+        }
+        // cart ? window.localStorage.setItem('carrito', cart) : cart = window.localStorage.getItem('carrito');
     }, [])
     // console.log('beers:',beers)
     // console.log('Styles' ,stylesBeer)

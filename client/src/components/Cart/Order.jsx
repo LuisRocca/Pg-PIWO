@@ -10,14 +10,14 @@ import { useHistory } from 'react-router';
 export default function Order () {
   const dispatch = useDispatch();
   const history = useHistory()
-  const { cart, otherCart } = useSelector((state) => state)
+  const { cart, otherCart, localCart } = useSelector((state) => state)
 
   // console.log(JSON.parse(otherCart))
   // console.log('carrito perro', cart)
   // let storage = window.localStorage
   // storage.setItem('carrito', JSON.stringify(cart))
   // storage.setItem('carrito', cart)
-  console.log(window.localStorage.carrito);
+  // console.log(window.localStorage.carrito);
 
   // console.log('hola', JSON.parse(storage))
 
@@ -27,7 +27,7 @@ export default function Order () {
 
   // console.log(cart);
 
-  let newCart = JSON.parse(window.localStorage.getItem('carrito'))
+  // let newCart = JSON.parse(window.localStorage.getItem('carrito'))
 
   const clickToDelete = (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export default function Order () {
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  newCart.map((e => {
+  cart && cart.map((e => {
     total = total + (e.price * e.quantity);
   }))
 
@@ -43,7 +43,7 @@ export default function Order () {
 <div>
   <div>
     <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
-    {newCart ? newCart.map((e) => {
+    {cart ? cart.map((e) => {
         return (
           <div>
             <div>
