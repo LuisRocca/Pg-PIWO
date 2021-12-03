@@ -11,8 +11,8 @@ const LandingPage = () => {
         <div  className="Box-LandingPage">
             <div className="LandingPage">
                 <div className="Margin-LandingPage">
-                <h1 className="Title-LandingPage">Bienvenido a Piwo</h1>
-                <p className="Info-LandingPage">El lugar donde encontrarás tus cervezas favoritas a un mejor precio.</p>
+                <h1 className="Title-LandingPage">Welcome to Piwo</h1>
+                <p className="Info-LandingPage">The place where you will find your favorite beers at a better price.</p>
                 
               <Link to="/beers" spy={true} smooth={true}><img className="animation" alt="arrow" src={Arrow}></img></Link>
                 {/* <Link to="/home">

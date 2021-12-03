@@ -193,3 +193,6 @@ a.preview {
   color: #372f2b;
   background-position: 0 2px;
 }
+.imgbeer{
+  object-fit:contain;
+}
