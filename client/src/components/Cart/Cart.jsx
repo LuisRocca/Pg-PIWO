@@ -2,20 +2,24 @@ import React from 'react'
 import { addCart, delCart, delAllCart } from '../../Redux/actions';
 // import Beers from '../Beers'
 // import {Link} from 'react-router-dom';
-// import {useState, useEffect} from 'react';
+import { useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 
 export default function Cart ({id, name, price, image, quantity, total}) {
 
-  // const {cart} = useSelector((state) => state)
+  const {cart} = useSelector((state) => state)
   const dispatch = useDispatch()
   const handleOnClick = (e) => {
     e.preventDefault();
     dispatch(delCart(id))
     // JSON.parser(window.localStorage.getItem('carrito'))
   }
-  // window.localStorage.setItem('carrito', JSON.stringify(cart))
+  useEffect(() => {
+    cart.length>0?
+    window.localStorage.setItem('carrito', JSON.stringify(cart))
+    : JSON.stringify(window.localStorage.getItem('carrito'))
+},[cart])
 
   return (
     <div>

@@ -12,6 +12,9 @@ import {
         DEL_ALL_CART,
         MOD_CART,
     } from "../actions"
+
+// const carrito = JSON.stringify(window.localStorage.getItem('carrito'))? : []
+
 const initialState = {
     beers: [],
     allBeers: [],

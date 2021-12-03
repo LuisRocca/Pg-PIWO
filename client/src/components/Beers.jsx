@@ -17,10 +17,15 @@ const handleClick = (e) => {
 // console.log(localCart)
 
 useEffect(() => {
-    cart.length===0?
-    window.localStorage.getItem('carrito', JSON.stringify(cart))
-    : console.log(cart)
+    cart.length>0?
+    window.localStorage.setItem('carrito', JSON.stringify(cart))
+    : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
+// useEffect(() => {
+//     cart.length===0?
+//     window.localStorage.getItem('carrito', JSON.stringify(cart))
+//     : console.log(cart)
+// },[cart])
 
 
     return (
