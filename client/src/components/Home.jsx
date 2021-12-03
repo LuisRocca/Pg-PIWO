@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {useEffect} from 'react';
+import { useHistory } from 'react-router';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers } from "../Redux/actions";
+import {getBeers, getStylesOfBeers, delAllCart, addCart} from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css';
@@ -12,7 +13,7 @@ import styles from '../css/Home.module.css';
 export default function Home () { 
     const dispatch = useDispatch();
     const { beers, stylesBeer }= useSelector((state) => state)
-
+    const history = useHistory()
     useEffect(() => {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
@@ -32,6 +33,7 @@ export default function Home () {
                 <h1>PIWO BEER MARKET</h1>
             </div>
                <Search/> 
+            <button onClick={() => history.push('/order')}>Orders</button>
             <div>
                 {stylesBeer && stylesBeer.map( s =>s.beers.length>0?
                 <section className={styles.select}>
@@ -60,6 +62,7 @@ export default function Home () {
                         )
                     }): <h1>No beers</h1>}
                     </div>
+                    
                 </section>
                 :<h1>Nohay</h1>)}
             </div>

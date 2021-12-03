@@ -6,7 +6,7 @@ const beerRouter = require('./beer.js');
 const userRouter = require('./user.js');
 const reviewRouter = require('./review.js');
 const categoryRouter = require('./category.js');
-
+const orderRouter = require('./order.js');
 const router = Router();
 
 // Configurar los routers
@@ -15,6 +15,7 @@ router.use('/review', reviewRouter);
 router.use('/beers', beerRouter);
 router.use('/users', userRouter);
 router.use('/categories', categoryRouter);
+router.use('/order', orderRouter);
 
 // router.use('/')
 
