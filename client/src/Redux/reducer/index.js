@@ -16,6 +16,14 @@ import {
         DEL_CART,
         DEL_ALL_CART,
         MOD_CART,
+        GET_IMGS,
+        DELETE_BEER,
+        //  ORDENAMIENTOS
+        ORDER_CATEGORY,
+        ORDER_ALCOHOL,
+        ORDER_BEERS,
+        ORDER_IBU,
+        ORDER_PRICE,
     } from "../actions"
 
 // const carrito = JSON.stringify(window.localStorage.getItem('carrito'))? : []
@@ -23,7 +31,7 @@ import {
 const initialState = {
     beers: [],
     allBeers: [],
-    beerId: {},
+    beerId: [],
     stylesBeer: [],
     beersOfCategory: [],
     reviews: [],
@@ -31,6 +39,7 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
+    imgs: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 }
 
@@ -38,11 +47,19 @@ const initialState = {
 function rootReducer (state = initialState, action) {
     switch (action.type) {
         case GET_BEERS:
-            state.beers.length = 0;
             state.allBeers.length = 0;
+            state.beers.length=0;
             return {
                 ...state,
-                beers: state.beers.concat(action.payload),
+                beers: action.payload.sort(function(a, b) {
+                    if(a.name > b.name) {
+                        return 1;
+                    }
+                    if(b.name > a.name) {
+                        return -1;
+                    }
+                    return 0;
+                }),
                 allBeers: state.allBeers.concat(action.payload),
             }
         case GET_BEERS_BY_ID:
@@ -74,7 +91,15 @@ function rootReducer (state = initialState, action) {
         case GET_STYLES:
             return{
                 ...state,
-                stylesBeer: action.payload
+                stylesBeer: action.payload.sort(function(a, b) {
+                    if(a.name > b.name) {
+                        return 1;
+                    }
+                    if(b.name > a.name) {
+                        return -1;
+                    }
+                    return 0;
+                })
             }
         case POST_USER:
                 return {
@@ -137,11 +162,148 @@ function rootReducer (state = initialState, action) {
                 cart: [],
                 localCart: window.localStorage.removeItem('carrito')
             }
+        case GET_IMGS:{
+            return {
+                ...state,
+                imgs: action.payload
+            }
+        }
+
+        //     AQUI ESTAN LOS CASOS DE LOS ORDENAMIENTOS 
+
+        case ORDER_CATEGORY:
+        const ordenamientoC = 
+          action.payload === 'des'
+          ? state.stylesBeer.sort((a, b) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                return -1;
+              }
+              if (b.name.toLowerCase() > a.name.toLowerCase()) {
+                return 1;
+              }
+              return 0;
+          })
+          : state.stylesBeer.sort((a, b) => {
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                return 1;
+              }
+              if (b.name.toLowerCase() > a.name.toLowerCase()) {
+                return -1;
+              }
+              return 0;
+          });
+        return {
+            ...state,
+            stylesBeer : ordenamientoC,
+        }
+
+        case ORDER_BEERS:
+        const ordenamientoB =
+        action.payload === 'asc'
+        ? state.stylesBeer.sort((a, b) => {
+            if (a.beers.map(e => e.name.toLowerCase()) > b.beers.map(e => e.name.toLowerCase())) {
+                return 1;
+              }
+              if (b.beers.map(e => e.name.toLowerCase()) > a.beers.map(e => e.name.toLowerCase())) {
+                return -1;
+              }
+              return 0;
+        })
+        : state.stylesBeer.sort((a, b) => {
+            if (a.beers.map(e => e.name.toLowerCase()) > b.beers.map(e => e.name.toLowerCase())){
+                return -1;
+              }
+              if (b.beers.map(e => e.name.toLowerCase()) > a.beers.map(e => e.name.toLowerCase())) {
+                return 1;
+              }
+              return 0;
+          })
+        return {
+            ...state,
+            stylesBeers: ordenamientoB,
+            }
+
+        case ORDER_ALCOHOL:
+            const ordenamientoA =
+            action.payload === 'asc'
+            ? state.stylesBeer.sort((a, b) => {
+                if (a.beers.map(e => e.ABV)> b.beers.map(e => e.ABV)) {
+                    return -1;
+                  }
+                  if (b.beers.map(e => e.ABV) > a.beers.map(e => e.ABV)) {
+                    return 1;
+                  }
+                  return 0;
+            })
+            : state.stylesBeer.sort((a, b) => {
+                if (a.beers.map(e => e.ABV) > b.beers.map(e => e.ABV)){
+                    return 1;
+                  }
+                  if (b.beers.map(e => e.ABV) > a.beers.map(e => e.ABV)) {
+                    return -1;
+                  }
+                  return 0;
+              })
+            return {
+                ...state,
+                stylesBeers: ordenamientoA,
+            }
+            case ORDER_IBU:
+                const ordenamientoI =
+                action.payload === 'asc'
+                ? state.stylesBeer.sort((a, b) => {
+                    if (a.beers.map(e => e.IBU)> b.beers.map(e => e.IBU)) {
+                        return -1;
+                      }
+                      if (b.beers.map(e => e.IBU) > a.beers.map(e => e.IBU)) {
+                        return 1;
+                      }
+                      return 0;
+                })
+                : state.stylesBeer.sort((a, b) => {
+                    if (a.beers.map(e => e.IBU) > b.beers.map(e => e.IBU)){
+                        return 1;
+                      }
+                      if (b.beers.map(e => e.IBU) > a.beers.map(e => e.IBU)) {
+                        return -1;
+                      }
+                      return 0;
+                  })
+                return {
+                   ...state,
+                   stylesBeers: ordenamientoI,
+                }
+                case ORDER_PRICE:
+                    const ordenamientoP =
+                    action.payload === 'asc'
+                    ? state.stylesBeer.sort((a, b) => {
+                        if (a.beers.map(e => e.price)> b.beers.map(e => e.price)) {
+                            return -1;
+                          }
+                          if (b.beers.map(e => e.price) > a.beers.map(e => e.price)) {
+                            return 1;
+                          }
+                          return 0;
+                    })
+                    : state.stylesBeer.sort((a, b) => {
+                        if (a.beers.map(e => e.price) > b.beers.map(e => e.price)){
+                            return 1;
+                          }
+                          if (b.beers.map(e => e.price) > a.beers.map(e => e.price)) {
+                            return -1;
+                          }
+                          return 0;
+                      })
+                    return {
+                       ...state,
+                       stylesBeers: ordenamientoP,
+                    }
+      // ----  FIN ORDEN
         default:
             return state;
         
          
-}
+    }
 }
 
 export default rootReducer;

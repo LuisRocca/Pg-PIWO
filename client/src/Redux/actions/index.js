@@ -10,8 +10,6 @@ export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
 export const CREATE_BEER = 'CREATE_BEER'
-
-
 export const CREATE_USERS = 'CREATE_USERS'
 export const LIST_USERS = 'LIST_USERS'
 export const LIST_USER = 'LIST_USER'; 
@@ -22,12 +20,20 @@ export const CURRENT_USER = 'CURRENT_USER';
 export const GET_ONE_USER = 'GET_ONE_USER';
 export const UPGRADE_USER = 'UPGRADE_USER'; 
 export const RESET_PASSWORD = 'RESET_PASSWORD'; 
-
+export const EDIT_BEER = 'EDIT_BEER'
+export const GET_IMGS = 'GET_IMGS'
+export const DELETE_BEER = 'DELETE_BEER'
 //'--------> CART'
 export const ADD_CART = 'ADD_CART'
 export const DEL_CART = 'DEL_CART'
 export const DEL_ALL_CART = 'DEL_ALL_CART'
 export const MOD_CART = 'MOD_CART'
+// '-----> ORDENAMIENTO'
+export const ORDER_CATEGORY = 'ORDER_CATEGORY';
+export const ORDER_ALCOHOL = 'ORDER_ALCOHOL';
+export const ORDER_BEERS = 'ORDER_BEERS';
+export const ORDER_PRICE = 'ORDER_PRICE';
+export const ORDER_IBU = 'ORDER_IBU';
 
 
 export function getBeers () {
@@ -35,7 +41,7 @@ export function getBeers () {
         try {
             let beers = await axios.get("http://localhost:3001/beers")
             return dispatch({
-                type: 'GET_BEERS',
+                type: GET_BEERS,
                 payload: beers.data
             })
         }
@@ -218,8 +224,6 @@ export function userAdmin(id) {
 
 
 export function addCart(id){
-
-
     return async function (dispatch, getState){
         try{
             dispatch({
@@ -317,5 +321,78 @@ export function delAllCart () {
         catch (err) {
             console.log(err)
         }
+    }
+}
+export function editBeer(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.put(`http://localhost:3001/beers/edit/${payload.id}`, {...payload})
+            alert(data)
+            return dispatch({type: EDIT_BEER})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
+export function deleteBeer (id) {
+    return async function (dispatch) {
+        try {
+            let {data} = await axios.delete(`http://localhost:3001/beers/${id}`)
+            // console.log("codigo hermoso 2 desaparecido",data)
+            alert(data)
+            return dispatch({type: DELETE_BEER})
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function getImgs(){
+    return async function(dispatch) {
+        try {
+            const {data} = await axios.get(`http://localhost:3001/beers/images`)
+            return dispatch({type: GET_IMGS, payload: data})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+// ESTAS SON LAS FUNCIONES QUE DISPACHAN AL REDUCER CON RESPECTO AL -->!! ORDEN !!<--
+
+export const orderCategory = (payload) => {
+    return {
+       type: ORDER_CATEGORY,
+       payload,
+    }
+};
+
+export const orderAlcohol = (payload) => {
+    return {
+        type: ORDER_ALCOHOL,
+        payload,
+    }
+};
+
+export const orderBeer = (payload) => {
+    return {
+        type: ORDER_BEERS,
+        payload,
+    }
+};
+
+export const orderPrice = (payload) => {
+    return {
+        type:ORDER_PRICE,
+        payload,
+    }
+};
+
+export const orderIBU = (payload) => {
+    return {
+       type: ORDER_IBU,
+       payload,
     }
 }
