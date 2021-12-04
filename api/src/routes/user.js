@@ -190,6 +190,9 @@ passport.authenticate('local'),
 function(req,res){
   res.json(req.user);
 });
+server.get('login'), (req, res) => {
+  res.render('login')
+}
 server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
 server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
 
@@ -200,7 +203,7 @@ server.get('/google',
   passport.authenticate('google', { failureRedirect: '/failed' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('http://localhost:3001/cart');
+    res.redirect('http://localhost:3001/beers');
   });
 
 //Crea ruta de logout//
@@ -302,8 +305,8 @@ server.post('/order-mail', (req, res) => {
   const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-          user: "brunosentinelli@gmail.com",
-          pass: "Bruno2002"
+          user: "piwobeers@gmail.com",
+          pass: "Piwo1104"
       } 
   }) 
 

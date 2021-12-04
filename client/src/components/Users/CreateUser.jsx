@@ -107,7 +107,7 @@ console.log("create",input)
       <input type="text" class="form-control" placeholder="Dirección"  value={input.address} onChange={e => setInput({ ...input, address: e.target.value })} required />
     </div>
   
-    <button type="submit" class="btn btn-primary">Sign in</button>
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
 
   </form>
   </div>

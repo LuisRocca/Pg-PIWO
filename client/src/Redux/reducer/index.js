@@ -16,6 +16,7 @@ import {
         DEL_CART,
         DEL_ALL_CART,
         MOD_CART,
+        SET_CART
     } from "../actions"
 
 // const carrito = JSON.stringify(window.localStorage.getItem('carrito'))? : []
@@ -30,7 +31,7 @@ const initialState = {
     users: [],
     user:[],
     listUser: [],
-    cart: [],
+    cart: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 }
 
@@ -120,6 +121,9 @@ function rootReducer (state = initialState, action) {
             
         case DEL_CART:
             let itemDel = state.cart.find((e) => e.id === action.payload);
+            if (state.cart.length === 0) {
+                state.cart = localStorage.getItem('carrito')
+            }
             return itemDel.quantity > 1 ? {
                 ...state,
                 cart: state.cart.map((e) => e.id === action.payload ? {...e, quantity: e.quantity - 1} : e),
@@ -136,6 +140,11 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 cart: [],
                 localCart: window.localStorage.removeItem('carrito')
+            }
+        case SET_CART:
+            return {
+                ...state,
+                cart: action.payload
             }
         default:
             return state;
