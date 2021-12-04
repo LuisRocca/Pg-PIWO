@@ -8,11 +8,12 @@ import CreateCategory from "./components/Admin/CreateCategory";
 import LandingPage from './components/landingPage';
 import CreateBeer from "./components/Admin/CreateBeer";
 // import Cart from './components/Cart/Cart.jsx';
-import Order from './components/Cart/Order.jsx';
+import Carting from './components/Cart/Carting.jsx';
 import CreateUser from './components/Users/CreateUser';
 import Admin from './components/Admin/Admin';
 import EditBeer from './components/Admin/EditBeer';
 //import PasswordReset from './components/Users/CreateUser'//
+import Login from './components/Login/Login.jsx'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
       <div>
         <Switch>
           <Route exact path = '/' component = {LandingPage}></Route>
-          <Route exact path = '/order' component = {Order}></Route>
+          <Route exact path = '/cart' component = {Carting}></Route>
           <Route exact path = '/beers' component = {Home}></Route>
           <Route exact path = '/admin' component = {Admin}></Route>
           <Route exact path = '/admin/createCa' component = {CreateCategory}></Route>
@@ -28,6 +29,7 @@ function App() {
           <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>}></Route>
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
           <Route exact path = '/users' component = {CreateUser}></Route>
+          <Route exact path = '/users/google' component = {Login}></Route>
           <Route path='/createuser' render={() => <CreateUser />}  />
         </Switch>
       </div>

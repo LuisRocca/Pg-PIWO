@@ -16,6 +16,7 @@ import {
         DEL_CART,
         DEL_ALL_CART,
         MOD_CART,
+<<<<<<< HEAD
         GET_IMGS,
         DELETE_BEER,
         //  ORDENAMIENTOS
@@ -24,9 +25,11 @@ import {
         ORDER_BEERS,
         ORDER_IBU,
         ORDER_PRICE,
+=======
+        SET_CART
+>>>>>>> master
     } from "../actions"
 
-// const carrito = JSON.stringify(window.localStorage.getItem('carrito'))? : []
 
 const initialState = {
     beers: [],
@@ -39,8 +42,12 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
+<<<<<<< HEAD
     imgs: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
+=======
+
+>>>>>>> master
 }
 
 
@@ -48,7 +55,11 @@ function rootReducer (state = initialState, action) {
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
+<<<<<<< HEAD
             state.beers.length=0;
+=======
+     
+>>>>>>> master
             return {
                 ...state,
                 beers: action.payload.sort(function(a, b) {
@@ -129,31 +140,27 @@ function rootReducer (state = initialState, action) {
             let newItem = state.beers.find((p) => p.id === action.payload)
             
             let itemInCart = state.cart.find((i) => i.id === newItem.id)
-            // if (state.cart.length > 0) {
-            //     localStorage.setItem('carrito', JSON.stringify(state.cart))
-            // }
             return itemInCart ? {
                 ...state,
                 cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
-                // localCart: state.localCart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
             }
              : {
                 ...state,
                 cart: [...state.cart, {...newItem, quantity: 1}],
-                // localCart: [...state.localCart, {...newItem, quantity: 1}],
                 }
             
         case DEL_CART:
             let itemDel = state.cart.find((e) => e.id === action.payload);
+            if (state.cart.length === 0) {
+                state.cart = localStorage.getItem('carrito')
+            }
             return itemDel.quantity > 1 ? {
                 ...state,
                 cart: state.cart.map((e) => e.id === action.payload ? {...e, quantity: e.quantity - 1} : e),
-                // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
             }
             : {
             ...state,
             cart: state.cart.filter((p) => p.id !== action.payload),
-            // cart: window.localStorage.setItem('carrito', JSON.stringify(state.cart))
         }
 
         case DEL_ALL_CART:
@@ -162,6 +169,7 @@ function rootReducer (state = initialState, action) {
                 cart: [],
                 localCart: window.localStorage.removeItem('carrito')
             }
+<<<<<<< HEAD
         case GET_IMGS:{
             return {
                 ...state,
@@ -299,6 +307,13 @@ function rootReducer (state = initialState, action) {
                        stylesBeers: ordenamientoP,
                     }
       // ----  FIN ORDEN
+=======
+        case SET_CART:
+            return {
+                ...state,
+                cart: action.payload
+            }
+>>>>>>> master
         default:
             return state;
         

@@ -7,7 +7,6 @@ import Beers from "./Beers.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css';
 
-// import Beer from './Beers.jsx';
 
 export default function Home () { 
     const dispatch = useDispatch();
@@ -59,9 +58,24 @@ export default function Home () {
     }, [dispatch, stylesBeer])
     // console.log(beers[0])
     // console.log('Styles' ,stylesBeer)
-    console.log(stylesBeer)
+    // console.log(stylesBeer)
     return (
         <div>
+            <Link to="/admin/createCa">
+                <button className={styles.button}>Admin Panel Ca</button>
+            </Link>
+            <Link to="/admin/createBeer">
+          <     button className={styles.button}>Admin Panel Beer</button>
+            </Link>
+            <Link to ="/users/google">
+                <button className={styles.button}>User Login</button>
+            </Link>
+            <Link to = "/order">
+                <button className={styles.button}>Orders</button>
+            </Link>
+            <Link to = "/cart">
+                <button className={styles.button}>Cart</button>
+            </Link>
             <div>
                 <h1>PIWO BEER MARKET</h1>
             </div>
@@ -103,13 +117,8 @@ export default function Home () {
                                 <Beers
                                 id = {e.id}
                                 name = {e.name}
-                                // impression = {e.impression}
-                                // aroma = {e.aroma}
-                                // ingredients = {e.ingredients}
-                                // flavor = {e.flavor}
                                 IBU = {e.IBU}
                                 ABV = {e.ABV}
-                                // history = {e.history}
                                 image = {e.image}
                                 price = {e.price}
                                 stock = {e.stock}
@@ -122,9 +131,6 @@ export default function Home () {
                 </section>
                 :<h1>Nohay</h1>)}
             </div>
-                {/* <Paged beersPerPage = {beersPerPage} beers = {beers.length} paged = {paging}/> */}
         </div>
-
-        
     )      
 }   
