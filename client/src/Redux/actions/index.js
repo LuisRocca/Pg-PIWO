@@ -10,6 +10,7 @@ export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
 export const CREATE_BEER = 'CREATE_BEER'
+export const SET_CART = 'SET_CART'
 
 
 export const CREATE_USERS = 'CREATE_USERS'
@@ -319,3 +320,13 @@ export function delAllCart () {
         }
     }
 }
+export function setCart (payload) {
+    return async function (dispatch) {
+        try {
+            return dispatch({type: SET_CART, payload})
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+} 

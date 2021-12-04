@@ -8,8 +8,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 export default function Cart ({id, name, price, image, quantity, total}) {
 
-  const {cart} = useSelector((state) => state)
+  let {cart} = useSelector((state) => state)
   const dispatch = useDispatch()
+  let carrito = JSON.parse(window.localStorage.getItem('carrito'))
   const handleOnClick = (e) => {
     e.preventDefault();
     dispatch(delCart(id))
