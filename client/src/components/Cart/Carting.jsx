@@ -33,7 +33,7 @@ export default function Carting () {
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
   }
-
+        
   useEffect(() => {
     cart.length>0?
     window.localStorage.setItem('carrito', JSON.stringify(cart))
