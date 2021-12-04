@@ -1,0 +1,56 @@
+.section{
+    width: 100%;
+    overflow: scroll;
+    padding: 30px;
+    position: relative;
+}
+.containerBeer{
+    white-space: nowrap;
+    margin: 70px 70px;
+    padding-bottom: 10px; 
+    display: flex;
+    flex-direction: row;
+}
+.beer{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 30px 30px 0px 0px;
+    /* width: 295px; */
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 50px 12px;
+    border: 2px dashed rgba(0, 0, 0, 0.527);
+}
+.img{
+    /* border-style:hidden; */
+    margin-top: -30px;
+    height: 150px;
+    width: 70px;
+    object-fit: cover;
+}
+
+.icon1{
+    position: absolute;
+    top: 1px;
+    right: 31px;
+    height: 30px;
+    width: 30px;
+    background-image: url('./img/icons8-delete-64.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+}
+.icon2{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    height: 30px;
+    width: 30px;
+    background-image: url('./img/icons8-pencil-50.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+}
+.h6{
+    margin: 0px;
+}

@@ -63,7 +63,7 @@ export default function Admin() {
   return (
     <div className={style.create}>
       <div>
-        <Link to="/beers">
+        <Link to="/admin">
           <button className={style.button}>Back</button>
         </Link>
 
