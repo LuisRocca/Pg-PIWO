@@ -13,14 +13,17 @@ const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
 }
+// if (JSON.parse(window.localStorage.getItem('carrito'))[0] && cart.length == 0 ) {
+//     cart = JSON.parse(window.localStorage.getItem('carrito'))
+// }
 
 // console.log(localCart)
 
-useEffect(() => {
-    cart.length>0?
-    window.localStorage.setItem('carrito', JSON.stringify(cart))
-    : JSON.stringify(window.localStorage.getItem('carrito'))
-},[cart])
+// useEffect(() => {
+//     cart.length>0?
+//     window.localStorage.setItem('carrito', JSON.stringify(cart))
+//     : JSON.stringify(window.localStorage.getItem('carrito'))
+// },[cart])
 // useEffect(() => {
 //     cart.length===0?
 //     window.localStorage.getItem('carrito', JSON.stringify(cart))
@@ -31,7 +34,7 @@ useEffect(() => {
     return (
         <div className="box">
             <div class="product">
-            <img src={image} alt=" " />
+            <img class='imgbeer'src={image} alt=" " />
 			    <div class="buttons">
 			        <a class="buy" href=" " onClick={(e) => handleClick(e)}>Add to cart</a>
                     <Link to={`/beers/${id}`}>

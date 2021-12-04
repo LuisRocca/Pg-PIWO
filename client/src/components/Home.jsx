@@ -5,83 +5,56 @@ import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getBeers, getStylesOfBeers, delAllCart, addCart} from "../Redux/actions";
 import Beers from "./Beers.jsx";
-import Paged from "./Paging.jsx";
 import Search from './search.jsx';
-import styles from '../css/Home.module.css'
+import styles from '../css/Home.module.css';
 
-// import Beer from './Beers.jsx';
 
 export default function Home () { 
     const dispatch = useDispatch();
+    const { beers, stylesBeer }= useSelector((state) => state)
     const history = useHistory()
-    let { beers, stylesBeer, cart }= useSelector((state) => state)
-    // console.log(beers);
-
     useEffect(() => {
         dispatch(getBeers())
-        stylesBeer ? dispatch(getStylesOfBeers()) : console.log('No hay estilos')
-        // console.log(window.localStorage.getItem('carrito'));
-
-    }, [cart])
-    // console.log('beers:',beers)
+        stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
+    }, [dispatch, stylesBeer])
+    // console.log(beers[0])
     // console.log('Styles' ,stylesBeer)
-    // const clickToDelete = (e) => {
-    //     e.preventDefault();
-    //     dispatch(delAllCart())
-    //   }
-
-
+    // console.log(stylesBeer)
     return (
         <div>
+            <Link to="/admin/createCa">
+                <button className={styles.button}>Admin Panel Ca</button>
+            </Link>
+            <Link to="/admin/createBeer">
+          <     button className={styles.button}>Admin Panel Beer</button>
+            </Link>
+            <Link to ="/users/google">
+                <button className={styles.button}>User Login</button>
+            </Link>
+            <Link to = "/order">
+                <button className={styles.button}>Orders</button>
+            </Link>
+            <Link to = "/cart">
+                <button className={styles.button}>Cart</button>
+            </Link>
             <div>
                 <h1>PIWO BEER MARKET</h1>
             </div>
-
+               <Search/> 
             <div>
-               <Search/>           
-            </div>
-            {/* <div>
-                <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
-                {cart ? cart.map((e) => {
-                    return (
-                        <div>
-                            <Cart 
-                            id = {e.id}
-                            name = {e.name}
-                            price = {e.price}
-                            image = {e.image}
-                            // total = {e.price}
-                            />
-                            <h2>TOTAL ES {e.price}</h2>
-
-                        </div>
-                        )
-                }): <h4>NO HAY NADA EN EL CARRITO</h4>}
-                        
-            </div> */}
-            <button onClick={() => history.push('/order')}>Orders</button>
-            <div>
-                {stylesBeer && stylesBeer.map( s =>(
+                {stylesBeer && stylesBeer.map( s =>s.beers.length>0?
                 <section className={styles.select}>
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
-                    {/* {currentBeer ? currentBeer.filter( el =>  */}
-                    {beers ? beers.filter( el =>
-                    el.id.length < 3 ? el.id[0] === s.id : el.id.slice(0, 2) == s.id
-                    ).map((e) => {
-                        
+                    {s.beers ? s.beers.map((e) => {
+                        // console.log(e)
                         return (   
                             <div key={e.id}>
                                 <Beers
                                 id = {e.id}
                                 name = {e.name}
-                                // impression = {e.impression}
-                                // aroma = {e.aroma}
-                                // ingredients = {e.ingredients}
-                                // flavor = {e.flavor}
                                 IBU = {e.IBU}
                                 ABV = {e.ABV}
-                                // history = {e.history}
                                 image = {e.image}
                                 price = {e.price}
                                 stock = {e.stock}
@@ -93,9 +66,8 @@ export default function Home () {
                     </div>
                     
                 </section>
-                ))}
+                :<h1>Nohay</h1>)}
             </div>
-                {/* <Paged beersPerPage = {beersPerPage} beers = {beers.length} paged = {paging}/> */}
         </div>
 
         

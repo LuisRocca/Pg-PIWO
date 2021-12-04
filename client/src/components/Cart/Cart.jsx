@@ -8,16 +8,25 @@ import {useDispatch, useSelector} from 'react-redux';
 
 export default function Cart ({id, name, price, image, quantity, total}) {
 
-  const {cart} = useSelector((state) => state)
+  let {cart} = useSelector((state) => state)
   const dispatch = useDispatch()
+  let carrito = JSON.parse(window.localStorage.getItem('carrito'))
   const handleOnClick = (e) => {
     e.preventDefault();
     dispatch(delCart(id))
-    // JSON.parser(window.localStorage.getItem('carrito'))
-  }
+    // window.localStorage.setItem('carrito', cart)
+    // console.log(JSON.parse(window.localStorage.getItem('carrito')).length)
+    // if (JSON.parse(window.localStorage.getItem('carrito').length === 1)) {
+    //     window.localStorage.clear('carrito')
+      // }
+      // } else {
+        //   cart = [];
+        // }
+        
+      }
+      // console.log(JSON.parse(window.localStorage.getItem('carrito')))
   useEffect(() => {
-    cart.length>0?
-    window.localStorage.setItem('carrito', JSON.stringify(cart))
+    cart && cart.length > 0 ? window.localStorage.setItem('carrito', JSON.stringify(cart))
     : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
 
