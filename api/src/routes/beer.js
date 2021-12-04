@@ -26,8 +26,8 @@ router.get("/", async (req, res) => {
             //     name: {
               //       [Op.iLike]: `%${name}%`,
               //     },
-      //   },
-      // });
+              //   },
+              // });
       beersT.filter(n => n.name.toLowerCase().includes(name.toLowerCase()));
       byName.length ? 
       res.status(200).send(byName) :
@@ -55,21 +55,21 @@ router.get('/images',async(req, res) =>{
 
 // router.get("/", async (req, res) => {
   //   const beer = await showAll()
-//   try {
-//     res.json(beer)
-//   }
-//   catch (err) {
-//     console.log(err);
-//   }
-// })
-
-
+  //   try {
+    //     res.json(beer)
+    //   }
+    //   catch (err) {
+      //     console.log(err);
+      //   }
+      // })
+      
+      
 router.get('/categories', async(req, res, next) => {
   try{
     const categories = await Category.findAll({
       include: [
-      {
-        model: Beer,
+        {
+          model: Beer,
         attributes: ['id','name', 'IBU', 'price', 'ABV','image', 'stock','image',],
         through: { 
           attributes: []
@@ -81,6 +81,15 @@ router.get('/categories', async(req, res, next) => {
     next(err)
   }
 })
+router.get("/:id", async (req, res) => {
+  const id = req.params.id
+  const beersAll = await Beer.findAll()
+  if(id){
+    const beersId = beersAll.filter(i => i.id === id)
+    beersId.length ? res.status(200).send(beersId) :
+    res.status(404).send('id no valido')
+  }
+});
 
 // ruta destinada para los detalles 
 
@@ -132,7 +141,7 @@ router.post("/create",  async(req, res) => {
 });
 
 
-router.put("/modify/:id",  (req, res) => {
+router.put("/edit/:id",  (req, res) => {
   const {id} = req.params
   const { name , price , stock , impression , aroma , img , IBU , ABV , history , ingredients , examples} = req.body;
   Beer.update({
@@ -148,15 +157,6 @@ router.put("/modify/:id",  (req, res) => {
 });
 
 
-router.get("/:id", async (req, res) => {
-  const id = req.params.id
-  const beersAll = await Beer.findAll()
-  if(id){
-    const beersId = beersAll.filter(i => i.id === id)
-    beersId.length ? res.status(200).send(beersId) :
-    res.status(404).send('id no valido')
-  }
-});
 
 
 router.delete("/:id", (req, res) =>{
@@ -164,7 +164,7 @@ router.delete("/:id", (req, res) =>{
 	Beer.destroy({
     where: { id: id }
 	}).then((resp) => {
-    res.status(200).send("Producto con id: " + id + " fue eliminado")
+    res.status(200).send("Producto fue correctamente eliminado")
 	}).catch(function (err) {
     console.log("delete failed with error: " + err);
 		

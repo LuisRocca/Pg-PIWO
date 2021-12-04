@@ -48,7 +48,7 @@ module.exports = {
     getImgs: async() => {
         try {
             let {data} = await axios.get(`http://localhost:4000/styleguide`)
-            console.log(data.image)
+            // console.log(data.image)
             return data.image
         } catch (error) {
             console.log(error)

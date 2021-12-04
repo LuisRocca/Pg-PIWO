@@ -10,6 +10,8 @@ import CreateBeer from "./components/Admin/CreateBeer";
 // import Cart from './components/Cart/Cart.jsx';
 import Carting from './components/Cart/Carting.jsx';
 import CreateUser from './components/Users/CreateUser';
+import Admin from './components/Admin/Admin';
+import EditBeer from './components/Admin/EditBeer';
 //import PasswordReset from './components/Users/CreateUser'//
 import Login from './components/Login/Login.jsx'
 
@@ -21,8 +23,10 @@ function App() {
           <Route exact path = '/' component = {LandingPage}></Route>
           <Route exact path = '/cart' component = {Carting}></Route>
           <Route exact path = '/beers' component = {Home}></Route>
+          <Route exact path = '/admin' component = {Admin}></Route>
           <Route exact path = '/admin/createCa' component = {CreateCategory}></Route>
           <Route exact path = '/admin/createBeer' component = {CreateBeer}></Route>
+          <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>}></Route>
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
           <Route exact path = '/users' component = {CreateUser}></Route>
           <Route exact path = '/users/google' component = {Login}></Route>
