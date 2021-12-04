@@ -10,12 +10,9 @@ export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
 export const CREATE_BEER = 'CREATE_BEER'
-<<<<<<< HEAD
-=======
 export const SET_CART = 'SET_CART'
 
 
->>>>>>> master
 export const CREATE_USERS = 'CREATE_USERS'
 export const LIST_USERS = 'LIST_USERS'
 export const LIST_USER = 'LIST_USER'; 
@@ -329,7 +326,6 @@ export function delAllCart () {
         }
     }
 }
-<<<<<<< HEAD
 export function editBeer(payload){
     return async function(dispatch){
         try{
@@ -403,7 +399,6 @@ export const orderIBU = (payload) => {
        payload,
     }
 }
-=======
 export function setCart (payload) {
     return async function (dispatch) {
         try {
@@ -414,4 +409,3 @@ export function setCart (payload) {
         }
     }
 } 
->>>>>>> master

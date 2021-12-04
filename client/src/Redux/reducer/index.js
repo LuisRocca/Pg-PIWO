@@ -16,7 +16,6 @@ import {
         DEL_CART,
         DEL_ALL_CART,
         MOD_CART,
-<<<<<<< HEAD
         GET_IMGS,
         DELETE_BEER,
         //  ORDENAMIENTOS
@@ -25,9 +24,7 @@ import {
         ORDER_BEERS,
         ORDER_IBU,
         ORDER_PRICE,
-=======
         SET_CART
->>>>>>> master
     } from "../actions"
 
 
@@ -42,12 +39,9 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
-<<<<<<< HEAD
     imgs: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
-=======
 
->>>>>>> master
 }
 
 
@@ -55,11 +49,8 @@ function rootReducer (state = initialState, action) {
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
-<<<<<<< HEAD
             state.beers.length=0;
-=======
      
->>>>>>> master
             return {
                 ...state,
                 beers: action.payload.sort(function(a, b) {
@@ -169,7 +160,6 @@ function rootReducer (state = initialState, action) {
                 cart: [],
                 localCart: window.localStorage.removeItem('carrito')
             }
-<<<<<<< HEAD
         case GET_IMGS:{
             return {
                 ...state,
@@ -307,13 +297,11 @@ function rootReducer (state = initialState, action) {
                        stylesBeers: ordenamientoP,
                     }
       // ----  FIN ORDEN
-=======
         case SET_CART:
             return {
                 ...state,
                 cart: action.payload
             }
->>>>>>> master
         default:
             return state;
         
