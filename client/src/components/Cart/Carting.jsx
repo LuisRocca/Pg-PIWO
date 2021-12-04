@@ -41,6 +41,8 @@ export default function Carting () {
 },[cart])
 
   return (
+
+    
 <div>
   <div>
     <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
