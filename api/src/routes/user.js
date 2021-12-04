@@ -190,8 +190,8 @@ passport.authenticate('local'),
 function(req,res){
   res.json(req.user);
 });
-server.get('login'), (req, res) => {
-  res.render('login')
+server.get('/login'), (req, res) => {
+  res.render('Login')
 }
 server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
 server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
