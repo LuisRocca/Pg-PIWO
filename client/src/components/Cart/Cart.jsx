@@ -14,6 +14,11 @@ export default function Cart ({id, name, price, image, quantity, total}) {
   const handleOnClick = (e) => {
     e.preventDefault();
     dispatch(delCart(id))
+    if (JSON.parse(window.localStorage.getItem('carrito'))[0] ) {
+      window.localStorage.removeItem('carrito')
+    } else {
+      window.localStorage.setItem('carrito',JSON.stringify(cart))
+    }
     // window.localStorage.setItem('carrito', cart)
     // console.log(JSON.parse(window.localStorage.getItem('carrito')).length)
     // if (JSON.parse(window.localStorage.getItem('carrito').length === 1)) {
@@ -25,10 +30,10 @@ export default function Cart ({id, name, price, image, quantity, total}) {
         
       }
       // console.log(JSON.parse(window.localStorage.getItem('carrito')))
-  useEffect(() => {
-    cart && cart.length > 0 ? window.localStorage.setItem('carrito', JSON.stringify(cart))
-    : JSON.stringify(window.localStorage.getItem('carrito'))
-},[cart])
+//   useEffect(() => {
+//     cart && cart.length > 0 ? window.localStorage.setItem('carrito', JSON.stringify(cart))
+//     : JSON.stringify(window.localStorage.getItem('carrito'))
+// },[cart])
 
   return (
     <div>
