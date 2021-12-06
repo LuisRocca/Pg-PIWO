@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCart, delCart, delAllCart, setCart} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
+import NavBar from '../NavBar';
 
 
 export default function Carting () {
@@ -25,7 +26,7 @@ export default function Carting () {
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  carrito && carrito.map((e => {
+  cart && cart.map((e => {
     total = total + (e.price * e.quantity);
   }))
 

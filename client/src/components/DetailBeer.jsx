@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCart } from '../Redux/actions/index.js';
 import "../css/DetailBeers.css";
+import NavBar from "./NavBar";
 
 export default function DetailBeer({ props }) {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ export default function DetailBeer({ props }) {
 
   return (
     <div>
+      <NavBar />
+      <div class="alert alert-primary" role="alert">
+  A simple primary alert with <a href=" " class="alert-link">an example link</a>. Give it a click if you like.
+</div>
          <Link to="/beers">
           <button className="cart-btn" >Back to home</button>
         </Link>
@@ -69,7 +74,7 @@ export default function DetailBeer({ props }) {
                   <h4>INGREDIENTS: {e.ingredients}</h4>
                 </div>
                 <div className="product-price">
-                  <a href="#" className="cart-btn" onClick={(e) => handleClick(e)}>
+                  <a href=" " className="cart-btn" onClick={(e) => handleClick(e)}>
                     Add to cart
                   </a>
                 </div>
