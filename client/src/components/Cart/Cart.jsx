@@ -28,7 +28,7 @@ export default function Cart ({id, name, price, image, quantity, total}) {
         //   cart = [];
         // }
         
-      }
+    }
       // console.log(JSON.parse(window.localStorage.getItem('carrito')))
 //   useEffect(() => {
 //     cart && cart.length > 0 ? window.localStorage.setItem('carrito', JSON.stringify(cart))

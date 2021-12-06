@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getBeers, postProduct, addBeersOfCategory, delBeersCategory } from "../../Redux/actions";
 import style from "../../css/CreateCa.module.css";
+import NavBar from "../NavBar";
 
 export default function Admin() {
   const dispatch = useDispatch();
@@ -54,15 +55,16 @@ export default function Admin() {
     dispatch(addBeersOfCategory(input.beer))
   }
   function elimBeer(e){
-    dispatch(delBeersCategory(e.target.value))
+    dispatch(delBeersCategory(e))
   }
   useEffect(() => {
     dispatch(getBeers());
   }, [dispatch]);
 
   return (
-    <div className={style.create}>
-      <div>
+    <div>
+      <NavBar/>
+      {/* <div>
         <Link to="/admin">
           <button className={style.button}>Back</button>
         </Link>
@@ -74,14 +76,13 @@ export default function Admin() {
             <div>
               <label className={style.label}>Name: </label>
               <input className={style.inputform} type="text" value={input.name} name="name" autoComplete='off' onChange={handleChange}/>
-              {/* {errors.name && <p className={style.error}>{errors.name}</p>} */}
             </div>         
 
             <label className={style.label}>Beers: </label>
             <select name='beer' onChange={handleChange}>
               <option value="">Select Beers</option>
               {beers.map((beer) => ( <option key={beer.name} value={beer.name}>{beer.name}</option>))}
-            </select>{/* {errors.beer && (<p className={style.error}>{errors.beer}</p>)}*/}
+            </select>
 
             <div className={style.buttoncreate}>
               <button className={style.button} type="submit">Create</button>
@@ -89,10 +90,33 @@ export default function Admin() {
           </form>
           <button onClick={handleAddBeer}>+</button>
           <div className={style.remove}>
-            {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={elimBeer} className={style.delete}>{beer}</li>)}
+            {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={() => elimBeer(beer.name)} className={style.delete}>{beer}</li>)}
           </div>
         </div>
-      </div>
+      </div> */}
+
+      <form onSubmit={handleSubmit}>
+      <div class="body-background">
+    <div class="container-fluid d-flex justify-content-center align-items-center h-100">
+        <div class="card p-3 text-center py-4">
+            <h4>Create Beer's Category</h4>
+            <div class="mt-3 px-3"> <input class="form-control" placeholder="Name" value={input.name} name="name" autoComplete='off' onChange={handleChange}/> </div><br />
+
+            <select name='beer' onChange={handleChange} class="form-select" aria-label="Default select example">
+              <option selected >Select Beers</option>
+              {beers.map((beer) => ( <option key={beer.name} value={beer.name}>{beer.name}</option>))}
+            </select>
+            <div class="mt-3 d-grid px-3"> <button class="btn btn-primary btn-block text-uppercase" onClick={handleAddBeer}> <span>+</span> </button> </div>
+            <div className={style.remove}>
+            {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={() => elimBeer(beer.name)} >{beer}  </li>)}
+          </div>
+
+            <div class="mt-3 d-grid px-3"> <button class="btn btn-primary btn-block btn-signup text-uppercase" type="submit"> <span>Create Category</span> </button> </div>
+        </div>
+    </div>
+</div>
+    </form>
+
     </div>
   );
 }
