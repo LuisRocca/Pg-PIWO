@@ -19,18 +19,20 @@ export default function Search(){
         }
     };
     return(
-        <form  >
-            <input className="search_bar"
-            type="text"
-            placeholder="Busca la cerveza que desees"
-            autoComplete="off"
-            value={name} 
-            onChange={(e) => handleChange(e)}
-        />
-        <input type= "submit"
-        onClick= {(e)=> handleSubmit(e)}
-        />
-    </form>
+        <form className="d-flex">
+            <input className="form-control me-2"
+                type="text"
+                placeholder="Find your fav Beer"
+                aria-label="Search"
+                autoComplete="off"
+                value={name} 
+                onChange={(e) => handleChange(e)}
+            />
+            <button className="btn btn-outline-success" type= "submit"
+                onClick= {(e)=> handleSubmit(e)}
+                >Search
+            </button>
+        </form>
     )}
 
 

@@ -2,6 +2,7 @@ const server = require("express").Router();
 const nodemailer = require("nodemailer");
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
+const LocalStrategy = require('passport-local');
 const { User: User } = require('../db.js');
 const { Beer: Beer } = require('../db.js');
 const { Order: Order } = require('../db.js');
@@ -9,7 +10,16 @@ const { OrderBeer: OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({where :{ username: username }}, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
 //Crea ruta que devuelva usuarios//
 //Get/users//
 server.get('/', (req, res,next) => {
@@ -185,12 +195,20 @@ server.get('/:idUser/orders', (req, res) => {
 //     });
 // });
 
-server.post('/login',
-passport.authenticate('local'),
-function(req,res){
-  res.json(req.user);
-});
-server.get('/login'), (req, res) => {
+// server.post('/login',
+// passport.authenticate('local'),
+// function(req,res){
+//   res.json(req.user);
+// });
+server.post('/google', 
+  passport.authenticate('local', { failureRedirect: '/google' }),
+  function(req, res) {
+    res.redirect('/beers');
+  });
+
+
+
+server.get('/google'), (req, res) => {
   res.render('Login')
 }
 server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
