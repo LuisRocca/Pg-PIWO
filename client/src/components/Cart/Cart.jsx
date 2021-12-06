@@ -4,6 +4,7 @@ import { addCart, delCart, delAllCart } from '../../Redux/actions';
 // import {Link} from 'react-router-dom';
 import { useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import "../../css/Cart.css"
 
 
 export default function Cart ({id, name, price, image, quantity, total}) {
@@ -36,14 +37,24 @@ export default function Cart ({id, name, price, image, quantity, total}) {
 // },[cart])
 
   return (
-    <div>
+    <div className="cart-cont">
+    <div  className="order">
+      <div className="shopping-cart">
+        <div className="item"> 
       <div>
-        <button onClick={(e) => handleOnClick(e)}>X</button>
+        <button className="button-X" onClick={(e) => handleOnClick(e)}><span> X </span></button>
       </div>
-      <h3>{name}</h3>
-      <h3>US${price}</h3>
-      <img src={image} alt="Not found" height='200vw' weight='200vw'/>
+      <div className="cart-imagen">
+      <img src={image} alt="Not found"/>
+      </div>
+      <h3 className="name-cart">{name}</h3>
+      <div className="quantity">
+      <h3 className="price">US${price}</h3>
       <h4>US${price} x {quantity}u = US${price * quantity}</h4>
+      </div>
+      </div>
+    </div>
+    </div>
     </div>
   )
 }

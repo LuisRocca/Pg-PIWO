@@ -4,6 +4,8 @@ import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Beers.css'
 import { addCart } from '../Redux/actions/index.js';
+import swal from 'sweetalert';
+
 
 export default function Beers ({id, name, impression, aroma, ingredients, flavor, IBU, ABV, history, image, examples, price, stock}) {
 
@@ -12,31 +14,19 @@ const {cart, localCart} = useSelector((state) => state)
 const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
+    swal("Added to the cart successfully!", {
+        buttons: false,
+        icon: 'success',
+        timer: 1500,
+      });
 }
-// if (JSON.parse(window.localStorage.getItem('carrito'))[0] && cart.length == 0 ) {
-//     cart = JSON.parse(window.localStorage.getItem('carrito'))
-// }
-
-// console.log(localCart)
-
-// useEffect(() => {
-//     cart.length>0?
-//     window.localStorage.setItem('carrito', JSON.stringify(cart))
-//     : JSON.stringify(window.localStorage.getItem('carrito'))
-// },[cart])
-// useEffect(() => {
-//     cart.length===0?
-//     window.localStorage.getItem('carrito', JSON.stringify(cart))
-//     : console.log(cart)
-// },[cart])
-
 
     return (
         <div className="box">
             <div class="product">
             <img class='imgbeer'src={image} alt=" " />
 			    <div class="buttons">
-			        <a class="buy" href=" " onClick={(e) => handleClick(e)}>Add to cart</a>
+			        <a id = 'alerting' class="buy" href=" " onClick={(e) => handleClick(e)}>Add to cart</a>
                     <Link to={`/beers/${id}`}>
                         <a class="preview" href=" ">View item</a>
                     </Link>

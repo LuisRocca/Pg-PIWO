@@ -30,6 +30,7 @@ import {
 
 const initialState = {
     beers: [],
+    searchBeer: [],
     allBeers: [],
     beerId: [],
     stylesBeer: [],
@@ -77,18 +78,26 @@ function rootReducer (state = initialState, action) {
         case GET_BEERS_NAME:
             return{
                 ...state,
-                beers:action.payload
+                searchBeer:action.payload
             }
-            case CREATE_USERS: 
-                return { ...state, users: state.users.concat(action.payload) 
-                }
-    
-                case LIST_USERS: {
-                    return {...state, users: state.users.concat(action.payload) }
-                }
-                case LIST_USER: {
-                    return {...state, listUser: action.payload }
-                }
+        case CREATE_USERS: 
+            return { 
+                ...state, 
+                users: state.users.concat(action.payload) 
+            }
+
+        case LIST_USERS: {
+            return {
+                ...state, 
+                users: state.users.concat(action.payload) 
+            }
+        }
+        case LIST_USER: {
+            return {
+                ...state, 
+                listUser: action.payload 
+            }
+        }
 
         case GET_STYLES:
             return{

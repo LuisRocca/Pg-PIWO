@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router'
 import { deleteBeer, getBeers, getBeersDetails, getImgs } from '../../Redux/actions'
 import styles from '../../css/Admin.module.css'
-// import {lapi}
+import NavBar from '../NavBar'
 
 const Admin = () => {
     const dispatch = useDispatch()
@@ -24,6 +24,7 @@ useEffect(() => {
     }, [dispatch]);
     return (
         <div>
+        <NavBar/>
             <Link to="/admin/createCa">
           <button>Admin Panel Ca</button>
             </Link>
