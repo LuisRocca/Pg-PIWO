@@ -25,7 +25,7 @@ export default function Carting () {
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  carrito && carrito.map((e => {
+  cart && cart.map((e => {
     total = total + (e.price * e.quantity);
   }))
 

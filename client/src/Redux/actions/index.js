@@ -169,7 +169,7 @@ export function userAdmin(id) {
   }
   export function loginUser(input) {
     return function (dispatch) {
-      const url = "http://localhost:3001/users/login";
+      const url = "http://localhost:3001/users/google";
       return axios.post(url, input)
       .then(res => res.data)
         .then(data => {
