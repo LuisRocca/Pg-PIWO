@@ -17,7 +17,7 @@ export default function DetailBeer({ props }) {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(props))
-    alert('Added to cart!')
+    alert("add to cart")
 }
 
   const review = useSelector((state) => state.reviews);
@@ -45,19 +45,19 @@ export default function DetailBeer({ props }) {
               </div>
               <div className="right-column">
                 <div>
-                  <h1> {e.name}</h1>
+                  <h1 className="name"> {e.name}</h1>
                 </div>
                 <div>
-                  <h3>ABV: {e.ABV}</h3>
+                  <h3 className="p">ABV: {e.ABV}</h3>
                 </div>
                 <div>
-                  <h3>IBU: {e.IBU}</h3>
+                  <h3 className="p">IBU: {e.IBU}</h3>
                 </div>
                 {/* <div>
                             <h4>HISTORY: {e.history}</h4>
                         </div> */}
                 <div>
-                  <h4>IMPRESSION: {e.impression}</h4>
+                  <h4 className="p">IMPRESSION: {e.impression}</h4>
                 </div>
                 {/* <div>
                             <p>aroma: {e.aroma}</p>
@@ -66,7 +66,7 @@ export default function DetailBeer({ props }) {
                             <p>flavor: {e.flavor}</p>
                         </div> */}
                 <div>
-                  <h4>INGREDIENTS: {e.ingredients}</h4>
+                  <h4 className="p">INGREDIENTS: {e.ingredients}</h4>
                 </div>
                 <div className="product-price">
                   <a href="#" className="cart-btn" onClick={(e) => handleClick(e)}>

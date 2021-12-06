@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCart, delCart, delAllCart} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
+import "../../css/Order.css"
 
 
 export default function Order () {
@@ -40,18 +41,24 @@ export default function Order () {
   }))
 
   return (
-<div>
+
   <div>
-    <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
+  <div>
+    <div className="nav-cart">
+      <div className="name">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Shopping_cart_font_awesome.svg/1200px-Shopping_cart_font_awesome.svg.png" alt="" />
+      </div>
+        <button className="cart-button" onClick={() => history.push('/beers')}>Home</button>
+    </div>
     {cart ? cart.map((e) => {
         return (
-          <div>
+          <div > 
             <div>
                 <Cart 
+                image = {e.image}
                 id = {e.id}
                 name = {e.name}
                 price = {e.price}
-                image = {e.image}
                 quantity = {e.quantity}
                 />
             </div>
@@ -59,10 +66,11 @@ export default function Order () {
             )
     }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
   </div>
-  <h1>TOTAL = US${total}</h1>
-  <div>
-    <button onClick={() => history.push('/beers')}>Back to Home</button>
+  <div className="cart-footer">
+  <h2>TOTAL = US${total}</h2>
+  <a onClick={(e) => clickToDelete(e)}>CLEAR CART</a>
   </div>
   </div>
+
           )
 }
