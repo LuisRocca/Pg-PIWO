@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCart, delCart, delAllCart, setCart} from "../../Redux/actions";
+import { delCart, delAllCart, setCart} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 
@@ -10,24 +9,20 @@ import { useHistory } from 'react-router';
 export default function Carting () {
   const dispatch = useDispatch();
   const history = useHistory()
-  let { cart, otherCart } = useSelector((state) => state)
-  
-  // if (JSON.parse(window.localStorage.getItem('carrito'))[0] && cart.length == 0 ) {
-  //   cart = JSON.parse(window.localStorage.getItem('carrito'))
-  // }
-
+  let { cart } = useSelector((state) => state)
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
+  
   // console.log(carrito)
-  // carrito? carrito.map(el => dispatch(addCart(el.id))): console.log('carrito', carrito)
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  cart && cart.map((e => {
+  cart.length>0 && cart.map(e => {
+    console.log('item', e)
     total = total + (e.price * e.quantity);
-  }))
+  })
 
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
