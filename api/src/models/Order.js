@@ -5,10 +5,8 @@ module.exports = (sequelize) => {
         totalPrice: {
             type: DataTypes.FLOAT,
             allowNull: false
-        } ,status: {
-            type: DataTypes.ENUM('open', 'closed', 'cancelled'),
-            allowNull: false
-        } ,address: {
+        } ,
+         address: {
             type: DataTypes.TEXT,
         }, email: {
             type: DataTypes.STRING,
@@ -17,6 +15,24 @@ module.exports = (sequelize) => {
                 msg: 'No es una dirección de correo electrónico.'
               }
             },
-          }
+          },
+          status:{  
+            type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed'),
+            allowNull: false
+        },
+        payment_id:{
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        payment_status:{
+            type: DataTypes.STRING,
+            defaultValue: ""
+        },
+        merchant_order_id: {
+            type: DataTypes.BIGINT,
+            defaultValue: 0
+        }
+
+          
     });
 };
