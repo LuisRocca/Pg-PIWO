@@ -1,25 +1,13 @@
 const server = require("express").Router();
 const nodemailer = require("nodemailer");
-var bcrypt = require('bcryptjs');
 var passport = require('passport');
-const LocalStrategy = require('passport-local');
-const { User: User } = require('../db.js');
-const { Beer: Beer } = require('../db.js');
-const { Order: Order } = require('../db.js');
-const { OrderBeer: OrderBeer } = require('../db.js');
+const { User } = require('../db.js');
+const { Beer } = require('../db.js');
+const { Order } = require('../db.js');
+const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({where :{ username: username }}, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }
-));
 //Crea ruta que devuelva usuarios//
 //Get/users//
 server.get('/', (req, res,next) => {
@@ -201,28 +189,32 @@ server.get('/:idUser/orders', (req, res) => {
 //   res.json(req.user);
 // });
 server.post('/google', 
-  passport.authenticate('local', { failureRedirect: '/google' }),
-  function(req, res) {
-    res.redirect('/beers');
+  passport.authenticate('local',{failureMessage:"An error appeared"}),
+  async function(req, res) {
+    try {
+      const user=req.user
+      if (user) {
+        res.status(200).json({user})
+      } else {
+        console.log('usuario no encontrado');
+      }
+    } catch (err) {
+      console.log(err);
+    }
   });
 
-
-
-server.get('/google'), (req, res) => {
-  res.render('Login')
-}
 server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
-server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
+//server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
 
-server.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
+// server.get('/google',
+//   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-  server.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('http://localhost:3001/beers');
-  });
+//   server.get('/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/failed' }),
+//   function(req, res) {
+//     // Successful authentication, redirect home.
+//     res.redirect('http://localhost:3001/beers');
+//   });
 
 //Crea ruta de logout//
 //POST /users/logout //
@@ -233,18 +225,16 @@ function(req, res){
   res.send('Usuario deslogueado');
 });
 
-function isAuthenticated(req, res, next) {
-  if(req.isAuthenticated()) {
-    next();
-  } else {
-    return res.json({ 
-        isAdmin: false,
-        message: 'User not authenticated'
-    })
-  }
-}
-
-
+// function isAuthenticated(req, res, next) {
+//   if(req.isAuthenticated()) {
+//     next();
+//   } else {
+//     return res.json({ 
+//         isAdmin: false,
+//         message: 'User not authenticated'
+//     })
+//   }
+// }
 
 function isAdmin(req, res, next) {
     if(req.user.admin === true) {
@@ -256,21 +246,21 @@ function isAdmin(req, res, next) {
 
 //GET /users/me //
 
-server.get('/me',
-isAuthenticated,
-function(req, res){
-  return res.json(req.user);
-});
+// server.get('/me',
+// isAuthenticated,
+// function(req, res){
+//   return res.json(req.user);
+// });
 
-server.get('/admin',
-    isAuthenticated,
-    isAdmin,
-    function(req, res){
-    res.json(req.user);
-    {
-    res.status(401).send('No eres Administrador');  
-    }
-});
+// server.get('/admin',
+//     isAuthenticated,
+//     isAdmin,
+//     function(req, res){
+//     res.json(req.user);
+//     {
+//     res.status(401).send('No eres Administrador');  
+//     }
+// });
 
 // server.get('/me',(req, res) => {
 //     if (req.session.user && req.cookies.user_sid) {
