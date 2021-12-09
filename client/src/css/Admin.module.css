@@ -1,7 +1,6 @@
 .section{
     width: 100%;
-    overflow: scroll;
-    padding: 30px;
+    overflow: visible;
     position: relative;
 }
 .containerBeer{
@@ -29,27 +28,6 @@
     height: 150px;
     width: 70px;
     object-fit: cover;
-}
-
-.icon1{
-    position: absolute;
-    top: 1px;
-    right: 31px;
-    height: 30px;
-    width: 30px;
-    background-image: url('./img/icons8-delete-64.png');
-    background-size: cover;
-    /* background-repeat: no-repeat; */
-}
-.icon2{
-    position: absolute;
-    top: 1px;
-    right: 1px;
-    height: 30px;
-    width: 30px;
-    background-image: url('./img/icons8-pencil-50.png');
-    background-size: cover;
-    /* background-repeat: no-repeat; */
 }
 .h6{
     margin: 0px;

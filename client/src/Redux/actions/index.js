@@ -36,12 +36,14 @@ export const ADD_CART = 'ADD_CART'
 export const DEL_CART = 'DEL_CART'
 export const DEL_ALL_CART = 'DEL_ALL_CART'
 export const MOD_CART = 'MOD_CART'
+export const QUANTITY_ITEM = 'QUANTITY_ITEM'
 // '-----> ORDENAMIENTO'
 export const ORDER_CATEGORY = 'ORDER_CATEGORY';
 export const ORDER_ALCOHOL = 'ORDER_ALCOHOL';
 export const ORDER_BEERS = 'ORDER_BEERS';
 export const ORDER_PRICE = 'ORDER_PRICE';
 export const ORDER_IBU = 'ORDER_IBU';
+export const STYLE_FILTERED = 'STYLE_FILTER'   
 
 
 export function getBeers () {
@@ -243,7 +245,7 @@ export function userAdmin(id) {
 
 
 export function addCart(id){
-    return async function (dispatch, getState){
+    return async function (dispatch){
         try{
             dispatch({
                 type: ADD_CART, 
@@ -255,6 +257,13 @@ export function addCart(id){
             console.log(err)
         }
     }   
+}
+export const quantity_item = (payload) => dispatch => {
+    try {
+        return dispatch({type:QUANTITY_ITEM, payload})
+    } catch (err){
+        console.log(err)
+    }
 }
 
 export function postUser(payload){
@@ -356,11 +365,10 @@ export function editBeer(payload){
 }
 export function deleteBeer (id) {
     return async function (dispatch) {
-        try {
-            let {data} = await axios.delete(`http://localhost:3001/beers/${id}`)
+        try {   
+            await axios.delete(`http://localhost:3001/beers/${id}`)
             // console.log("codigo hermoso 2 desaparecido",data)
-            alert(data)
-            return dispatch({type: DELETE_BEER})
+            return dispatch({type: DELETE_BEER, payload: id})
         }
         catch (err) {
             console.log(err);
@@ -424,7 +432,8 @@ export function setCart (payload) {
             console.log(err)
         }
     }
-}
+} 
+export const styleFilter = (payload) => dispatch => dispatch({type:STYLE_FILTERED, payload})
 
 export function setUser (payload) {
     return async function (dispatch) {

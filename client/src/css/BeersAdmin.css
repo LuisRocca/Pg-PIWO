@@ -1,0 +1,175 @@
+:root{
+  --background-color-icons: rgba(255, 99, 71, 0.822);
+}
+.box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 0px 12px;
+  }
+  .product {
+    display: block;
+    position: relative;
+    height: 270px;
+    width: 250px;
+    overflow: hidden;
+  }
+  
+  .product:hover .buttons,
+  .product:hover a {
+    opacity: 1;
+  }
+  
+  .buttons a {
+    display: block;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    width: 190px;
+    border-radius: 2px;
+    padding: 15px 40px;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0;
+    text-align: center;
+  }
+  .info {
+    padding: 20px;
+    display: block;
+    position: relative;
+    font-size: 20px;
+  }
+  .info h4 {
+    position: relative;
+    padding: 0 0 20px 0;
+    margin: 0 0 20px 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 25px;
+    color: #372f2b;
+    letter-spacing: -1px;
+  }
+  
+  .info h4::after {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    content: "";
+    width: 40px;
+    height: 2px;
+    background: #3b86c4;
+  }
+  .info .description {
+    display: block;
+    padding-bottom: 20px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5f5f5f;
+  }
+  .info .price {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #0a0a09;
+    line-height: 26px;
+  }
+  .buy_now {
+    float: right;
+    position: relative;
+    top: -5px;
+    display: block;
+    padding: 10px 10px;
+    border-radius: 3px;
+  
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 15px;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+  
+    background: #3498db;
+  
+    -webkit-transition: background-position 0.2s ease-in;
+    -ms-transition: background-position 0.2s ease-in;
+    -moz-transition: background-position 0.2s ease-in;
+    -o-transition: background-position 0.2s ease-in;
+    transition: background-position 0.2s ease-in;
+  
+    box-shadow: 0 3px 0 #2980b9;
+  }
+  .details {
+    border-top: 1px solid #e5e5e5;
+    padding: 18px 20px;
+  }
+  .stock {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #372f2b;
+    background-position: 0 2px;
+  }
+  .imgbeer{
+    object-fit: contain;
+  }
+  
+  .alert {
+    display: none;
+  }
+  .iconDelete{
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    background-image: url('./img/icons8-delete-64.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+  }
+  .iconDelete:hover{
+    cursor: pointer;
+    transition: 1000ms;
+    background-color: var(--background-color-icons);
+  }
+  .iconPencil{
+    position:absolute;
+    top: 31px;
+    left: 1px;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    background-image: url('./img/icons8-pencil-50.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+  }
+  .iconPencil:hover{
+    cursor: pointer;
+    transition: 1000ms;
+    background-color: var(--background-color-icons);
+  }
+  .iconEye {
+    position:absolute;
+    top: 61px;
+    left: 1px;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    background-image: url('./img/icons8-eye-50.png');
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+  }
+  .iconEye:hover{
+    cursor: pointer;
+    transition: 1000ms;
+    background-color: var(--background-color-icons);
+  }

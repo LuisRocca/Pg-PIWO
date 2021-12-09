@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import '../css/Beers.css'
 import { addCart } from '../Redux/actions/index.js';
@@ -8,12 +7,12 @@ import swal from 'sweetalert';
 
 
 export default function Beers ({id, name, impression, aroma, ingredients, flavor, IBU, ABV, history, image, examples, price, stock}) {
-
+const {cart} = useSelector(s => s)
 const dispatch = useDispatch()
-const {cart, localCart} = useSelector((state) => state)
 const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
+    console.log('cart', cart)
     swal("Added to the cart successfully!", {
         buttons: false,
         icon: 'success',

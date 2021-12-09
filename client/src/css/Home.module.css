@@ -1,12 +1,13 @@
 .select{
     width: 100%;
-    overflow: scroll;
-    padding: 30px;
+    margin: 50px 0px 0px 20px;
+    overflow: auto;
+    padding: 0px;
     position: relative;
 }
 .containerBeer{
     white-space: nowrap;
-    margin: 70px 70px;
+    margin: 0px;
     padding-bottom: 10px; 
     display: flex;
     flex-direction: row;
