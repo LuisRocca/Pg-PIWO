@@ -46,11 +46,15 @@ Beer.belongsToMany(User, {through: 'user_beer'})
 Category.belongsToMany(Beer, {through: 'category_beer'}) //tabla intermedia
 Beer.belongsToMany(Category, {through: 'category_beer'})
 User.hasMany(Order)
+
+// Relaciones de Una orden solo puede tener 1 Usuario
 Order.belongsTo(User)
 
+// Relaciones de 
 Order.hasMany(OrderBeer)
 OrderBeer.belongsTo(Order)
 
+// Relaciones de 
 Beer.hasMany(OrderBeer)
 OrderBeer.belongsTo(Beer)
 

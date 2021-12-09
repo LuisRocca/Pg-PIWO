@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import "../css/LadingPage.css"
+import "../css/LandingPage.css"
 import Arrow from '../css/img/arrow.svg';
 
 
