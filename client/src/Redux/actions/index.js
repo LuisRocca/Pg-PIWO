@@ -1,4 +1,8 @@
 import axios from 'axios';
+import swal from 'sweetalert';
+
+
+
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
 export const GET_BEERS_NAME = 'GET_BEERS_NAME'
@@ -11,6 +15,7 @@ export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
 export const CREATE_BEER = 'CREATE_BEER'
 export const SET_CART = 'SET_CART'
+export const SET_USER = 'SET_USER'
 
 
 export const CREATE_USERS = 'CREATE_USERS'
@@ -170,12 +175,23 @@ export function userAdmin(id) {
   export function loginUser(input) {
     return function (dispatch) {
       const url = "http://localhost:3001/users/google";
-      return axios.post(url, input)
-      .then(res => res.data)
+      return axios.post(url, {username: input.username, password: input.password})
+      .then(res => {
+          console.log('res:', res)
+          return res.data})
         .then(data => {
+            // if (Response.status(data) === )
+            // console.log(data);
+            window.localStorage.setItem('login', JSON.stringify(data.user))
            dispatch({ type: LOGIN_USER, payload: data })
         })
-        .catch(error => alert(error, "No se pudo iniciar sesion"))
+        .catch(err => swal("Error", {
+            buttons: false,
+            icon: 'error',
+            timer: 1500,
+            })
+        )
+            
     }
   }
   
@@ -408,4 +424,15 @@ export function setCart (payload) {
             console.log(err)
         }
     }
-} 
+}
+
+export function setUser (payload) {
+    return async function (dispatch) {
+        try {
+            return dispatch({type: SET_USER, payload})
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}

@@ -65,6 +65,11 @@ export default function Carting () {
   <div>
     <button onClick={() => history.push('/beers')}>Back to Home</button>
   </div>
+  <div>
+      <Link to="/order">
+          <button>Checkout</button>
+      </Link>
+  </div>
   </div>
           )
 }

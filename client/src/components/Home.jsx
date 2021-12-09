@@ -57,10 +57,7 @@ export default function Home () {
         dispatch(getBeers())
         stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
     }, [dispatch, stylesBeer])
-    // console.log(beers[0])
-    // console.log('Styles' ,stylesBeer)
-    // console.log(stylesBeer)
-    // console.log('encontrados',searchBeer)
+
     return (
         <div>
             <NavBar />
