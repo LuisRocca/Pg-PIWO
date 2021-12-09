@@ -25,7 +25,8 @@ import {
         ORDER_BEERS,
         ORDER_IBU,
         ORDER_PRICE,
-        SET_CART
+        SET_CART,
+        SET_USER
     } from "../actions"
 
 
@@ -318,6 +319,12 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 cart: action.payload
+            }
+
+        case SET_USER:
+            return {
+                ...state,
+                user: action.payload
             }
         default:
             return state;
