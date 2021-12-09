@@ -195,11 +195,12 @@ server.post('/google',
       const user=req.user
       if (user) {
         res.status(200).json({user})
+        // res.redirect('/beers')
       } else {
         console.log('usuario no encontrado');
       }
     } catch (err) {
-      console.log(err);
+      res.status(400).json({msg: 'esto fallo'}) 
     }
   });
 
@@ -225,16 +226,16 @@ function(req, res){
   res.send('Usuario deslogueado');
 });
 
-// function isAuthenticated(req, res, next) {
-//   if(req.isAuthenticated()) {
-//     next();
-//   } else {
-//     return res.json({ 
-//         isAdmin: false,
-//         message: 'User not authenticated'
-//     })
-//   }
-// }
+function isAuthenticated(req, res, next) {
+  if(req.isAuthenticated()) {
+    next();
+  } else {
+    return res.json({ 
+        isAdmin: false,
+        message: 'User not authenticated'
+    })
+  }
+}
 
 function isAdmin(req, res, next) {
     if(req.user.admin === true) {
@@ -246,11 +247,11 @@ function isAdmin(req, res, next) {
 
 //GET /users/me //
 
-// server.get('/me',
-// isAuthenticated,
-// function(req, res){
-//   return res.json(req.user);
-// });
+server.get('/me',
+isAuthenticated,
+function(req, res){
+  return res.json(req.user);
+});
 
 // server.get('/admin',
 //     isAuthenticated,

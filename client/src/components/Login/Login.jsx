@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom'
-import { useDispatch } from "react-redux"
-import { loginUser, LIST_USERS } from "../../Redux/actions/index.js";
+import { useDispatch, useSelector } from "react-redux"
+import { loginUser, LIST_USERS, setUser } from "../../Redux/actions/index.js";
+import { useEffect } from "react";
 import "./Login.css";
 import NavBar from '../NavBar.jsx';
 import swal from 'sweetalert';
@@ -11,18 +13,45 @@ const Form = () => {
     
 const dispatch = useDispatch();
 const history = useHistory();
-
-    const [input,setInput] = useState({
-        username: '',
-        password: '',
+const user = useSelector(state => state.user)
+const [input,setInput] = useState({
+    username: '',
+    password: '',
 });
+const local = window.localStorage.getItem('login')
+// let user = JSON.parse(window.localStorage.getItem('login'));
+// console.log('este es el que acab 21liunea', user) 
 
-
-function User(e) {
-    e.preventDefault();
-    dispatch(loginUser(input))
-    setInput({username: '',password: ''})
+if ( !user.name && local) {
+    dispatch(setUser(local))
+  }
+        
+  useEffect(() => {
+    local.name?
     history.push('/beers')
+    : JSON.stringify(window.localStorage.getItem('login'))
+},[user])
+
+    function User (e) {
+    e.preventDefault();
+    // console.log('antes del dispa ',user)
+    axios.post("http://localhost:3001/users/google", input)
+    .then(res =>{
+        if(res.status === 200){
+            window.localStorage.setItem('login', JSON.stringify(res.data.user))
+            history.push('/beers')
+        }
+    })
+    .catch(err => 
+        swal("Error", {
+        buttons: false,
+        icon: 'error',
+        timer: 1500,
+        }
+        )
+        )
+    setInput({username: '',password: ''})   
+    // history.push('/beers')
         // swal("Error", {
         // buttons: false,
         // icon: 'error',
@@ -30,6 +59,10 @@ function User(e) {
         // }
         // )
     }
+
+
+
+    
     // .then(()=>{
     //     history.push('/users/google')
     //     window.location.reload();
@@ -47,34 +80,6 @@ function User(e) {
 return (
     <div>
         <NavBar/>
-    {/* <div className="form">
-        <div className="sesion">Iniciar Sesión</div>
-        <form onSubmit={(e) => User(e)}>
-            <div >
-                <input className="input" type="username" placeholder="Username" value={input.username} onChange={e => setInput({ ...input, username: e.target.value })} required />
-            </div>
-            <div >
-                <input className="input" type="password" placeholder="Contraseña" value={input.password} onChange={e => setInput({ ...input, password: e.target.value })} required />
-            </div>
-            <div className="boton">
-                    <input className="submit" type="submit" value="INICIAR SESIÓN" />
-                    <a href = "http://localhost:3000/users/google">
-                    <div className="google-btn">
-                        <div className="google-icon-wrapper">
-                            <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-                        </div>
-                        <p className="btn-text"><b>Iniciar sesión con Google</b></p>
-                    </div>
-                    </a>
-                </div>
-                <div className="login">No tenes cuenta?
-                        <Link className="nav-link" to='/createuser'>
-                        Registrate
-                        </Link>
-                </div>
-            </form>
-            <small>Piwo e-commerce</small>
-        </div> */}
         <form onSubmit={(e) => User(e)}>
                 <div class="container d-flex justify-content-center align-items-center">
             <div class="card">
@@ -87,7 +92,9 @@ return (
                         <input type="password" class="form-control" placeholder="Password" value={input.password} onChange={e => setInput({ ...input, password: e.target.value })} required/> 
                         <a href=" # ">Forgot?</a> 
                     </div> 
-                    <button class="btn btn-danger btn-block continue" type='submit' href='http://localhost:3000/users/google'>Continue</button>
+                    {/* <Link to="/users/google"> */}
+                        <button class="btn btn-danger btn-block continue" type='submit' href='http://localhost:3000/users/google'>Continue</button>
+                    {/* </Link> */}
                     <div class="d-flex justify-content-center align-items-center mt-3 mb-3"> 
                         <span class="line"></span> 
                         <small class="px-2 line-text">OR</small> 
