@@ -10,6 +10,7 @@ import {
         ADD_BEERS_OF_CATEGORY,
         DELETE_BEERS_CATEGORY,
         CREATE_USERS,
+        LOGIN_USER,
         LIST_USERS,
         LIST_USER,
         ADD_CART,
@@ -24,7 +25,8 @@ import {
         ORDER_BEERS,
         ORDER_IBU,
         ORDER_PRICE,
-        SET_CART
+        SET_CART,
+        SET_USER
     } from "../actions"
 
 
@@ -96,6 +98,13 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state, 
                 listUser: action.payload 
+            }
+        }
+
+        case LOGIN_USER: {
+            return {
+                ...state,
+                user: action.payload
             }
         }
 
@@ -310,6 +319,12 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 cart: action.payload
+            }
+
+        case SET_USER:
+            return {
+                ...state,
+                user: action.payload
             }
         default:
             return state;
