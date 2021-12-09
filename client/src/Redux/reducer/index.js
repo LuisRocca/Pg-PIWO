@@ -10,6 +10,7 @@ import {
         ADD_BEERS_OF_CATEGORY,
         DELETE_BEERS_CATEGORY,
         CREATE_USERS,
+        LOGIN_USER,
         LIST_USERS,
         LIST_USER,
         ADD_CART,
@@ -96,6 +97,13 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state, 
                 listUser: action.payload 
+            }
+        }
+
+        case LOGIN_USER: {
+            return {
+                ...state,
+                user: action.payload
             }
         }
 

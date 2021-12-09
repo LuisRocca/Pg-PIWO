@@ -4,29 +4,46 @@ import { useDispatch } from "react-redux"
 import { loginUser, LIST_USERS } from "../../Redux/actions/index.js";
 import "./Login.css";
 import NavBar from '../NavBar.jsx';
+import swal from 'sweetalert';
 
 
 const Form = () => {
+    
+const dispatch = useDispatch();
+const history = useHistory();
+
     const [input,setInput] = useState({
         username: '',
         password: '',
 });
 
-const dispatch = useDispatch();
-const history = useHistory();
 
 function User(e) {
     e.preventDefault();
     dispatch(loginUser(input))
-    .then(()=>{
-        history.push('/')
-        window.location.reload();
-    })
-    setInput({
-        username: '',
-        password: ''
-    })
-}
+    setInput({username: '',password: ''})
+    history.push('/beers')
+        // swal("Error", {
+        // buttons: false,
+        // icon: 'error',
+        // timer: 1500,
+        // }
+        // )
+    }
+    // .then(()=>{
+    //     history.push('/users/google')
+    //     window.location.reload();
+    // })
+    // swal("Logged in successfully!", {
+    //     buttons: false,
+    //     icon: 'success',
+    //     timer: 1500,
+    //   });
+    // setInput({
+    //     username: '',
+    //     password: ''
+    // })
+
 return (
     <div>
         <NavBar/>

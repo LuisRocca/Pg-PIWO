@@ -170,9 +170,10 @@ export function userAdmin(id) {
   export function loginUser(input) {
     return function (dispatch) {
       const url = "http://localhost:3001/users/google";
-      return axios.post(url, input)
+      return axios.post(url, {username: input.username, password: input.password})
       .then(res => res.data)
         .then(data => {
+            console.log(data);
            dispatch({ type: LOGIN_USER, payload: data })
         })
         .catch(error => alert(error, "No se pudo iniciar sesion"))
