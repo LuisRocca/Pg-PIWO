@@ -27,11 +27,11 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
           res.status(201).json(rev);
         });
       }).catch((err) => {
-              console.log(err , "este es el segundo then --> error")  
+              // console.log(err , "este es el segundo then --> error")  
               res.status(400).send(err)
               })
              }) .catch((err) => {
-                console.log(err, "este es el primer then")
+                // console.log(err, "este es el primer then")
                 res.status(400).send(err)
                  })
   });
@@ -50,7 +50,7 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
     }) .then((newData)=>{
         res.status(200).send(newData)
     }) .catch((error)=>{
-        console.log(error)
+        // console.log(error)
         res.status(400).send(error)
     })
 
@@ -74,10 +74,10 @@ router.post("/beer/:idBeer/user/:idUser", (req, res) => {
           }    
        }) 
        const data = await Promise.all(resul)
-       console.log("77 linea", data)
+      //  console.log("77 linea", data)
         res.status(200).json(data) 
     }) .catch((err)=>{
-        console.log(err)
+        // console.log(err)
           res.status(400).json(err)
         })
   });

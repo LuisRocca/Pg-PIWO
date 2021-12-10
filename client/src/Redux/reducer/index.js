@@ -28,7 +28,14 @@ import {
         SET_CART,
         STYLE_FILTERED,
         QUANTITY_ITEM,
-        SET_USER
+        SET_USER,
+        POST_REVIEW_USER,
+        PUT_REVIEW_USER,
+        POST_ORDER_USER,
+        GET_ORDER_USER
+
+
+
     } from "../actions"
 
 
@@ -45,7 +52,8 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
-    imgs: []
+    imgs: [],
+    orders: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -348,6 +356,30 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 user: action.payload
             }
+
+        case POST_REVIEW_USER:
+            return {
+                ...state,
+                // reviews: action.payload
+            }
+        
+        case PUT_REVIEW_USER:
+            return {
+                ...state,
+            }
+
+        case POST_ORDER_USER:
+            return {
+                ...state,
+                orders: state.orders.concat(action.payload)
+            }
+
+        case GET_ORDER_USER:
+            return {
+                ...state,
+                orders: action.payload
+            }
+        
         default:
             return state;
         

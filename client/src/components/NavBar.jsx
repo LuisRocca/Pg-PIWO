@@ -14,6 +14,7 @@ function NavBar (){
 
   const handleClick = () => {
     window.localStorage.removeItem('login')
+    window.localStorage.removeItem('carrito')
     window.location.reload()
   }
 
@@ -38,8 +39,10 @@ function NavBar (){
                       <a className="nav-link" href="/users/google" onClick={window.localStorage.setItem('login', JSON.stringify(login))}>Login</a>
                     </li>
                     }
-                    <li className="nav-item" onClick={() => history.push('/order')}>
+                    <li className="nav-item">
+                    <Link to="/order">
                       <a className="nav-link" href=" " >Orders</a>
+                    </Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/cart">
@@ -58,8 +61,11 @@ function NavBar (){
                       </ul>  
                     </li>}
                     <div>
-                      
-                     <button onClick={(e) => handleClick(e)}>LogOut</button>
+                    {user.name &&
+                    <li className="nav-item">
+                      <a className="nav-link active" aria-current="page" href=" " onClick={((e) => handleClick(e))}>Logout</a>
+                    </li>
+                    }  
                     </div>
                   </ul>
                   {/* <form class="d-flex">
