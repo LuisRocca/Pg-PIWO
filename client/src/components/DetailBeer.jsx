@@ -24,6 +24,13 @@ export default function DetailBeer({ props }) {
       timer: 1500,
     });
 }
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+  }
+const user = JSON.parse( window.localStorage.getItem('login'))
+console.log(user)
 
   const review = useSelector((state) => state.reviews);
   const beersDetail = useSelector((state) => state.beerId);
@@ -85,7 +92,7 @@ export default function DetailBeer({ props }) {
       )}
       <div className="container-review" >
         <div >
-          {review &&
+          {review.length > 0 ?
             review.map((re) => (
               <div className="review-colomn" >
                 <div  >
@@ -98,7 +105,14 @@ export default function DetailBeer({ props }) {
                   <h4>Comentario: {re.review.commentary}</h4>
                 </div>
               </div>
-            ))}
+            )) 
+          : user.name ?
+          <form >
+             <input type='text' placeholder="comentario" ></input>
+             <input type='number' placeholder="valoracion" ></input>
+          </form>
+          : <h2>nada</h2>
+          }
         </div>
         
       </div>
