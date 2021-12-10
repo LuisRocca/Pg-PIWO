@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 
 export default function Home () { 
     const dispatch = useDispatch();
-    const { beers, stylesBeer, allStyles }= useSelector((state) => state)
+    const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
     // const history = useHistory()
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
@@ -43,13 +43,14 @@ export default function Home () {
      }
 
     useEffect(() => {
-        beers.length>0?console.log('Beers:', beers)
+        beers.length>0?console.log('Beers:')
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
     }, [dispatch, beers])
     // console.log(beers[0])
     // console.log(stylesBeer)
     // console.log('encontrados',searchBeer) 
+    console.log(orders);
     return (
         <div>
             <NavBar />

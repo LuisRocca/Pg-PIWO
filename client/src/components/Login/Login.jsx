@@ -47,9 +47,7 @@ if ( !user.name && local) {
         buttons: false,
         icon: 'error',
         timer: 1500,
-        }
-        )
-        )
+        }))
     setInput({username: '',password: ''})   
     // history.push('/beers')
         // swal("Error", {

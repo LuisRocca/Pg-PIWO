@@ -2,15 +2,22 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
     sequelize.define('order', {
+        quantity: {
+          type: DataTypes.FLOAT,
+          allowNull: true
+        },
         totalPrice: {
             type: DataTypes.FLOAT,
             allowNull: false
-        } ,status: {
+        },
+         status: {
             type: DataTypes.ENUM('open', 'closed', 'cancelled'),
             allowNull: false
-        } ,address: {
+        },
+         address: {
             type: DataTypes.TEXT,
-        }, email: {
+        },
+         email: {
             type: DataTypes.STRING,
             validate: {
               isEmail: {

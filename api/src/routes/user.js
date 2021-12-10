@@ -7,7 +7,7 @@ const { Order } = require('../db.js');
 const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-
+ 
 //Crea ruta que devuelva usuarios//
 //Get/users//
 server.get('/', (req, res,next) => {
@@ -64,24 +64,43 @@ server.delete('/:id', (req, res) => {
 
 //Crea ruta para agregar item al carrito
 //Post/users/:iduser/cart
-server.post('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findOrCreate({
-          where: { beerId: req.body.beerId, orderId: order[0].id, },
-          defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
-      }).then(orderBeer => {
-          if (orderBeer[1]) res.status(200).json(orderBeer[0])
-          else {
-              let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
-              orderBeer[0].update({
-                  quantity: cantidad
-              }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
-          }
-      }).catch(error => { res.status(400).json({ error }) })
-  }).catch(error => { res.status(400).json({ error }) })
+// server.post('/:idUser/cart', (req, res) => {
+//   Order.findOrCreate({
+//       where: { userId: req.params.idUser, status: "open" },
+//       defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
+//   }).then(order => {
+//       OrderBeer.findOrCreate({
+//           where: { beerId: req.body.beerId, orderId: order[0].id, },
+//           defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
+//       }).then(orderBeer => {
+//           if (orderBeer[1]) res.status(200).json(orderBeer[0])
+//           else {
+//               let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
+//               orderBeer[0].update({
+//                   quantity: cantidad
+//               }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
+//           }
+//       }).catch(error => { res.status(400).json({ error }) })
+//   }).catch(error => { res.status(400).json({ error }) })
+// })
+
+server.post('/:idUser/cart', async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.idUser)
+    // console.log(user.dataValues);
+    let order = await Order.create({
+        userId: req.params.idUser,
+        status: 'open', 
+        address: user.address, 
+        email: user.email, 
+        totalPrice: req.body.totalPrice,
+        quantity: req.body.quantity
+    })
+    console.log(order);
+    res.status(200).json(order)
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 
@@ -89,16 +108,15 @@ server.post('/:idUser/cart', (req, res) => {
 //GET/users/:idUser/cart//
 //El carrito de un usuario va a ser la ultima "order" que tenga usuario. es decir se cierra orden ===> se crea una nueva//
 
-server.get('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findAll({
-          where: { orderId: order[0].id },
-          include: [{ model: Beer }, { model: Order }]
-      }).then(orderBeers => { res.json(orderBeers); }).catch(error => { res.status(400).json({ error }) })
-  })
+server.get('/:idUser/cart', async (req, res) => {
+  try {
+   let ar = await Order.findAll({
+      where: { userId: req.params.idUser },
+    })
+    res.status(200).json(ar)
+  } catch (err) {
+    res.json({msg: err})
+  }
 })
 
 //Crea ruta para poder vaciar el carrito//
