@@ -1,25 +1,13 @@
 const server = require("express").Router();
 const nodemailer = require("nodemailer");
-var bcrypt = require('bcryptjs');
 var passport = require('passport');
-const LocalStrategy = require('passport-local');
-const { User: User } = require('../db.js');
-const { Beer: Beer } = require('../db.js');
-const { Order: Order } = require('../db.js');
-const { OrderBeer: OrderBeer } = require('../db.js');
+const { User } = require('../db.js');
+const { Beer } = require('../db.js');
+const { Order } = require('../db.js');
+const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({where :{ username: username }}, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
-    });
-  }
-));
+ 
 //Crea ruta que devuelva usuarios//
 //Get/users//
 server.get('/', (req, res,next) => {
@@ -76,24 +64,43 @@ server.delete('/:id', (req, res) => {
 
 //Crea ruta para agregar item al carrito
 //Post/users/:iduser/cart
-server.post('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findOrCreate({
-          where: { beerId: req.body.beerId, orderId: order[0].id, },
-          defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
-      }).then(orderBeer => {
-          if (orderBeer[1]) res.status(200).json(orderBeer[0])
-          else {
-              let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
-              orderBeer[0].update({
-                  quantity: cantidad
-              }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
-          }
-      }).catch(error => { res.status(400).json({ error }) })
-  }).catch(error => { res.status(400).json({ error }) })
+// server.post('/:idUser/cart', (req, res) => {
+//   Order.findOrCreate({
+//       where: { userId: req.params.idUser, status: "open" },
+//       defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
+//   }).then(order => {
+//       OrderBeer.findOrCreate({
+//           where: { beerId: req.body.beerId, orderId: order[0].id, },
+//           defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
+//       }).then(orderBeer => {
+//           if (orderBeer[1]) res.status(200).json(orderBeer[0])
+//           else {
+//               let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
+//               orderBeer[0].update({
+//                   quantity: cantidad
+//               }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
+//           }
+//       }).catch(error => { res.status(400).json({ error }) })
+//   }).catch(error => { res.status(400).json({ error }) })
+// })
+
+server.post('/:idUser/cart', async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.idUser)
+    // console.log(user.dataValues);
+    let order = await Order.create({
+        userId: req.params.idUser,
+        status: 'open', 
+        address: user.address, 
+        email: user.email, 
+        totalPrice: req.body.totalPrice,
+        quantity: req.body.quantity
+    })
+    console.log(order);
+    res.status(200).json(order)
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 
@@ -101,16 +108,15 @@ server.post('/:idUser/cart', (req, res) => {
 //GET/users/:idUser/cart//
 //El carrito de un usuario va a ser la ultima "order" que tenga usuario. es decir se cierra orden ===> se crea una nueva//
 
-server.get('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findAll({
-          where: { orderId: order[0].id },
-          include: [{ model: Beer }, { model: Order }]
-      }).then(orderBeers => { res.json(orderBeers); }).catch(error => { res.status(400).json({ error }) })
-  })
+server.get('/:idUser/cart', async (req, res) => {
+  try {
+   let ar = await Order.findAll({
+      where: { userId: req.params.idUser },
+    })
+    res.status(200).json(ar)
+  } catch (err) {
+    res.json({msg: err})
+  }
 })
 
 //Crea ruta para poder vaciar el carrito//
@@ -201,28 +207,33 @@ server.get('/:idUser/orders', (req, res) => {
 //   res.json(req.user);
 // });
 server.post('/google', 
-  passport.authenticate('local', { failureRedirect: '/google' }),
-  function(req, res) {
-    res.redirect('/beers');
+  passport.authenticate('local',{failureMessage:"An error appeared"}),
+  async function(req, res) {
+    try {
+      const user=req.user
+      if (user) {
+        res.status(200).json({user})
+        // res.redirect('/beers')
+      } else {
+        console.log('usuario no encontrado');
+      }
+    } catch (err) {
+      res.status(400).json({msg: 'esto fallo'}) 
+    }
   });
 
-
-
-server.get('/google'), (req, res) => {
-  res.render('Login')
-}
 server.get('/failed', (req, res) => res.send('No se ha podido logearte con google'))
-server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
+//server.get('/good', isAuthenticated, (req, res) => res.send(`Se pudo logear con google, tu mail es ${req.user.emails[0].value}!`))
 
-server.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
+// server.get('/google',
+//   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-  server.get('/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/failed' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('http://localhost:3001/beers');
-  });
+//   server.get('/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/failed' }),
+//   function(req, res) {
+//     // Successful authentication, redirect home.
+//     res.redirect('http://localhost:3001/beers');
+//   });
 
 //Crea ruta de logout//
 //POST /users/logout //
@@ -244,8 +255,6 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-
-
 function isAdmin(req, res, next) {
     if(req.user.admin === true) {
       next();
@@ -262,15 +271,15 @@ function(req, res){
   return res.json(req.user);
 });
 
-server.get('/admin',
-    isAuthenticated,
-    isAdmin,
-    function(req, res){
-    res.json(req.user);
-    {
-    res.status(401).send('No eres Administrador');  
-    }
-});
+// server.get('/admin',
+//     isAuthenticated,
+//     isAdmin,
+//     function(req, res){
+//     res.json(req.user);
+//     {
+//     res.status(401).send('No eres Administrador');  
+//     }
+// });
 
 // server.get('/me',(req, res) => {
 //     if (req.session.user && req.cookies.user_sid) {

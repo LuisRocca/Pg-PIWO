@@ -1,33 +1,33 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addCart, delCart, delAllCart, setCart} from "../../Redux/actions";
+import { delCart, delAllCart, setCart, createOrder} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
+import swal from 'sweetalert';
 
 
 export default function Carting () {
   const dispatch = useDispatch();
   const history = useHistory()
-  let { cart, otherCart } = useSelector((state) => state)
-  
-  // if (JSON.parse(window.localStorage.getItem('carrito'))[0] && cart.length == 0 ) {
-  //   cart = JSON.parse(window.localStorage.getItem('carrito'))
-  // }
-
+  let { cart } = useSelector((state) => state)
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
+  const user = JSON.parse(window.localStorage.getItem('login'))
+  
   // console.log(carrito)
-  // carrito? carrito.map(el => dispatch(addCart(el.id))): console.log('carrito', carrito)
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
-  cart && cart.map((e => {
+  let totalQuantity = 0;
+  cart.length>0 && cart.map(e => {
+    // console.log('item', e)
     total = total + (e.price * e.quantity);
-  }))
+    totalQuantity = Number(totalQuantity) + Number(e.quantity)
+  })
 
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
@@ -38,6 +38,28 @@ export default function Carting () {
     window.localStorage.setItem('carrito', JSON.stringify(cart))
     : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
+
+
+const handleClick = (e) => {
+  if (user.name) {
+    e.preventDefault()
+    dispatch(createOrder(user.id, {totalPrice: total, quantity: totalQuantity}))
+    history.push('/order')
+    window.localStorage.removeItem('carrito')
+    dispatch(setCart([]))
+  } else {
+    // if (user) {
+      history.push('/users/google')
+      swal("You need to sign in to proceed with this purchase", {
+        buttons: false,
+        icon: 'error',
+        timer: 1500,
+      });
+    // }
+  }
+
+}
+
 
   return (
 
@@ -64,6 +86,9 @@ export default function Carting () {
   <h1>TOTAL = US${total}</h1>
   <div>
     <button onClick={() => history.push('/beers')}>Back to Home</button>
+  </div>
+  <div>
+          <button onClick={(e) => handleClick(e)}>Checkout</button>
   </div>
   </div>
           )
