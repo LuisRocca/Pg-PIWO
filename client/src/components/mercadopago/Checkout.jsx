@@ -2,6 +2,7 @@ import { useEffect} from 'react'
 import s from '../../css/checkout.css';
 
 export default function Checkout({ productos, data }){
+  console.log(data, "linea 5 Checkout")
  useEffect(()=>{
   const script = document.createElement('script'); //Crea un elemento html script
   
@@ -12,7 +13,7 @@ export default function Checkout({ productos, data }){
   script.src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";  
   script.setAttributeNode(attr_data_preference)  
 
-  console.log(data)
+  // console.log(data)
   
   //Agrega el script como nodo hijo del elemento form
   document.getElementById('form1').appendChild(script)
@@ -32,8 +33,8 @@ export default function Checkout({ productos, data }){
             return(
                 <div className={s.products} key={i}>
                   <ul className={s.ul} >
-                    <li>{producto.title}</li>
-                    <li>{'$' + producto.price}</li> 
+                    <li>supuesto titulo {producto.title}</li>
+                    <li>{'$' + producto.totalPrice}</li> 
                     <li>{producto.quantity}</li>
                   </ul>
                 </div>   

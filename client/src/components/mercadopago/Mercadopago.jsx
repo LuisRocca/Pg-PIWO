@@ -15,7 +15,7 @@ export default function Mercadopago() {
     .catch(err => console.error(err)) 
   },[])
 
-
+console.log( 'linea 18 mercadopago',datos)
   const productos = [
     {title: "Producto 1", quantity: 5, price: 10.52},
     {title: "Producto 2", quantity: 15, price: 100.52},
