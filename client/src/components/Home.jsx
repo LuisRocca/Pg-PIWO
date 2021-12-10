@@ -8,6 +8,7 @@ import Beers from "./Beers.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
+import '../css/Slider.module.css';
 
 export default function Home () { 
     const dispatch = useDispatch();
@@ -17,10 +18,10 @@ export default function Home () {
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
 
     const [orderBeers, setorderBeers] = useState('')
-    const [order_Category, setorderCategory] = useState('')
-    const [orderA_lcohol, setorderAlcohol] = useState('')
-    const [order_Price, setorderPrice] = useState('')
-    const [order_IBU, setorderIBU] = useState('')
+    const [orderCategory, setorderCategory] = useState('')
+    const [orderAlcohol, setorderAlcohol] = useState('')
+    const [orderPrice, setorderPrice] = useState('')
+    const [orderIBU, setorderIBU] = useState('')
 
 
      const handleOrderCategory = (e) => {
@@ -62,6 +63,8 @@ export default function Home () {
         <div>
             <NavBar />
          {/* ESTOS SON LOS BOTONES QUE EL DOCTOR SILVIO DEBERIA DE PONER EN EL SIDEBAR */}
+
+         <div>
           <div className='row'>
 
            <div className='col-sm-1'>
@@ -95,6 +98,7 @@ export default function Home () {
                   </select>
             </div>
           </div>
+                         
 
             <div>
                 {searchBeer && searchBeer.length<30 &&
