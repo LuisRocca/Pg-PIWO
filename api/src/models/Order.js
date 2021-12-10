@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
               }
             },
           },
-          status:{  
+        status:{  
             type: DataTypes.ENUM('created', 'processing', 'cancelled', 'completed'),
             allowNull: false
         },
@@ -31,8 +31,6 @@ module.exports = (sequelize) => {
         merchant_order_id: {
             type: DataTypes.BIGINT,
             defaultValue: 0
-        }
-
-          
+        }        
     });
 };

@@ -1,4 +1,4 @@
-const { Order} = require('../models/Order');
+const { Order: Order} = require('../db');
 const server = require('express').Router();
 
 // SDK de Mercado Pago
@@ -90,7 +90,7 @@ server.get("/pagos", (req, res)=>{
     })
     .catch((err) =>{
       console.error('error al salvar', err)
-      return res.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`)
+      return res.redirect(`:http//localhost:3000/?error=${err}&where=al+salvar`)
     })
   })
   .catch(err =>{
