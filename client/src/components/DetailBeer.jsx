@@ -10,37 +10,6 @@ import { useState } from 'react';
 
 export default function DetailBeer({ props }) {
   const dispatch = useDispatch();
-<<<<<<< HEAD
-
-  useEffect(() => {
-    dispatch(getReviews(props));
-    dispatch(getBeersDetails(props));
-  }, [dispatch, props]);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(addCart(props))
-    swal("Added to the cart successfully!", {
-      buttons: false,
-      icon: 'success',
-      timer: 1500,
-    });
-}
- 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-  }
-const user = JSON.parse( window.localStorage.getItem('login'))
-console.log(user)
-
-  const review = useSelector((state) => state.reviews);
-  const beersDetail = useSelector((state) => state.beerId);
-
-  // console.log(beersDetail);
-
-  return (
-=======
   const [input,setInput] = useState({
     calification: '',
     commentary: '',
@@ -100,7 +69,6 @@ console.log(user)
     
     
     return (
->>>>>>> 75333cc9609c13bcef82e404afd8547dda92a158
     <div>
          <Link to="/beers">
           <button className="cart-btn" >Back to home</button>
@@ -155,11 +123,7 @@ console.log(user)
       )}
       <div className="container-review" >
         <div >
-<<<<<<< HEAD
-          {review.length > 0 ?
-=======
         {review.length > 0 ?
->>>>>>> 75333cc9609c13bcef82e404afd8547dda92a158
             review.map((re) => (
               <div>
               <div className="review-colomn" >
@@ -172,21 +136,10 @@ console.log(user)
                 <div  >
                   <h4>Commentary: {re.review.commentary}</h4>
                 </div>
-<<<<<<< HEAD
-              </div>
-            )) 
-          : user.name ?
-          <form >
-             <input type='text' placeholder="comentario" ></input>
-             <input type='number' placeholder="valoracion" ></input>
-          </form>
-          : <h2>nada</h2>
-=======
               </div> 
             </div>
             )) 
           : <h2>No commentaries</h2>
->>>>>>> 75333cc9609c13bcef82e404afd8547dda92a158
           }
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
