@@ -10,6 +10,7 @@ import "../../css/Cart.css"
 export default function Cart ({id, name, price, image, quantity}) {
 
   let {cart} = useSelector((state) => state)
+  console.log(cart, "este es linea 13 pero de cart")
   const dispatch = useDispatch()
   const handleOnClick = (e) => {
     e.preventDefault();

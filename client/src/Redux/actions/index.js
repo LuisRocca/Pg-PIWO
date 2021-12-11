@@ -2,7 +2,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 
-
+export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
 export const GET_BEERS_NAME = 'GET_BEERS_NAME'
@@ -494,6 +494,21 @@ export function getOrder (idUser) {
             })
         } catch (err) {
             console.log(err);
+        }
+    }
+}
+export function getId (payload) {
+    return async function (dispatch){
+        try{
+            let datos = await axios.get("http://localhost:3001/mercadopago", payload)
+            console.log(datos.data, "ÑDOGSINSDIÑGON")
+            return dispatch({
+                type: GET_ID,
+                payload: datos.data
+            })
+        }
+        catch (err){
+            console.log(err)
         }
     }
 }

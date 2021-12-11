@@ -4,6 +4,11 @@ module.exports = (sequelize) => {
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false
-        } 
+        },
+        price: {
+            type: DataTypes.FLOAT,
+            allowNull: true,
+            validate: { min: 0.1 },
+        }
     });
 };
