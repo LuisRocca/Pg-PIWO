@@ -32,19 +32,23 @@ export default function DetailBeer({ props }) {
       });
     }
     
+    // console.log(review[0].review.userId);
+    // console.log(user.id);
     
     const handleSubmit = (e) => {
       if (user.name) {
-        if (review.length > 0 && review.map(e => e.review.userId === user.id)) {
-          console.log('1');
-          // e.preventDefault();
+        if (review && review.filter(e => e.review.userId === user.id).length > 0) {
+          // e.preventDefault()
+          // console.log(review.filter(e => e.review.userId === user.id));
+          // console.log('1');
           dispatch(putReviewUser(beersDetail[0] && beersDetail[0].id, user.id, input));
           setInput({
             calification: '',
             commentary: '',
           })
         } else {
-          console.log('2');
+          // console.log('2');
+          // console.log(review && review.map(e => e.review.userId === user.id));
           // e.preventDefault()
           dispatch(postReviewUser(beersDetail[0] && beersDetail[0].id,user.id, input))
           setInput({
@@ -142,7 +146,7 @@ export default function DetailBeer({ props }) {
           : <h2>No commentaries</h2>
           }
         </div>
-        <form onSubmit={(e) => handleSubmit(e)}>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <input type='text' placeholder="commentary" value={input.commentary} onChange={e => setInput({ ...input, commentary: e.target.value })}></input>
                 <input type='number' placeholder="valoration" value={input.calification} onChange={e => setInput({ ...input, calification: e.target.value })}></input>
                 <button>Submit</button>
