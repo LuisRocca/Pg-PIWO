@@ -16,7 +16,6 @@ import {
         ADD_CART,
         DEL_CART,
         DEL_ALL_CART,
-        MOD_CART,
         GET_IMGS,
         DELETE_BEER,
         //  ORDENAMIENTOS
@@ -32,7 +31,8 @@ import {
         POST_REVIEW_USER,
         PUT_REVIEW_USER,
         POST_ORDER_USER,
-        GET_ORDER_USER
+        GET_ORDER_USER,
+        RESET_PASSWORD
 
 
 
@@ -64,7 +64,7 @@ function rootReducer (state = initialState, action) {
         case GET_BEERS:
             state.allBeers.length = 0;
             state.beers.length=0;
-            console.log('beers', action.payload.length)
+            // console.log('beers', action.payload.length)
             return {
                 ...state,
                 beers: action.payload.sort(function(a, b) {
@@ -378,6 +378,11 @@ function rootReducer (state = initialState, action) {
             return {
                 ...state,
                 orders: action.payload
+            }
+
+        case RESET_PASSWORD:
+            return {
+                ...state,
             }
         
         default:

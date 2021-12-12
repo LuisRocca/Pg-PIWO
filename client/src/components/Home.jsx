@@ -43,14 +43,13 @@ export default function Home () {
      }
 
     useEffect(() => {
-        beers.length>0?console.log('Beers:')
+        beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
     }, [dispatch, beers])
-    // console.log(beers[0])
-    // console.log(stylesBeer)
-    // console.log('encontrados',searchBeer) 
-    console.log(orders);
+
+    
+    // console.log(orders);
     return (
         <div>
             <NavBar />
@@ -126,36 +125,13 @@ export default function Home () {
                         </select>
                     </div>}
                 </div>
-                {/* {searchBeer && searchBeer.length<100 &&
-                <section className={styles.select}>
-                    <h3>Results:</h3>
-                    <div className={styles.containerBeer}>
-                    {searchBeer.map( el => {
-                        return (   
-                            <div key={el.id}>
-                                    <Beers
-                                    id = {el.id}
-                                    name = {el.name}
-                                    IBU = {el.IBU}
-                                    ABV = {el.ABV}
-                                    image = {el.image}
-                                    price = {el.price}
-                                    stock = {el.stock}
-                                    examples = {el.examples}
-                                    />
-                                </div>)
-                        }
-                        )}
-                    </div>
-                </section>} */}
                 {stylesBeer && stylesBeer.map( s =>s.beers.length>0?
                 <section className={styles.select}>
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
                     {s.beers ? s.beers.map((e) => {
-                        // console.log(e)
                         return (   
-                            <div key={e.id}>
+                            <div key={e.name}>
                                 <Beers
                                 id = {e.id}
                                 name = {e.name}
@@ -176,36 +152,3 @@ export default function Home () {
         </div>
     )      
 }   
-
-
-// // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
-
-    //  const handleOrderCategory = (e) => {
-    //     e.preventDefault()
-    //     dispatch(orderCategory(e.target.value))
-    //     setorderCategory(`Orden ${e.target.value}`)
-    //  }
-     
-    //  const handleOrderAlcohol = (e) => {
-    //     e.preventDefault()
-    //     dispatch(orderAlcohol(e.target.value))
-    //     setorderAlcohol(`Orden ${e.target.value}`)
-    //  }
-     
-    //  const handleOrderBeers = (e) => {
-    //     e.preventDefault()
-    //     dispatch(orderBeer(e.target.value))
-    //     setorderBeers(`Orden ${e.target.value}`)
-    //  }
-
-    //  const handleOrderPrice = (e) => {
-    //     e.preventDefault()
-    //     dispatch(orderPrice(e.target.value))
-    //     setorderPrice(`Orden ${e.target.value}`)
-    //  }
-
-    //  const handleOrderIBU = (e) => {
-    //     e.preventDefault()
-    //     dispatch(orderIBU(e.target.value))
-    //     setorderIBU(`Orden ${e.target.value}`)
-    //  }

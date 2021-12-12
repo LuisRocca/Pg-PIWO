@@ -1,12 +1,11 @@
-import React, {useEffect} from 'react'
-import {getOrder} from '../../Redux/actions/index.js';
-import { useDispatch, useSelector} from 'react-redux';
+import React from 'react'
+import { /*useDispatch,*/ useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 export default function Orders () {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const orders = useSelector((state) => state.orders)
-    const user = JSON.parse(window.localStorage.getItem('login'))
+    // const user = JSON.parse(window.localStorage.getItem('login'))
     // console.log(orders);
 
     

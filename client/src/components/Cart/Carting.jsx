@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import {useState, useEffect} from 'react';
+// import { Link } from 'react-router-dom';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { delCart, delAllCart, setCart, createOrder} from "../../Redux/actions";
+import { delAllCart, setCart, createOrder} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 import swal from 'sweetalert';
@@ -24,7 +24,6 @@ export default function Carting () {
   let total = 0;
   let totalQuantity = 0;
   cart.length>0 && cart.map(e => {
-    // console.log('item', e)
     total = total + (e.price * e.quantity);
     totalQuantity = Number(totalQuantity) + Number(e.quantity)
   })

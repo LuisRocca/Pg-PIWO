@@ -7,6 +7,11 @@ const { Order } = require('../db.js');
 const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const bcrypt = require('bcryptjs');
+
+const CreadorDeEncriptado = function (contrasenia) {
+  return bcrypt.hashSync(contrasenia, bcrypt.genSaltSync(8), null);
+}; 
  
 //Crea ruta que devuelva usuarios//
 //Get/users//
@@ -238,11 +243,11 @@ server.get('/failed', (req, res) => res.send('No se ha podido logearte con googl
 //Crea ruta de logout//
 //POST /users/logout //
 
-server.post('/logout',
-function(req, res){
-  req.logout();
-  res.send('Usuario deslogueado');
-});
+// server.post('/logout',
+// function(req, res){
+//   req.logout();
+//   res.send('Usuario deslogueado');
+// });
 
 function isAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
@@ -301,17 +306,31 @@ server.put('/promote/:idUser', (req, res) => {
 
 
 //reset password//
-server.put('/:id/passwordReset', (req, res) => {
-  User.findOne({
-      where: { id: req.params.id}
-  })
-  .then (user => {
-   
-      user.update({
-          password: req.body.password,
-      }).then(user => {res.status(200).json ({user})})
-}).catch(error => { res.status(400).json({ error }) })
-});
+server.put('/:id/passwordReset', async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.id);
+    await user.update({password: req.body.password})
+    await user.save()
+    res.json(user)
+  }catch (err) {
+    console.log(err)
+  }
+  // const { password } = req.body;
+  // const passwordNew = CreadorDeEncriptado(password);
+  // try {
+  //   const user = await User.findByPk(req.params.id);
+
+  //   user.set({ password: passwordNew });
+  //   await user.save();
+  //   res.json({
+  //     message: `La contraseña para el usuario: ${user.name}, se cambio exitosamente`,
+  //   });
+  // } catch (e) {
+  //   res.status(401).json({
+  //     error: `Aparecio un error al intentar cambiar la contraseña: ${e}`,
+  //   });
+  // }
+})
 
 
 //trae 1 usu.//

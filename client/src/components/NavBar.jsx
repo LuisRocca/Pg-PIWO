@@ -1,5 +1,6 @@
 import React from 'react'
 import Search from './search';
+import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router';
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
@@ -8,19 +9,28 @@ import {Link} from 'react-router-dom';
 
 //<a href='https://postimg.cc/Rqs2vy6b' target='_blank'><img src='https://i.postimg.cc/Rqs2vy6b/Piwo-logo.png' border='0' alt='Piwo-logo'/></a>
 function NavBar (){
-  const history = useHistory()
+  // const history = useHistory()
   const user = JSON.parse(window.localStorage.getItem('login')) ? JSON.parse(window.localStorage.getItem('login')) : []
   const login = [];
+  const localCart = []
+  const carrito = JSON.parse(window.localStorage.getItem('carrito')) ? JSON.parse(window.localStorage.getItem('carrito')) : []
+  const {cart }= useSelector((state) => state)
 
   const handleClick = () => {
     window.localStorage.removeItem('login')
     window.localStorage.removeItem('carrito')
     window.location.reload()
   }
+//   useEffect(() => {
+//     cart.length>0?
+//     window.localStorage.setItem('carrito', JSON.stringify(cart))
+//     : JSON.stringify(window.localStorage.getItem('carrito'))
+// },[cart])
 
-  useEffect(() => {
-    // location.reload()
-  }, [user]);
+// useEffect(() => {
+//   carrito.length
+// })
+
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient h5" >
               <div className="container-fluid">
@@ -48,6 +58,7 @@ function NavBar (){
                         <Link to="/cart">
                             <a className="nav-link" href=" ">My Cart</a>
                         </Link>
+                            <h3>{cart && cart.length}</h3>
                     </li>
                     {user && user.admin ===  true &&
                     <li className="nav-item dropdown">
@@ -72,6 +83,13 @@ function NavBar (){
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                   </form> */}
+                  <div>
+                    {user.name && <h2>Welcome back
+                       <Link to="/me">
+                          {user.name}
+                       </Link>
+                       !</h2>}
+                  </div>
                   <Search /> 
                 </div>
               </div>
