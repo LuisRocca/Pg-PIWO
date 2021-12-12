@@ -500,11 +500,11 @@ export function getOrder (idUser) {
 export function getId (payload) {
     return async function (dispatch){
         try{
-            let datos = await axios.get("http://localhost:3001/mercadopago", payload)
-            console.log(datos.data, "ÑDOGSINSDIÑGON")
+            let datos = await axios.post("http://localhost:3001/mercadopago", payload)
+            console.log('la data de mercadopago', datos)
             return dispatch({
                 type: GET_ID,
-                payload: datos.data
+                payload: datos
             })
         }
         catch (err){

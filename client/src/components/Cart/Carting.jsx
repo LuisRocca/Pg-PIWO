@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { delCart, delAllCart, setCart, createOrder} from "../../Redux/actions";
+import { delCart, delAllCart, setCart, createOrder, getId} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 import swal from 'sweetalert';
@@ -11,7 +11,7 @@ import swal from 'sweetalert';
 export default function Carting () {
   const dispatch = useDispatch();
   const history = useHistory()
-  let { cart } = useSelector((state) => state)
+  let { cart, orders} = useSelector((state) => state)
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
   const user = JSON.parse(window.localStorage.getItem('login'))
   
@@ -39,6 +39,10 @@ export default function Carting () {
     : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
 
+useEffect(() => { 
+  dispatch(getId(orders));
+}, [orders]);
+
 
 const handleClick = (e) => {
   if (user.name) {
@@ -60,10 +64,13 @@ const handleClick = (e) => {
 
 }
 
+const formato = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0
+})
 
   return (
-
-    
 <div>
   <div>
     <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
@@ -83,7 +90,7 @@ const handleClick = (e) => {
             )
     }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
   </div>
-  <h1>TOTAL = US${total}</h1>
+  <h1>TOTAL = US{formato.format(total)}</h1>
   <div>
     <button onClick={() => history.push('/beers')}>Back to Home</button>
   </div>

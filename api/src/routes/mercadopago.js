@@ -8,63 +8,87 @@ const { ACCESS_TOKEN } = process.env;
 
 //Agrega credenciales
 mercadopago.configure({
-  access_token: ACCESS_TOKEN
+  access_token: "TEST-8165276433250363-120722-129ddb09bd6c5a032ed6a9f98d41eb04-1034725152"
 });
 
 
+
 //Ruta que genera la URL de MercadoPago
-server.get("/", (req, res, next) => {
+// server.get("/", (req, res, next) => {
+//   const { title, totalPrice, quantity, id} = req.body
+//   // const id_orden= 1
 
-  const id_orden= 1
+// //   Cargamos el carrido de la bd
+// // const carrito = req.body ? [{...req.body}] : {msg: 'no hay nada'}
 
-//   Cargamos el carrido de la bd
-   const carrito = [ ...req.body ]
-
-  console.log(carrito, "linea 28 del mercadopago")
-  const items_ml = carrito.map(i => ({
-    title: i.title,
-    unit_price: i.price,
-    quantity: i.quantity,
-  }))
+// //   console.log(carrito, "linea 28 del mercadopago")
+//   const items_ml =[ 
+//   {
+//     title: title,
+//     unit_price: totalPrice,
+//     quantity: totalPrice,
+//   }
+// ]
   
 
-  // Crea un objeto de preferencia
-  let preference = {
-    items: items_ml,
-    external_reference : `${id_orden}`,
-    payment_methods: {
-      excluded_payment_types: [
-        {
-          id: "atm"
-        }
-      ],
-      installments: 3  //Cantidad máximo de cuotas
-    },
-    back_urls: {
-      success: 'http://localhost:3001/mercadopago/pagos',
-      failure: 'http://localhost:3001/mercadopago/pagos',
-      pending: 'http://localhost:3001/mercadopago/pagos',
-    },
-  };
+//   // Crea un objeto de preferencia
+//   let preference = {
+//     items: items_ml,
+//     external_reference : `${id}`,
+//     payment_methods: {
+//       excluded_payment_types: [
+//         {
+//           id: "atm"
+//         }
+//       ],
+//       installments: 3  //Cantidad máximo de cuotas
+//     },
+//     back_urls: {
+//       success: 'http://localhost:3001/mercadopago/pagos',
+//       failure: 'http://localhost:3001/mercadopago/pagos',
+//       pending: 'http://localhost:3001/mercadopago/pagos',
+//     },
+//   };
 
-  mercadopago.preferences.create(preference)
+//   mercadopago.preferences.create(preference)
 
-  .then(function(response){
-    console.info('respondio')
-  //Este valor reemplazará el string"<%= global.id %>" en tu HTML
-    global.id = response.body.id;
-    console.log(response.body)
-    res.json({ id: global.id });
-  })
-  .catch(function(error){
-    console.log(error);
-  })
-}) 
+//   .then(function(response){
+//     // console.info('respondio')
+//   //Este valor reemplazará el string"<%= global.id %>" en tu HTML
+//     global.id = response.body.id;
+//     res.json({ id: global.id });
+//   })
+//   .catch(function(error){
+//     console.log( 'error del mercadopago', error);
+//   })
+// }) 
+
+server.post('/', (req, res, next) => {
+    const {  title, totalPrice, quantity, id } = req.body
+    var preference = {
+        items: [{
+            title: title,
+            quantity: quantity,
+            unit_price: totalPrice
+        }],
+        back_urls: {
+            success: "http://localhost:3001/mercadopago/pagos",
+            failure: "http://localhost:3001/mercadopago/pagos",
+            pending: "http://localhost:3001/mercadopago/pagos"
+        },
+        auto_return: "approved"
+    };
+
+    mercadopago.preferences.create(preference)
+    .then(response => {
+        res.json({url: response.body.init_point})
+    })
+})
 
 
 //Ruta que recibe la información del pago
 server.get("/pagos", (req, res)=>{
-  console.info("EN LA RUTA PAGOS ", req)
+  // console.info("EN LA RUTA PAGOS ", req)
   const payment_id= req.query.payment_id
   const payment_status= req.query.status
   const external_reference = req.query.external_reference

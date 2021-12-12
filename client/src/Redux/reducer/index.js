@@ -388,7 +388,10 @@ console.log(action.payload)
         case GET_ID:
             return {
                 ...state,
+                mpData: action.payload,
             }
+        
+            
         default:
             return state;
         

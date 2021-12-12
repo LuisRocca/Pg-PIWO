@@ -97,7 +97,6 @@ server.post('/:idUser/cart', async (req, res) => {
         quantity: req.body.quantity,
         title: "producto 1"
     })
-    console.log(order);
     res.status(200).json(order)
   } catch (err) {
     console.log(err);

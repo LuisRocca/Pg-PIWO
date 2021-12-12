@@ -50,8 +50,8 @@ export default function Home () {
     // console.log(beers[0])
     // console.log(stylesBeer)
     // console.log('encontrados',searchBeer) 
-    console.log(orders);
-    return (
+    // console.log(''orders);
+    return(
         <div>
             <NavBar />
          {/* ESTOS SON LOS BOTONES QUE EL DOCTOR SILVIO DEBERIA DE PONER EN EL SIDEBAR */}
