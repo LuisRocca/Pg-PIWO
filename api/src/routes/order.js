@@ -4,7 +4,6 @@ const { OrderBeer: OrderBeer } = require("../db.js");
 const { Beer: Beer } = require("../db.js");
 
 
-<<<<<<< HEAD
 /*server.get('/', (req, res) => {
     Order.findAll({
         where: { status: req.query.status }
@@ -72,7 +71,6 @@ server.post('/', (req,res) => {
 });
 
 module.exports = server;
-=======
 // http://localhost:3001/order TRAE TODAS LAS ORDENES DE TODOS LOS USUARIOS 
 server.get("/", (req, res) => {
   Order.findAll({
@@ -149,4 +147,3 @@ server.put("/:id/close", (req, res) => {
 });
 
 module.exports = server;
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49

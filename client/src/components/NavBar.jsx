@@ -73,20 +73,11 @@ function NavBar (){
                       </ul>  
                     </li>}
                     <div>
-<<<<<<< HEAD
-                      
-=======
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                     {user.name &&
                     <li className="nav-item">
                       <a className="nav-link active" aria-current="page" href=" " onClick={((e) => handleClick(e))}>Logout</a>
                     </li>
-<<<<<<< HEAD
-                    }
-
-=======
 }
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                     </div>
                   </ul>
                   {/* <form class="d-flex">

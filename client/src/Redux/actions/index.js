@@ -497,7 +497,6 @@ export function setUser (payload) {
         }
     }
 }
-<<<<<<< HEAD
 export function getOrders () {
     return async function (dispatch) {
         try {
@@ -508,7 +507,6 @@ export function getOrders () {
             })
         }
         catch (err) {
-=======
 
 export function postReviewUser (idBeer, idUser, payload) {
     return async function (dispatch) {
@@ -554,13 +552,10 @@ export function getOrder (idUser) {
                 payload: orders.data
             })
         } catch (err) {
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
             console.log(err);
         }
     }
 }
-<<<<<<< HEAD
-=======
 export function getId (payload) {
     return async function (dispatch){
         try{
@@ -576,4 +571,3 @@ export function getId (payload) {
         }
     }
 }
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49

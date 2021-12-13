@@ -11,17 +11,7 @@ const Admin = () => {
     const dispatch = useDispatch()
     // const history = useHistory()
     const { beers } = useSelector(state => state)
-<<<<<<< HEAD
-    console.log('beers', beers)
-    
-const handleClickEdit = (beer) => {
-    dispatch(getBeersDetails(beer.id))
-    history.push(`/admin/editBeer/${beer.id}`)
-}
-const handleClickDelete = (beer) => dispatch(deleteBeer(beer.id))
-=======
     console.log('beers en Admin', beers)
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
 
 
 useEffect(() => {
