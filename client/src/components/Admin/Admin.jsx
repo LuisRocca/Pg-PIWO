@@ -1,7 +1,7 @@
 import React, { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useHistory } from 'react-router'
+// import { useHistory } from 'react-router'
 import { getBeers, getImgs } from '../../Redux/actions'
 import BeersAdmin from './BeersAdmin'
 import styles from '../../css/Admin.module.css'
@@ -9,7 +9,7 @@ import NavBar from '../NavBar'
 
 const Admin = () => {
     const dispatch = useDispatch()
-    const history = useHistory()
+    // const history = useHistory()
     const { beers } = useSelector(state => state)
     console.log('beers en Admin', beers)
 

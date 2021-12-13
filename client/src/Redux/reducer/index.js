@@ -16,7 +16,6 @@ import {
         ADD_CART,
         DEL_CART,
         DEL_ALL_CART,
-        MOD_CART,
         GET_IMGS,
         DELETE_BEER,
         //  ORDENAMIENTOS
@@ -32,7 +31,10 @@ import {
         POST_REVIEW_USER,
         PUT_REVIEW_USER,
         POST_ORDER_USER,
-        GET_ORDER_USER
+        GET_ORDER_USER,
+        RESET_PASSWORD,
+        // PASARELA DE PAGO
+        GET_ID
 
 
 
@@ -53,18 +55,21 @@ const initialState = {
     listUser: [],
     cart: [],
     imgs: [],
-    orders: []
+    orders: [],
+    mpData: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
 
 
 function rootReducer (state = initialState, action) {
+    
+console.log(action.payload)
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
             state.beers.length=0;
-            console.log('beers', action.payload.length)
+            // console.log('beers', action.payload.length)
             return {
                 ...state,
                 beers: action.payload.sort(function(a, b) {
@@ -379,7 +384,19 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 orders: action.payload
             }
+
+        case RESET_PASSWORD:
+            return {
+                ...state,
+        // pasarela de pago
+            }
+        case GET_ID:
+            return {
+                ...state,
+                mpData: action.payload,
+            }
         
+            
         default:
             return state;
         

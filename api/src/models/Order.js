@@ -1,4 +1,4 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes, Sequelize } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define('order', {
@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
          status: {
-            type: DataTypes.ENUM('open', 'closed', 'cancelled'),
+            type: DataTypes.ENUM('open', 'created', 'processing', 'cancelled', 'completed'),
             allowNull: false
         },
          address: {
@@ -24,6 +24,21 @@ module.exports = (sequelize) => {
                 msg: 'No es una dirección de correo electrónico.'
               }
             },
-          }
+          },
+        payment_id:{
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        payment_status:{
+            type: DataTypes.STRING,
+            defaultValue: ""
+        },
+        merchant_order_id: {
+            type: DataTypes.BIGINT,
+            defaultValue: 0
+        } ,
+        title: {
+          type: DataTypes.STRING
+        }
     });
 };

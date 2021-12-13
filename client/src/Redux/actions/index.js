@@ -2,7 +2,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 
-
+export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
 export const GET_BEERS_NAME = 'GET_BEERS_NAME'
@@ -185,8 +185,6 @@ export function userAdmin(id) {
           console.log('res:', res)
           return res.data})
         .then(data => {
-            // if (Response.status(data) === )
-            // console.log(data);
             window.localStorage.setItem('login', JSON.stringify(data.user))
            dispatch({ type: LOGIN_USER, payload: data })
         })
@@ -233,15 +231,22 @@ export function userAdmin(id) {
     }
   }
 
-  export function ResetPassword(id, input) {
+  export function ResetPassword(id, password) {
     return function (dispatch) {
       const url = `http://localhost:3001/users/${id}/passwordReset`;
-      return axios.put(url, input)
+      return axios.put(url, {password: password})
         .then(res => res.data)
         .then(data => {
-          dispatch({ type: RESET_PASSWORD, payload: data })
+            console.log('aca esta', data.password);
+          dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
         })
-        .then(() => alert('La contraseña ha sido cambiada'))
+        .then(() => 
+        swal("Changed password successfully!", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          })
+        )
         .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))
     }}
 
@@ -493,6 +498,21 @@ export function getOrder (idUser) {
             })
         } catch (err) {
             console.log(err);
+        }
+    }
+}
+export function getId (payload) {
+    return async function (dispatch){
+        try{
+            let datos = await axios.post("http://localhost:3001/mercadopago", payload)
+            console.log('la data de mercadopago', datos)
+            return dispatch({
+                type: GET_ID,
+                payload: datos
+            })
+        }
+        catch (err){
+            console.log(err)
         }
     }
 }

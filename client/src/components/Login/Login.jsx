@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { loginUser, LIST_USERS, setUser } from "../../Redux/actions/index.js";
+import { setUser } from "../../Redux/actions/index.js";
 import { useEffect } from "react";
 import "./Login.css";
 import NavBar from '../NavBar.jsx';
@@ -34,46 +34,33 @@ if ( !user.name && local) {
 
     function User (e) {
     e.preventDefault();
-    // console.log('antes del dispa ',user)
     axios.post("http://localhost:3001/users/google", input)
     .then(res =>{
         if(res.status === 200){
-            window.localStorage.setItem('login', JSON.stringify(res.data.user))
+            let user = {
+                id: res.data.user.id, 
+                name: res.data.user.name,
+                lastName: res.data.user.lastname,
+                email: res.data.user.email, 
+                address: res.data.user.address, 
+                username: res.data.user.username,
+                admin: res.data.user.admin
+            }
+            window.localStorage.setItem('login', JSON.stringify(user))
             history.push('/beers')
         }
     })
     .catch(err => 
-        swal("Error", {
+        // alert(err)
+        swal("Error, please verify your email or password", {
         buttons: false,
         icon: 'error',
-        timer: 1500,
-        }))
+        timer: 1800,
+        }
+        )
+        )
     setInput({username: '',password: ''})   
-    // history.push('/beers')
-        // swal("Error", {
-        // buttons: false,
-        // icon: 'error',
-        // timer: 1500,
-        // }
-        // )
     }
-
-
-
-    
-    // .then(()=>{
-    //     history.push('/users/google')
-    //     window.location.reload();
-    // })
-    // swal("Logged in successfully!", {
-    //     buttons: false,
-    //     icon: 'success',
-    //     timer: 1500,
-    //   });
-    // setInput({
-    //     username: '',
-    //     password: ''
-    // })
 
 return (
     <div>

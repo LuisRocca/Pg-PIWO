@@ -1,8 +1,8 @@
-import React,{useState} from 'react'
-import { addCart, delCart, delAllCart, quantity_item } from '../../Redux/actions';
+import React from 'react'
+import {delCart, quantity_item } from '../../Redux/actions';
 // import Beers from '../Beers'
 // import {Link} from 'react-router-dom';
-import { useEffect} from 'react';
+// import { useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import "../../css/Cart.css"
 
@@ -10,6 +10,7 @@ import "../../css/Cart.css"
 export default function Cart ({id, name, price, image, quantity}) {
 
   let {cart} = useSelector((state) => state)
+  // console.log(cart, "este es linea 13 pero de cart")
   const dispatch = useDispatch()
   const handleOnClick = (e) => {
     e.preventDefault();
@@ -26,6 +27,12 @@ export default function Cart ({id, name, price, image, quantity}) {
     // console.log('target', e.target.value)
   }
   // console.log('quantity ', quantity)
+
+  const formato = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0
+})
   return (
     <div className="cart-cont">
       <div  className="order">
@@ -39,8 +46,8 @@ export default function Cart ({id, name, price, image, quantity}) {
         </div>
         <h3 className="name-cart">{name}</h3>
         <div className="quantity">
-        <h3 className="price">US${price}</h3>
-        <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US${price * quantity}</h4>
+        <h3 className="price">US{formato.format(price)}</h3>
+        <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US${formato.format(price * quantity)}</h4>
         </div>
         </div>
       </div>

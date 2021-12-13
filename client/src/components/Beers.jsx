@@ -16,6 +16,9 @@ const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
     console.log('cart', cart)
+    // if (!JSON.parse(window.localStorage.getItem('carrito'))) {
+    //     window.localStorage.setItem('carrito',JSON.stringify(cart))
+    // }
     swal("Added to the cart successfully!", {
         buttons: false,
         icon: 'success',
@@ -54,15 +57,15 @@ const handleOnClick = (e) => {
 		        </div>
 	        </div>
             <div className='info'>
-            <Link to={`/beers/${id}`}>
-                <h4>{name}</h4>
-            </Link>
+                <Link to={`/beers/${id}`}>
+                    <h4>{name}</h4>
+                </Link>
                 <span className='description'> 
                     IBU: {IBU} <br/>
                     ABV: {ABV} <br/>
                 </span>
                 <span className='price'>US{formato.format(price)}</span>
-            <a class='buy_now' href=' ' onClick={(e) => handleOnClick(e)}>Buy Now</a>
+                <a class='buy_now' href=' ' onClick={(e) => handleOnClick(e)}>Buy Now</a>
             </div>
             <div className='details'>
                 <span className='stock'>
