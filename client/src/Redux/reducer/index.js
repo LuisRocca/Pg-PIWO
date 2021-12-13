@@ -32,7 +32,9 @@ import {
         PUT_REVIEW_USER,
         POST_ORDER_USER,
         GET_ORDER_USER,
-        RESET_PASSWORD
+        RESET_PASSWORD,
+        // PASARELA DE PAGO
+        GET_ID
 
 
 
@@ -53,13 +55,16 @@ const initialState = {
     listUser: [],
     cart: [],
     imgs: [],
-    orders: []
+    orders: [],
+    mpData: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
 
 
 function rootReducer (state = initialState, action) {
+    
+console.log(action.payload)
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
@@ -383,8 +388,15 @@ function rootReducer (state = initialState, action) {
         case RESET_PASSWORD:
             return {
                 ...state,
+        // pasarela de pago
+            }
+        case GET_ID:
+            return {
+                ...state,
+                mpData: action.payload,
             }
         
+            
         default:
             return state;
         

@@ -84,11 +84,11 @@ function NavBar (){
                     <button class="btn btn-outline-success" type="submit">Search</button>
                   </form> */}
                   <div>
-                    {user.name && <h2>Welcome back
-                       <Link to="/me">
+                    {user.name && <h5>Welcome back 
+                        <Link to="/me">
                           {user.name}
                        </Link>
-                       !</h2>}
+                       !</h5>}
                   </div>
                   <Search /> 
                 </div>
