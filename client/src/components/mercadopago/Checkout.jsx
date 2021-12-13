@@ -29,7 +29,7 @@ export default function Checkout({ productos, data }){
 
         <h4>Checkout</h4>
         <div className={s.gridContainer} >  
-        {productos.map((producto, i) => {
+        {(producto, i) => {
             return(
                 <div className={s.products} key={i}>
                   <ul className={s.ul} >
@@ -39,7 +39,7 @@ export default function Checkout({ productos, data }){
                   </ul>
                 </div>   
             )
-        })}
+        }}
         </div>   
       </form>
 

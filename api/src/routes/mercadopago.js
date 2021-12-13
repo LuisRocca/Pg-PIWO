@@ -80,8 +80,8 @@ server.post('/', (req, res, next) => {
     var preference = {
         items: [{
             title: title,
-            quantity: quantity,
-            unit_price: totalPrice
+            unit_price: totalPrice,
+            quantity: quantity
         }],
         external_reference : `${id}`, //`${new Date().valueOf()}`,
         back_urls: {

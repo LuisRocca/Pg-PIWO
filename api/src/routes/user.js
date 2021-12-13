@@ -99,7 +99,8 @@ server.post('/:idUser/cart', async (req, res) => {
         address: user.address, 
         email: user.email, 
         totalPrice: req.body.totalPrice,
-        quantity: req.body.quantity,
+        unity_price: req.body.unity_price,
+        quantity: 1,
         title: "producto 1"
     })
     res.status(200).json(order)
