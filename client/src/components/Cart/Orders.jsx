@@ -55,7 +55,7 @@ export default function Orders() {
         // mp ? 
         //  <p>Aguarde un momento...</p>
         //  : 
-         <Checkout productos={orders} data={data} />
+         <Checkout productos={orders} data={mp.data.url.split('=')[1]} />
          
          }
 
