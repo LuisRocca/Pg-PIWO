@@ -11,9 +11,8 @@ const EditOrder = ({props}) => {
     const history = useHistory()
     console.log('orders', orders)
 
-const handleClickEdit = (order) => {
-        dispatch(editOrder(order.id))
-        history.push(`/admin/editOrder/${order.id}`)
+const handleClickEdit = (order) => {        
+        history.push(`/admin/editOrderFull/${order.id}`)
     }
 
 const handleClickDelete = (order) => dispatch(deleteOrder(order.id))

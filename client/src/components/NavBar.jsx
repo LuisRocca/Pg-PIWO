@@ -55,7 +55,7 @@ function NavBar (){
                         <li><a className="dropdown-item" href="/admin">Admin Panel</a></li>
                         <li><a className="dropdown-item" href="/admin/createCa">New Category's Beer</a></li>
                         <li><a className="dropdown-item" href="/admin/createBeer">New Beer</a></li>
-                        <li><a className="dropdown-item" href="/admin/editOrder/:id">Edit Orders</a></li>
+                        <li><a className="dropdown-item" href="/admin/orderList">Edit Orders</a></li>
                       </ul>  
                     </li>}
                     <div>

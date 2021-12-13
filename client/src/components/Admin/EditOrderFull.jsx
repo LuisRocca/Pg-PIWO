@@ -8,23 +8,32 @@ const EditOrderFull = ({props}) => {
   const dispatch = useDispatch();
   console.log('PROPS', props)
   let order  = useSelector(state => state.orders)
-  order = order.filter(el => el.id === props)
+  console.log('ordenes ',  order)
+  order = order.filter(el => el.id == props)
   
-  const {totalPrice, status ,address, email} = order[0]
+  const {id, totalPrice, status ,address, email} = order[0]
   const [values, setInput] = useState({
-    totalPrice: `${totalPrice}`, 
+    id: `${id}`,
+    totalPrice: totalPrice? `${totalPrice}`: '', 
     status: `${status}`,
     address: `${address}`, 
     email: `${email}`, 
   });
+
+  const handleChange = e => {
+    setInput({
+      ...values,
+      [e.target.name]: e.target.value
+    });
+  };
   
-  const handleChange = ({target: {email, value }}) => {
+  /*const handleChange = ({target: {email, value }}) => {
     setInput({
       ...values,
       [email]: value,
     });
     console.log('Estado:', values)
-  }; 
+  }; */
       
     function handleSubmit(e) {
         e.preventDefault();
@@ -41,37 +50,91 @@ const EditOrderFull = ({props}) => {
           );
         }
     }
-    useEffect(() => {
-      dispatch(getOrders());
-    }, [dispatch]);
+    // useEffect(() => {
+    //   dispatch(getOrders());
+    // }, [dispatch]);
     
     return (
       <div className={styles.create}>
         <div>
-          <Link to="/admin">
+        <Link to="/admin">
             <button className={styles.button}>Back</button>
           </Link>
-  
           <div className={styles.divForm}>
           <h2 className={styles.h9}>ADMIN PANEL</h2>
             <h1 className={styles.h10}>Edit Order</h1>
             <form onSubmit={handleSubmit}>
-                <label >Id</label>
-                <input className={styles.inputform} name='id' onChange={handleChange} autoComplete='off' type='text' value={values.name}/>
-                <label >totalPrice</label>
-                <input className={styles.inputform} name='totalPrice' onChange={handleChange} autoComplete='off' type='text' value={values.totalPrice} />
-                <label >Status</label>
-                <input className={styles.inputform} name='status' onChange={handleChange} autoComplete='off' type='text' value={values.status} />
-                <label >Address</label>
-                <input className={styles.inputform} name='address' onChange={handleChange} autoComplete='off' type='text' value={values.address} />
-                <label >Email</label>
-                <input className={styles.inputform} name='email' onChange={handleChange} autoComplete='off' type='text' value={values.email} />                
-                <button>Edit Order</button>
-            </form>
+            <div className={styles.container__form__input}>
+            <label htmlFor="id" className={styles.container__form__input__label}>
+              ID
+            </label>
+            <input
+              type="text"
+              name="id"
+              id="id"
+              value={values.id}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="totalPrice" className={styles.container__form__input__label}>
+              Total Price
+            </label>
+            <input
+              type="text"
+              name="totalPrice"
+              id="totalPrice"
+              value={values.totalPrice}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="status" className={styles.container__form__input__label}>
+              Status
+            </label>
+            <input
+              type="text"
+              name="status"
+              id="status"
+              value={values.status}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="address" className={styles.container__form__input__label}>
+              Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              value={values.address}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="email" className={styles.container__form__input__label}>
+              Email
+            </label>
+            <input
+              type="text"
+              name="email"
+              id="email"
+              value={values.email}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <button className={styles.button}>Edit Order</button>
+          </form>
           </div>
         </div>
       </div>
     );
-  }
-
-export default EditOrderFull;
+  };
+  
+  export default EditOrderFull;

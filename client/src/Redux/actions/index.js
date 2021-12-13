@@ -372,8 +372,9 @@ export function editBeer(payload){
 export function editOrder(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.put(`http://localhost:3001/order/edit/${payload.id}`, {...payload})
-            alert(data)
+            const { data } = await axios.put(`http://localhost:3001/order/edit/${payload.id}`, payload)
+            console.log(data)
+            console.log(payload)
             return dispatch({type: EDIT_ORDER})
         }
         catch(err){
