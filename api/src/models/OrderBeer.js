@@ -7,8 +7,12 @@ module.exports = (sequelize) => {
         },
         price: {
             type: DataTypes.FLOAT,
-            allowNull: true,
+            allowNull: false,
             validate: { min: 0.1 },
-        }
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
     });
 };

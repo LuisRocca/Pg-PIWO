@@ -505,7 +505,7 @@ export function getId (payload) {
     return async function (dispatch){
         try{
             let datos = await axios.post("http://localhost:3001/mercadopago", payload)
-            console.log('la data de mercadopago', datos)
+            console.log('la data de mercadopago', payload)
             return dispatch({
                 type: GET_ID,
                 payload: datos
