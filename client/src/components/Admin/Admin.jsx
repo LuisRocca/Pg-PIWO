@@ -11,6 +11,7 @@ const Admin = () => {
     const history = useHistory()
     const { beers } = useSelector(state => state)
     console.log('beers', beers)
+    
 const handleClickEdit = (beer) => {
     dispatch(getBeersDetails(beer.id))
     history.push(`/admin/editBeer/${beer.id}`)

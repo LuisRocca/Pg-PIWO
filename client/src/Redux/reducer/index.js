@@ -5,10 +5,13 @@ import {
         GET_STYLES,
         GET_REVIEW,
         GET_USERS,
+        EDIT_ORDER,
+        POST_ORDER,
         POST_USER,
         POST_PRODUCT,
         ADD_BEERS_OF_CATEGORY,
         DELETE_BEERS_CATEGORY,
+        DELETE_ORDER,
         CREATE_USERS,
         LOGIN_USER,
         LIST_USERS,
@@ -26,7 +29,8 @@ import {
         ORDER_IBU,
         ORDER_PRICE,
         SET_CART,
-        SET_USER
+        SET_USER,
+        GET_ORDERS,
     } from "../actions"
 
 
@@ -42,7 +46,8 @@ const initialState = {
     user:[],
     listUser: [],
     cart: [],
-    imgs: []
+    imgs: [],
+    orders: [],
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -121,6 +126,20 @@ function rootReducer (state = initialState, action) {
                     return 0;
                 })
             }
+        case GET_ORDERS:
+            return{
+                ...state,
+                orders: action.payload
+            }
+        case EDIT_ORDER:
+            return{
+                ...state,
+                orders: action.payload
+            }
+        case POST_ORDER:
+            return{
+                ...state,
+            }
         case POST_USER:
                 return {
                     ...state,
@@ -145,6 +164,13 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 beersOfCategory: state.beersOfCategory.filter(el => el.name !== action.payload)
             }
+
+        case DELETE_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter(el => el.id !== action.payload)
+            }
+        
         case ADD_CART:
             let newItem = state.beers.find((p) => p.id === action.payload)
             

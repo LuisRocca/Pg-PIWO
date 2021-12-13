@@ -8,7 +8,6 @@ import Beers from "./Beers.jsx";
 import Search from './search.jsx';
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
-import '../css/Slider.module.css';
 
 export default function Home () { 
     const dispatch = useDispatch();
@@ -149,6 +148,7 @@ export default function Home () {
                 </section>
                 :<h1>Nohay</h1>)}
             </div>
+        </div>
         </div>
     )      
 }   

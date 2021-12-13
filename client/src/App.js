@@ -12,6 +12,7 @@ import Carting from './components/Cart/Carting.jsx';
 import CreateUser from './components/Users/CreateUser';
 import Admin from './components/Admin/Admin';
 import EditBeer from './components/Admin/EditBeer';
+import EditOrder from './components/Admin/EditOrder';
 //import PasswordReset from './components/Users/CreateUser'//
 import Login from './components/Login/Login.jsx'
 import Orders from './components/Cart/Orders.jsx';
@@ -30,6 +31,7 @@ function App() {
           <Route exact path = '/admin/createCa' component = {CreateCategory}></Route>
           <Route exact path = '/admin/createBeer' component = {CreateBeer}></Route>
           <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>}></Route>
+          <Route exact path = '/admin/editOrder/:id' render = {({match}) => <EditOrder props={match.params.id}/>}></Route>          
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
           <Route exact path = '/users' component = {CreateUser}></Route>
           <Route exact path = '/users/google' component = {Login}></Route>
