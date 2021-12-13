@@ -10,6 +10,11 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: false
         },
+        unity_price: {
+          type: DataTypes.FLOAT,
+          allowNull: true,
+          validate: { min: 0.1 },
+        },
          status: {
             type: DataTypes.ENUM('open', 'created', 'processing', 'cancelled', 'completed'),
             allowNull: false

@@ -13,27 +13,30 @@ export default function Orders() {
   const mp = useSelector((state) => state.mpData);
 
 
-   console.log(Array.isArray(orders) && orders[0], '13 de orders')
-  let ordenMp = Array.isArray(orders) && orders[0]
+   console.log(orders, '13 de orders')
+   let arr = []
+  let ordenMp = orders;
   console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
   // useEffect(() => { 
   //   dispatch(getId(orders));
   // }, []);
   
-  // console.log('este es el url', mp.data.url)
+  // console.log('este es el url', mp.data.url) 
 
   const handleClick = (e) => {
     e.preventDefault()
+  
     let data = ordenMp;
+    console.log(data)
     dispatch(getId(data));
     // console.log('este es el id', JSON.stringify(mp.data.url.split('=')[1]))
   }
   // const data  = {id: mp.data.split('=')[1] };
   // console.log(data, "este hijo de puta es data")
-  let data = 1
+  
   return (
     <div>
-      {orders ? (
+      {/* {orders ? (
         orders.map((e) => {
           return (
             <div>
@@ -47,7 +50,16 @@ export default function Orders() {
         })
       ) : (
         <h1>No orders</h1>
-      )}
+      )} */}
+      {
+        orders ? <div>
+             <h1>Total: US${orders.totalPrice}</h1>
+              <h1>Address: {orders.address}</h1>
+              <h1>Status: {orders.status}</h1>
+              <h1>Email: {orders.email}</h1>
+              <h1>Quantity: {orders.quantity}</h1>
+        </div>: <h1> No orders </h1>
+      }
       <div>
         <button onClick = {(e) => handleClick(e)}>Ready to pay?</button>
       </div>

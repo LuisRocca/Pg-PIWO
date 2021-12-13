@@ -376,7 +376,7 @@ console.log(action.payload)
         case POST_ORDER_USER:
             return {
                 ...state,
-                orders: state.orders.concat(action.payload)
+                orders: action.payload
             }
 
         case GET_ORDER_USER:
