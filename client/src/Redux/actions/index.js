@@ -241,7 +241,13 @@ export function userAdmin(id) {
             console.log('aca esta', data.password);
           dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
         })
-        .then(() => alert('La contraseña ha sido cambiada'))
+        .then(() => 
+        swal("Changed password successfully!", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          })
+        )
         .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))
     }}
 
