@@ -2,7 +2,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 
-
+export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
 export const GET_BEERS_NAME = 'GET_BEERS_NAME'
@@ -20,7 +20,10 @@ export const DELETE_ORDER = 'DELETE_ORDER'
 export const CREATE_BEER = 'CREATE_BEER'
 export const SET_CART = 'SET_CART'
 export const SET_USER = 'SET_USER'
-
+export const POST_REVIEW_USER = 'POST_REVIEW_USER'
+export const PUT_REVIEW_USER = 'PUT_REVIEW_USER'
+export const POST_ORDER_USER = 'POST_ORDER_USER'
+export const GET_ORDER_USER = 'GET_ORDER_USER'
 
 export const CREATE_USERS = 'CREATE_USERS'
 export const LIST_USERS = 'LIST_USERS'
@@ -40,12 +43,14 @@ export const ADD_CART = 'ADD_CART'
 export const DEL_CART = 'DEL_CART'
 export const DEL_ALL_CART = 'DEL_ALL_CART'
 export const MOD_CART = 'MOD_CART'
+export const QUANTITY_ITEM = 'QUANTITY_ITEM'
 // '-----> ORDENAMIENTO'
 export const ORDER_CATEGORY = 'ORDER_CATEGORY';
 export const ORDER_ALCOHOL = 'ORDER_ALCOHOL';
 export const ORDER_BEERS = 'ORDER_BEERS';
 export const ORDER_PRICE = 'ORDER_PRICE';
 export const ORDER_IBU = 'ORDER_IBU';
+export const STYLE_FILTERED = 'STYLE_FILTER'
 
 
 export function getBeers () {
@@ -67,7 +72,7 @@ export function getBeersDetails (id) {
     return async function (dispatch) {
         try {
             let beerId = await axios.get(`http://localhost:3001/beers/${id}`)
-            console.log("codigo hermoso desaparecido",beerId.data)
+            // console.log("codigo hermoso desaparecido",beerId.data)
             return dispatch({
                 type: GET_BEERS_BY_ID,
                 payload: beerId.data
@@ -184,8 +189,6 @@ export function userAdmin(id) {
           console.log('res:', res)
           return res.data})
         .then(data => {
-            // if (Response.status(data) === )
-            // console.log(data);
             window.localStorage.setItem('login', JSON.stringify(data.user))
            dispatch({ type: LOGIN_USER, payload: data })
         })
@@ -195,7 +198,6 @@ export function userAdmin(id) {
             timer: 1500,
             })
         )
-            
     }
   }
   
@@ -233,21 +235,28 @@ export function userAdmin(id) {
     }
   }
 
-  export function ResetPassword(id, input) {
+  export function ResetPassword(id, password) {
     return function (dispatch) {
       const url = `http://localhost:3001/users/${id}/passwordReset`;
-      return axios.put(url, input)
+      return axios.put(url, {password: password})
         .then(res => res.data)
         .then(data => {
-          dispatch({ type: RESET_PASSWORD, payload: data })
+            console.log('aca esta', data.password);
+          dispatch({ type: RESET_PASSWORD, payload: {password: data.password} })
         })
-        .then(() => alert('La contraseña ha sido cambiada'))
+        .then(() => 
+        swal("Changed password successfully!", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          })
+        )
         .catch(error => alert(error, 'Algo salió mal al modificar la Contraseña'))
     }}
 
 
 export function addCart(id){
-    return async function (dispatch, getState){
+    return async function (dispatch){
         try{
             dispatch({
                 type: ADD_CART, 
@@ -259,6 +268,13 @@ export function addCart(id){
             console.log(err)
         }
     }   
+}
+export const quantity_item = (payload) => dispatch => {
+    try {
+        return dispatch({type:QUANTITY_ITEM, payload})
+    } catch (err){
+        console.log(err)
+    }
 }
 
 export function postUser(payload){
@@ -386,11 +402,10 @@ export function editOrder(payload){
 
 export function deleteBeer (id) {
     return async function (dispatch) {
-        try {
-            let {data} = await axios.delete(`http://localhost:3001/beers/${id}`)
+        try {   
+            await axios.delete(`http://localhost:3001/beers/${id}`)
             // console.log("codigo hermoso 2 desaparecido",data)
-            alert(data)
-            return dispatch({type: DELETE_BEER})
+            return dispatch({type: DELETE_BEER, payload: id})
         }
         catch (err) {
             console.log(err);
@@ -469,7 +484,8 @@ export function setCart (payload) {
             console.log(err)
         }
     }
-}
+} 
+export const styleFilter = (payload) => dispatch => dispatch({type:STYLE_FILTERED, payload})
 
 export function setUser (payload) {
     return async function (dispatch) {
@@ -481,6 +497,7 @@ export function setUser (payload) {
         }
     }
 }
+<<<<<<< HEAD
 export function getOrders () {
     return async function (dispatch) {
         try {
@@ -491,7 +508,72 @@ export function getOrders () {
             })
         }
         catch (err) {
+=======
+
+export function postReviewUser (idBeer, idUser, payload) {
+    return async function (dispatch) {
+        try {
+            await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+            return dispatch({type: POST_REVIEW_USER, payload})
+        } catch (err) {
             console.log(err);
         }
     }
 }
+
+export function putReviewUser (idBeer, idUser, payload) {
+    return async function (dispatch) {
+        try {
+            await axios.put(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+            return dispatch({type: PUT_REVIEW_USER, payload})
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function createOrder (idUser, payload) {
+    return async function (dispatch) {
+        try {
+           let order = await axios.post(`http://localhost:3001/users/${idUser}/cart`, payload )
+            // let totalPrice = 0;
+            // let quantity = 1;
+            return dispatch({type: POST_ORDER_USER, payload: order.data});
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+export function getOrder (idUser) {
+    return async function (dispatch) {
+        try {
+            let orders = await axios.get(`http://localhost:3001/users/${idUser}/cart`)
+            return dispatch({
+                type: GET_ORDER_USER,
+                payload: orders.data
+            })
+        } catch (err) {
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
+            console.log(err);
+        }
+    }
+}
+<<<<<<< HEAD
+=======
+export function getId (payload) {
+    return async function (dispatch){
+        try{
+            let datos = await axios.post("http://localhost:3001/mercadopago", payload)
+            console.log('la data de mercadopago', payload)
+            return dispatch({
+                type: GET_ID,
+                payload: datos
+            })
+        }
+        catch (err){
+            console.log(err)
+        }
+    }
+}
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49

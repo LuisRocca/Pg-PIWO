@@ -19,7 +19,6 @@ import {
         ADD_CART,
         DEL_CART,
         DEL_ALL_CART,
-        MOD_CART,
         GET_IMGS,
         DELETE_BEER,
         //  ORDENAMIENTOS
@@ -29,17 +28,34 @@ import {
         ORDER_IBU,
         ORDER_PRICE,
         SET_CART,
+<<<<<<< HEAD
         SET_USER,
         GET_ORDERS,
+=======
+        STYLE_FILTERED,
+        QUANTITY_ITEM,
+        SET_USER,
+        POST_REVIEW_USER,
+        PUT_REVIEW_USER,
+        POST_ORDER_USER,
+        GET_ORDER_USER,
+        RESET_PASSWORD,
+        // PASARELA DE PAGO
+        GET_ID
+
+
+
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
     } from "../actions"
 
 
 const initialState = {
     beers: [],
-    searchBeer: [],
+    // searchBeer: [],
     allBeers: [],
     beerId: [],
     stylesBeer: [],
+    allStyles:[],
     beersOfCategory: [],
     reviews: [],
     users: [],
@@ -48,17 +64,23 @@ const initialState = {
     cart: [],
     imgs: [],
     orders: [],
+<<<<<<< HEAD
+=======
+    mpData: []
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
 
 
 function rootReducer (state = initialState, action) {
+    
+console.log(action.payload)
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
             state.beers.length=0;
-     
+            // console.log('beers', action.payload.length)
             return {
                 ...state,
                 beers: action.payload.sort(function(a, b) {
@@ -85,7 +107,7 @@ function rootReducer (state = initialState, action) {
         case GET_BEERS_NAME:
             return{
                 ...state,
-                searchBeer:action.payload
+                beers:action.payload
             }
         case CREATE_USERS: 
             return { 
@@ -114,17 +136,19 @@ function rootReducer (state = initialState, action) {
         }
 
         case GET_STYLES:
+            const array = action.payload.sort(function(a, b) {
+                if(a.name > b.name) {
+                    return 1;
+                }
+                if(b.name > a.name) {
+                    return -1;
+                }
+                return 0;
+            })
             return{
                 ...state,
-                stylesBeer: action.payload.sort(function(a, b) {
-                    if(a.name > b.name) {
-                        return 1;
-                    }
-                    if(b.name > a.name) {
-                        return -1;
-                    }
-                    return 0;
-                })
+                stylesBeer: array,
+                allStyles: array
             }
         case GET_ORDERS:
             return{
@@ -164,6 +188,7 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 beersOfCategory: state.beersOfCategory.filter(el => el.name !== action.payload)
             }
+<<<<<<< HEAD
 
         case DELETE_ORDER:
             return {
@@ -176,26 +201,26 @@ function rootReducer (state = initialState, action) {
             
             let itemInCart = state.cart.find((i) => i.id === newItem.id)
             return itemInCart ? {
+=======
+        case DELETE_BEER:
+            state.allBeers = state.allBeers.filter(el => el.id !== action.payload)
+            return{
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                 ...state,
-                cart: state.cart.map((e) => e.id === newItem.id ? {...e, quantity: e.quantity + 1} : e),
+                beers: state.allBeers
             }
-             : {
+        case ADD_CART:
+            let existe = state.cart.filter(el => el.id === action.payload)
+            if(existe.length===1) return state
+            let newItem = state.beers.find((p) => p.id === action.payload)
+             return{
                 ...state,
                 cart: [...state.cart, {...newItem, quantity: 1}],
-                }
-            
+            }
         case DEL_CART:
-            let itemDel = state.cart.find((e) => e.id === action.payload);
-            if (state.cart.length === 0) {
-                state.cart = localStorage.getItem('carrito')
-            }
-            return itemDel.quantity > 1 ? {
-                ...state,
-                cart: state.cart.map((e) => e.id === action.payload ? {...e, quantity: e.quantity - 1} : e),
-            }
-            : {
+           return{
             ...state,
-            cart: state.cart.filter((p) => p.id !== action.payload),
+            cart: state.cart.filter(p => p.id !== action.payload),
         }
 
         case DEL_ALL_CART:
@@ -203,6 +228,19 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 cart: [],
                 localCart: window.localStorage.removeItem('carrito')
+            }
+        case QUANTITY_ITEM: 
+            return{
+                ...state,
+                cart: state.cart.map(el => {
+                    if(el.id === action.payload.id){
+                        return {
+                            ...el,
+                            quantity: action.payload.cantidad
+                        }
+                    }
+                    return el
+                })
             }
         case GET_IMGS:{
             return {
@@ -225,7 +263,7 @@ function rootReducer (state = initialState, action) {
               }
               return 0;
           })
-          : state.stylesBeer.sort((a, b) => {
+          :action.payload==='asc'? state.stylesBeer.sort((a, b) => {
             if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
@@ -233,7 +271,8 @@ function rootReducer (state = initialState, action) {
                 return -1;
               }
               return 0;
-          });
+          })
+          :state.stylesBeer
         return {
             ...state,
             stylesBeer : ordenamientoC,
@@ -241,104 +280,104 @@ function rootReducer (state = initialState, action) {
 
         case ORDER_BEERS:
         const ordenamientoB =
-        action.payload === 'asc'
-        ? state.stylesBeer.sort((a, b) => {
-            if (a.beers.map(e => e.name.toLowerCase()) > b.beers.map(e => e.name.toLowerCase())) {
-                return 1;
-              }
-              if (b.beers.map(e => e.name.toLowerCase()) > a.beers.map(e => e.name.toLowerCase())) {
+        action.payload === 'des'
+        ? state.beers.sort((a, b) => {
+            if (a.name> b.name) {
                 return -1;
-              }
+            }
+            if (b.name > a.name) {
+                return 1;
+            }
               return 0;
         })
-        : state.stylesBeer.sort((a, b) => {
-            if (a.beers.map(e => e.name.toLowerCase()) > b.beers.map(e => e.name.toLowerCase())){
-                return -1;
-              }
-              if (b.beers.map(e => e.name.toLowerCase()) > a.beers.map(e => e.name.toLowerCase())) {
+        :action.payload === 'asc'? state.beers.sort((a, b) => {
+            if (a.name> b.name) {
                 return 1;
-              }
+            }
+            if (b.name > a.name) {
+                return -1;
+            }
               return 0;
-          })
+          }):state.beers
         return {
             ...state,
-            stylesBeers: ordenamientoB,
+            beers: ordenamientoB,
             }
 
         case ORDER_ALCOHOL:
             const ordenamientoA =
-            action.payload === 'asc'
-            ? state.stylesBeer.sort((a, b) => {
-                if (a.beers.map(e => e.ABV)> b.beers.map(e => e.ABV)) {
-                    return -1;
-                  }
-                  if (b.beers.map(e => e.ABV) > a.beers.map(e => e.ABV)) {
-                    return 1;
-                  }
-                  return 0;
-            })
-            : state.stylesBeer.sort((a, b) => {
-                if (a.beers.map(e => e.ABV) > b.beers.map(e => e.ABV)){
-                    return 1;
-                  }
-                  if (b.beers.map(e => e.ABV) > a.beers.map(e => e.ABV)) {
-                    return -1;
-                  }
-                  return 0;
-              })
-            return {
-                ...state,
-                stylesBeers: ordenamientoA,
-            }
-            case ORDER_IBU:
-                const ordenamientoI =
-                action.payload === 'asc'
-                ? state.stylesBeer.sort((a, b) => {
-                    if (a.beers.map(e => e.IBU)> b.beers.map(e => e.IBU)) {
-                        return -1;
-                      }
-                      if (b.beers.map(e => e.IBU) > a.beers.map(e => e.IBU)) {
-                        return 1;
-                      }
-                      return 0;
-                })
-                : state.stylesBeer.sort((a, b) => {
-                    if (a.beers.map(e => e.IBU) > b.beers.map(e => e.IBU)){
-                        return 1;
-                      }
-                      if (b.beers.map(e => e.IBU) > a.beers.map(e => e.IBU)) {
-                        return -1;
-                      }
-                      return 0;
-                  })
-                return {
-                   ...state,
-                   stylesBeers: ordenamientoI,
-                }
-                case ORDER_PRICE:
-                    const ordenamientoP =
-                    action.payload === 'asc'
-                    ? state.stylesBeer.sort((a, b) => {
-                        if (a.beers.map(e => e.price)> b.beers.map(e => e.price)) {
+                    action.payload === 'des'
+                    ? state.beers.sort((a, b) => {
+                        if (a.ABV> b.ABV) {
                             return -1;
-                          }
-                          if (b.beers.map(e => e.price) > a.beers.map(e => e.price)) {
+                        }
+                        if (b.ABV > a.ABV) {
                             return 1;
-                          }
+                        }
                           return 0;
                     })
-                    : state.stylesBeer.sort((a, b) => {
-                        if (a.beers.map(e => e.price) > b.beers.map(e => e.price)){
+                    :action.payload === 'asc'?state.beers.sort((a, b) => {
+                        if (a.ABV> b.ABV) {
                             return 1;
-                          }
-                          if (b.beers.map(e => e.price) > a.beers.map(e => e.price)) {
+                        }
+                        if (b.ABV > a.ABV) {
                             return -1;
-                          }
+                        }
                           return 0;
-                      })
+                      }): state.beers
                     return {
                        ...state,
-                       stylesBeers: ordenamientoP,
+                       beers: ordenamientoA,
+                    }
+            case ORDER_IBU:
+                const ordenamientoI =
+                    action.payload === 'des'
+                    ? state.beers.sort((a, b) => {
+                        if (a.IBU> b.IBU) {
+                            return -1;
+                        }
+                        if (b.IBU > a.IBU) {
+                            return 1;
+                        }
+                          return 0;
+                    })
+                    :action.payload === 'asc'?state.beers.sort((a, b) => {
+                        if (a.IBU> b.IBU) {
+                            return 1;
+                        }
+                        if (b.IBU > a.IBU) {
+                            return -1;
+                        }
+                          return 0;
+                      }): state.beers
+                    return {
+                       ...state,
+                       beers: ordenamientoI,
+                    }
+                case ORDER_PRICE:
+                    const ordenamientoP =
+                    action.payload === 'des'
+                    ? state.beers.sort((a, b) => {
+                        if (a.price> b.price) {
+                            return -1;
+                        }
+                        if (b.price > a.price) {
+                            return 1;
+                        }
+                          return 0;
+                    })
+                    :action.payload === 'asc'?state.beers.sort((a, b) => {
+                        if (a.price> b.price) {
+                            return 1;
+                        }
+                        if (b.price > a.price) {
+                            return -1;
+                        }
+                          return 0;
+                      }): state.beers
+                    return {
+                       ...state,
+                       beers: ordenamientoP,
                     }
       // ----  FIN ORDEN
         case SET_CART:
@@ -346,12 +385,58 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 cart: action.payload
             }
-
+        case STYLE_FILTERED:
+            if(action.payload==='all'){
+                return{
+                    ...state,
+                    stylesBeer: state.allStyles
+                }
+            }
+            return{
+                ...state,
+                stylesBeer: state.allStyles.filter(el => el.name === action.payload)
+            }    
         case SET_USER:
             return {
                 ...state,
                 user: action.payload
             }
+
+        case POST_REVIEW_USER:
+            return {
+                ...state,
+                // reviews: action.payload
+            }
+        
+        case PUT_REVIEW_USER:
+            return {
+                ...state,
+            }
+
+        case POST_ORDER_USER:
+            return {
+                ...state,
+                orders: action.payload
+            }
+
+        case GET_ORDER_USER:
+            return {
+                ...state,
+                orders: action.payload
+            }
+
+        case RESET_PASSWORD:
+            return {
+                ...state,
+        // pasarela de pago
+            }
+        case GET_ID:
+            return {
+                ...state,
+                mpData: action.payload,
+            }
+        
+            
         default:
             return state;
         

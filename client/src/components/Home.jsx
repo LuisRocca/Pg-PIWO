@@ -1,21 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU  } from "../Redux/actions";
+import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter  } from "../Redux/actions";
 import Beers from "./Beers.jsx";
-import Search from './search.jsx';
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
 
 export default function Home () { 
     const dispatch = useDispatch();
-    const { beers, stylesBeer, searchBeer }= useSelector((state) => state)
-    const history = useHistory()
+    const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
+    // const history = useHistory()
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
 
+<<<<<<< HEAD
     const [orderBeers, setorderBeers] = useState('')
     const [orderCategory, setorderCategory] = useState('')
     const [orderAlcohol, setorderAlcohol] = useState('')
@@ -24,87 +22,93 @@ export default function Home () {
 
 
      const handleOrderCategory = (e) => {
+=======
+     const handleOrderStyle = (e) => {
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
         e.preventDefault()
         dispatch(orderCategory(e.target.value))
-        setorderCategory(`Orden ${e.target.value}`)
+     }
+     const handleStyleFilter = (e) => {
+        e.preventDefault()
+        dispatch(styleFilter(e.target.value))
      }
      
      const handleOrderAlcohol = (e) => {
         e.preventDefault()
         dispatch(orderAlcohol(e.target.value))
-        setorderAlcohol(`Orden ${e.target.value}`)
      }
      
      const handleOrderBeers = (e) => {
         e.preventDefault()
         dispatch(orderBeer(e.target.value))
-        setorderBeers(`Orden ${e.target.value}`)
      }
 
      const handleOrderPrice = (e) => {
         e.preventDefault()
         dispatch(orderPrice(e.target.value))
-        setorderPrice(`Orden ${e.target.value}`)
      }
 
      const handleOrderIBU = (e) => {
         e.preventDefault()
         dispatch(orderIBU(e.target.value))
-        setorderIBU(`Orden ${e.target.value}`)
      }
 
     useEffect(() => {
-        dispatch(getBeers())
-        stylesBeer.length>0? console.log(stylesBeer) :dispatch(getStylesOfBeers())
-    }, [dispatch, stylesBeer])
+        beers.length>0?console.log()
+        :dispatch(getBeers())
+        dispatch(getStylesOfBeers())
+    }, [dispatch, beers])
 
+    
+    // console.log(orders);
     return (
+    // console.log(beers[0])
+    // console.log(stylesBeer)
+    // console.log('encontrados',searchBeer) 
+    // console.log(''orders);
         <div>
             <NavBar />
          {/* ESTOS SON LOS BOTONES QUE EL DOCTOR SILVIO DEBERIA DE PONER EN EL SIDEBAR */}
 
          <div>
           <div className='row'>
-
            <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" onChange={handleOrderBeers} >
+                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderBeers} >
+                      <option value="-">Beers</option>
                       <option value="asc" >Asc</option>
                       <option value="des" >Des</option>
                   </select>
             </div>
-            <div className='col-sm-1 '>
-                  <select className="form-select bg-secondary" aria-label="Default select example" onCHange={e => handleOrderIBU(e)} >
-                      <option value="asc" >IBU +</option>
-                      <option value="des" >IBU -</option>
+            <div className='col-sm-1'>
+                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderIBU} >
+                      <option value="-">IBU</option>
+                      <option value="asc" >IBU Asc</option>
+                      <option value="des" >IBU Des</option>
                   </select>
             </div>
-            <div className='col-sm-1 '>
-                  <select className="form-select bg-secondary" aria-label="Default select example" onChange={e => handleOrderPrice(e)} >
-                      <option value="asc" >price +</option>
-                      <option value="des" >price -</option>
+            <div className='col-sm-1'>
+                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderPrice} >
+                      <option value="-">Price</option>
+                      <option value="asc" >price Asc</option>
+                      <option value="des" >price Des</option>
                   </select>
             </div>
             <div className='col-sm-2'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" onChange={e => handleOrderAlcohol(e)} >
+                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderAlcohol} >
+                      <option value="">Alcohol</option>
                       <option value="asc" >Asc alcohol</option>
                       <option value="des" >Des alcohol</option>
-                  </select>
-            </div>
-            <div className='col-sm-2'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" onChange={e => handleOrderCategory(e)} >
-                      <option value="asc" >Asc category</option>
-                      <option value="des" >Des category</option>
                   </select>
             </div>
           </div>
                          
 
             <div>
-                {searchBeer && searchBeer.length<30 &&
+            {beers.length>0 &&
                 <section className={styles.select}>
-                    <h3>Results:</h3>
+                    <h3>Beers:</h3>
                     <div className={styles.containerBeer}>
-                    {searchBeer.map( el => {
+                    {beers.map( el => {
                         return (   
                             <div key={el.id}>
                                     <Beers
@@ -122,15 +126,30 @@ export default function Home () {
                         )}
                     </div>
                 </section>}
-
+                <div className='row'>
+                    <div className='col-sm-2'>
+                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
+                            <option value="-">Style filter</option>
+                            <option value="all">All styles</option>
+                            {allStyles.map(el => <option value={el.name}>{el.name}</option>)}
+                        </select>
+                    </div>
+                    { stylesBeer.length>1 && 
+                    <div className='col-sm-2'>
+                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderStyle} >
+                            <option value="-">Style order</option>
+                            <option value="asc" >Asc style</option>
+                            <option value="des" >Des style</option>
+                        </select>
+                    </div>}
+                </div>
                 {stylesBeer && stylesBeer.map( s =>s.beers.length>0?
                 <section className={styles.select}>
                     <h3>{s.name}</h3>
                     <div className={styles.containerBeer}>
                     {s.beers ? s.beers.map((e) => {
-                        // console.log(e)
                         return (   
-                            <div key={e.id}>
+                            <div key={e.name}>
                                 <Beers
                                 id = {e.id}
                                 name = {e.name}
@@ -146,7 +165,7 @@ export default function Home () {
                     }): <h1>No beers</h1>}
                     </div>
                 </section>
-                :<h1>Nohay</h1>)}
+                :null)}
             </div>
         </div>
         </div>

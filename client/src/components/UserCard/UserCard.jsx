@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createUsers, logoutUser } from "../../Redux/actions/index.js"
-import { useHistory } from 'react-router-dom'
+import { ResetPassword, logoutUser } from "../../Redux/actions/index.js"
+import {Link, useHistory} from 'react-router-dom';
 
 const UserCard = () => {
  
@@ -9,29 +9,49 @@ const UserCard = () => {
   const user = JSON.parse(window.localStorage.getItem('login'))
   const history = useHistory();
   const dispatch = useDispatch()
+  const [password, setPassword] = useState('');
 
-
-  function handleClick() {
-  
-      dispatch(logoutUser())
-      .then(() => {
-        history.push('/')
-        window.location.reload();
-      })
+  console.log(password)
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(ResetPassword(user.id, password))
+    setPassword('')
+      // .then(() => {
+      //   history.push('/me')
+      //   window.location.reload();
+      // })
   }
 
-  console.log(user)
+  const handleChange = (e) => {
+    setPassword(e.target.value);
+};
+
+  // console.log(user)
 
   return (
     <div>
-     <button class="btn dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src={user.user.image} style={{borderRadius: "50%", width: "40px", height: "40px"}}/>
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Mi perfil</a>
-        {user.user.admin === true ? <a class="dropdown-item" href="/admin">Panel de administrador</a> : null }
-        <a class="dropdown-item" href={`/${user.user.id}/passwordReset`}>Cambiar contraseña</a>
-        <button class="dropdown-item" type="button" onClick = {() => handleClick()}>Cerrar sesion</button>
+      <div>
+        <h1>Name: {user.name}</h1>
+      </div>
+      <div>
+        <h1>Address: {user.address}</h1>
+      </div>
+      <div>
+        <h1>Email: {user.email}</h1>
+      </div>
+      <div>
+        <h1>Username: {user.username}</h1>
+      </div>
+      <div>
+        <input type="text" autoComplete="off" value={password} onChange={(e) => handleChange(e)}/>
+      </div>
+      <div>
+        <button onClick={(e) => handleClick(e)}>Change Password</button>
+      </div>
+      <div>
+        <Link to='/beers'>
+          <button>Back home</button>
+        </Link>
       </div>
     </div>
   );

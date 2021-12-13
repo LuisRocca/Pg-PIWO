@@ -1,5 +1,6 @@
 import React from 'react'
 import Search from './search';
+import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router';
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
@@ -8,18 +9,28 @@ import {Link} from 'react-router-dom';
 
 //<a href='https://postimg.cc/Rqs2vy6b' target='_blank'><img src='https://i.postimg.cc/Rqs2vy6b/Piwo-logo.png' border='0' alt='Piwo-logo'/></a>
 function NavBar (){
-  const history = useHistory()
+  // const history = useHistory()
   const user = JSON.parse(window.localStorage.getItem('login')) ? JSON.parse(window.localStorage.getItem('login')) : []
   const login = [];
+  const localCart = []
+  const carrito = JSON.parse(window.localStorage.getItem('carrito')) ? JSON.parse(window.localStorage.getItem('carrito')) : []
+  const {cart }= useSelector((state) => state)
 
   const handleClick = () => {
     window.localStorage.removeItem('login')
+    window.localStorage.removeItem('carrito')
     window.location.reload()
   }
+//   useEffect(() => {
+//     cart.length>0?
+//     window.localStorage.setItem('carrito', JSON.stringify(cart))
+//     : JSON.stringify(window.localStorage.getItem('carrito'))
+// },[cart])
 
-  useEffect(() => {
-    // location.reload()
-  }, [user]);
+// useEffect(() => {
+//   carrito.length
+// })
+
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient h5" >
               <div className="container-fluid">
@@ -38,13 +49,16 @@ function NavBar (){
                       <a className="nav-link" href="/users/google" onClick={window.localStorage.setItem('login', JSON.stringify(login))}>Login</a>
                     </li>
                     }
-                    <li className="nav-item" onClick={() => history.push('/order')}>
+                    <li className="nav-item">
+                    <Link to="/order">
                       <a className="nav-link" href=" " >Orders</a>
+                    </Link>
                     </li>
                     <li className="nav-item">
                         <Link to="/cart">
                             <a className="nav-link" href=" ">My Cart</a>
                         </Link>
+                            <h3>{cart && cart.length}</h3>
                     </li>
                     {user && user.admin ===  true &&
                     <li className="nav-item dropdown">
@@ -59,19 +73,33 @@ function NavBar (){
                       </ul>  
                     </li>}
                     <div>
+<<<<<<< HEAD
                       
+=======
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                     {user.name &&
                     <li className="nav-item">
                       <a className="nav-link active" aria-current="page" href=" " onClick={((e) => handleClick(e))}>Logout</a>
                     </li>
+<<<<<<< HEAD
                     }
 
+=======
+}
+>>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                     </div>
                   </ul>
                   {/* <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                     <button class="btn btn-outline-success" type="submit">Search</button>
                   </form> */}
+                  <div>
+                    {user.name && <h5>Welcome back 
+                        <Link to="/me">
+                          {user.name}
+                       </Link>
+                       !</h5>}
+                  </div>
                   <Search /> 
                 </div>
               </div>

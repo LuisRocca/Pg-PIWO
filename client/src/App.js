@@ -16,6 +16,7 @@ import EditOrder from './components/Admin/EditOrder';
 import EditOrderFull from './components/Admin/EditOrderFull'
 //import PasswordReset from './components/Users/CreateUser'//
 import Login from './components/Login/Login.jsx'
+import Mercadopago from './components/mercadopago/Mercadopago'
 import Orders from './components/Cart/Orders.jsx';
 import UserCard from './components/UserCard/UserCard.jsx';
 
@@ -38,6 +39,7 @@ function App() {
           <Route exact path = '/users' component = {CreateUser}></Route>
           <Route exact path = '/users/google' component = {Login}></Route>
           <Route path='/createuser' render={() => <CreateUser />}  />
+          <Route exact path ="/mercadopago" component = {Mercadopago}></Route>
           <Route exact path = '/order' component = {Orders}></Route>
           <Route exact path = '/me' component = {UserCard}></Route>
         </Switch>

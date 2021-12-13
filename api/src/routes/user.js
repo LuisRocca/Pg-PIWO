@@ -7,7 +7,12 @@ const { Order } = require('../db.js');
 const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+const bcrypt = require('bcryptjs');
 
+const CreadorDeEncriptado = function (contrasenia) {
+  return bcrypt.hashSync(contrasenia, bcrypt.genSaltSync(8), null);
+}; 
+ 
 //Crea ruta que devuelva usuarios//
 //Get/users//
 server.get('/', (req, res,next) => {
@@ -64,24 +69,44 @@ server.delete('/:id', (req, res) => {
 
 //Crea ruta para agregar item al carrito
 //Post/users/:iduser/cart
-server.post('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findOrCreate({
-          where: { beerId: req.body.beerId, orderId: order[0].id, },
-          defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
-      }).then(orderBeer => {
-          if (orderBeer[1]) res.status(200).json(orderBeer[0])
-          else {
-              let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
-              orderBeer[0].update({
-                  quantity: cantidad
-              }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
-          }
-      }).catch(error => { res.status(400).json({ error }) })
-  }).catch(error => { res.status(400).json({ error }) })
+// server.post('/:idUser/cart', (req, res) => {
+//   Order.findOrCreate({
+//       where: { userId: req.params.idUser, status: "open" },
+//       defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
+//   }).then(order => {
+//       OrderBeer.findOrCreate({
+//           where: { beerId: req.body.beerId, orderId: order[0].id, },
+//           defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
+//       }).then(orderBeer => {
+//           if (orderBeer[1]) res.status(200).json(orderBeer[0])
+//           else {
+//               let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
+//               orderBeer[0].update({
+//                   quantity: cantidad
+//               }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
+//           }
+//       }).catch(error => { res.status(400).json({ error }) })
+//   }).catch(error => { res.status(400).json({ error }) })
+// })
+
+server.post('/:idUser/cart', async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.idUser)
+    // console.log(user.dataValues);
+    let order = await Order.create({
+        userId: req.params.idUser,
+        status: 'open', 
+        address: user.address, 
+        email: user.email, 
+        totalPrice: req.body.totalPrice,
+        unity_price: req.body.unity_price,
+        quantity: 1,
+        title: "producto 1"
+    })
+    res.status(200).json(order)
+  } catch (err) {
+    console.log(err);
+  }
 })
 
 
@@ -89,16 +114,15 @@ server.post('/:idUser/cart', (req, res) => {
 //GET/users/:idUser/cart//
 //El carrito de un usuario va a ser la ultima "order" que tenga usuario. es decir se cierra orden ===> se crea una nueva//
 
-server.get('/:idUser/cart', (req, res) => {
-  Order.findOrCreate({
-      where: { userId: req.params.idUser, status: "open" },
-      defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-  }).then(order => {
-      OrderBeer.findAll({
-          where: { orderId: order[0].id },
-          include: [{ model: Beer }, { model: Order }]
-      }).then(orderBeers => { res.json(orderBeers); }).catch(error => { res.status(400).json({ error }) })
-  })
+server.get('/:idUser/cart', async (req, res) => {
+  try {
+   let ar = await Order.findAll({
+      where: { userId: req.params.idUser },
+    })
+    res.status(200).json(ar)
+  } catch (err) {
+    res.json({msg: err})
+  }
 })
 
 //Crea ruta para poder vaciar el carrito//
@@ -220,11 +244,11 @@ server.get('/failed', (req, res) => res.send('No se ha podido logearte con googl
 //Crea ruta de logout//
 //POST /users/logout //
 
-server.post('/logout',
-function(req, res){
-  req.logout();
-  res.send('Usuario deslogueado');
-});
+// server.post('/logout',
+// function(req, res){
+//   req.logout();
+//   res.send('Usuario deslogueado');
+// });
 
 function isAuthenticated(req, res, next) {
   if(req.isAuthenticated()) {
@@ -283,17 +307,31 @@ server.put('/promote/:idUser', (req, res) => {
 
 
 //reset password//
-server.put('/:id/passwordReset', (req, res) => {
-  User.findOne({
-      where: { id: req.params.id}
-  })
-  .then (user => {
-   
-      user.update({
-          password: req.body.password,
-      }).then(user => {res.status(200).json ({user})})
-}).catch(error => { res.status(400).json({ error }) })
-});
+server.put('/:id/passwordReset', async (req, res) => {
+  try {
+    let user = await User.findByPk(req.params.id);
+    await user.update({password: req.body.password})
+    await user.save()
+    res.json(user)
+  }catch (err) {
+    console.log(err)
+  }
+  // const { password } = req.body;
+  // const passwordNew = CreadorDeEncriptado(password);
+  // try {
+  //   const user = await User.findByPk(req.params.id);
+
+  //   user.set({ password: passwordNew });
+  //   await user.save();
+  //   res.json({
+  //     message: `La contraseña para el usuario: ${user.name}, se cambio exitosamente`,
+  //   });
+  // } catch (e) {
+  //   res.status(401).json({
+  //     error: `Aparecio un error al intentar cambiar la contraseña: ${e}`,
+  //   });
+  // }
+})
 
 
 //trae 1 usu.//

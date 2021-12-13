@@ -1,22 +1,49 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes, Sequelize } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define('order', {
+        quantity: {
+          type: DataTypes.FLOAT,
+          allowNull: true
+        },
         totalPrice: {
             type: DataTypes.FLOAT,
             allowNull: false
-        } ,status: {
-            type: DataTypes.ENUM('open', 'closed', 'cancelled'),
+        },
+        unity_price: {
+          type: DataTypes.FLOAT,
+          allowNull: true,
+          validate: { min: 0.1 },
+        },
+         status: {
+            type: DataTypes.ENUM('open', 'created', 'processing', 'cancelled', 'completed'),
             allowNull: false
-        } ,address: {
+        },
+         address: {
             type: DataTypes.TEXT,
-        }, email: {
+        },
+         email: {
             type: DataTypes.STRING,
             validate: {
               isEmail: {
                 msg: 'No es una dirección de correo electrónico.'
               }
             },
-          }
+          },
+        payment_id:{
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        payment_status:{
+            type: DataTypes.STRING,
+            defaultValue: ""
+        },
+        merchant_order_id: {
+            type: DataTypes.BIGINT,
+            defaultValue: 0
+        } ,
+        title: {
+          type: DataTypes.STRING
+        }
     });
 };

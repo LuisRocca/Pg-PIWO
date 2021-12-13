@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getBeers, postBeer} from "../../Redux/actions";
-import styles from '../../css/CreateBeer.module.css'
 import NavBar from "../NavBar";
 
 const CreateBeer = () => {
@@ -17,7 +15,7 @@ const CreateBeer = () => {
         stock: "", 
         impression: "", 
         aroma: "", 
-        img: "https://i.pinimg.com/474x/06/0b/5a/060b5a631c7409459f7b0e029872c725.jpg", 
+        img: "", 
         IBU: "", 
         ABV: "", 
         history: "", 

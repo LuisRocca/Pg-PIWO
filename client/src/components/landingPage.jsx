@@ -15,12 +15,7 @@ const LandingPage = () => {
                 <p className="Info-LandingPage">The place where you will find your favorite beers at a better price.</p>
                 
               <Link to="/beers" spy={true} smooth={true}><img className="animation" alt="arrow" src={Arrow}></img></Link>
-                {/* <Link to="/home">
-                
-                <img className="bounce" src={Arrow}></img>
-                    
-                
-                </Link> */}
+            
                 </div>
            
             </div>
