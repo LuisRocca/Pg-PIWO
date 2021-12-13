@@ -196,7 +196,6 @@ export function userAdmin(id) {
             timer: 1500,
             })
         )
-            
     }
   }
   
