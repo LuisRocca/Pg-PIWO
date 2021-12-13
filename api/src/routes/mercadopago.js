@@ -63,14 +63,27 @@ mercadopago.configure({
 //   })
 // }) 
 
+// let preference = {
+//   items: items_ml,
+//   external_reference : `${id}`, //`${new Date().valueOf()}`,
+//   back_urls: {
+//     success: 'http://localhost:3001/mercadopago/pagos',
+//     failure: 'http://localhost:3001/mercadopago/pagos',
+//     pending: 'http://localhost:3001/mercadopago/pagos',
+//   }
+// };
+// res.json({id: global.id, init_point: response.body.init_point})
+
 server.post('/', (req, res, next) => {
     const {  title, totalPrice, quantity, id } = req.body
+    console.log('body', req.body);
     var preference = {
         items: [{
             title: title,
             quantity: quantity,
             unit_price: totalPrice
         }],
+        external_reference : `${id}`, //`${new Date().valueOf()}`,
         back_urls: {
             success: "http://localhost:3001/mercadopago/pagos",
             failure: "http://localhost:3001/mercadopago/pagos",
@@ -78,10 +91,11 @@ server.post('/', (req, res, next) => {
         },
         auto_return: "approved"
     };
-
+    console.log(preference);
     mercadopago.preferences.create(preference)
     .then(response => {
-        res.json({url: response.body.init_point})
+      res.json({id: global.id, init_point: response.body.id})
+      console.log(response.body)
     })
 })
 

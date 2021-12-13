@@ -15,6 +15,7 @@ export default function Orders() {
 
    console.log(Array.isArray(orders) && orders[0], '13 de orders')
   let ordenMp = Array.isArray(orders) && orders[0]
+  console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
   // useEffect(() => { 
   //   dispatch(getId(orders));
   // }, []);
@@ -23,7 +24,8 @@ export default function Orders() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    dispatch(getId({...ordenMp}));
+    let data = ordenMp;
+    dispatch(getId(data));
     // console.log('este es el id', JSON.stringify(mp.data.url.split('=')[1]))
   }
   // const data  = {id: mp.data.split('=')[1] };
@@ -52,10 +54,10 @@ export default function Orders() {
       <div>
         
         { 
-        // mp ? 
-        //  <p>Aguarde un momento...</p>
-        //  : 
-         <Checkout productos={orders} data={mp.data.url.split('=')[1]} />
+        mp.length === 0 ? 
+         <p>Aguarde un momento...</p>
+         : 
+         <Checkout productos={orders} data={{id: mp.data.init_point}} />
          
          }
 

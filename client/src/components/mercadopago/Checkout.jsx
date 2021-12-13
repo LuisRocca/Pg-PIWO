@@ -13,14 +13,14 @@ export default function Checkout({ productos, data }){
   script.src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";  
   script.setAttributeNode(attr_data_preference)  
 
-  // console.log(data)
+  console.log('aca viene la dataaaaa:', data)
   
   //Agrega el script como nodo hijo del elemento form
   document.getElementById('form1').appendChild(script)
-  return () =>{
-    //Elimina el script como nodo hijo del elemento form
-    document.getElementById('form1').removeChild(script);
-  }
+  // return () =>{
+  //   //Elimina el script como nodo hijo del elemento form
+  //   document.getElementById('form1').removeChild(script);
+  // }
  },[data])
     return(
         <div>
