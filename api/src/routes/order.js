@@ -7,7 +7,11 @@ const { Beer: Beer } = require("../db.js");
 // http://localhost:3001/order TRAE TODAS LAS ORDENES DE TODOS LOS USUARIOS 
 server.get("/", (req, res) => {
   Order.findAll({
-    where: { status: req.query.status },
+    // where: { status: req.query.status },
+    include: {
+      model: OrderBeer,
+      atributes: ['quantity', 'id', 'price']
+    }
   })
     .then((orders) => {
       res.json(orders);
