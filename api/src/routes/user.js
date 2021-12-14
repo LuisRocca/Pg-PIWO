@@ -30,21 +30,21 @@ try{
     image: req.body.image,
     admin: req.body.admin,
 })
-const order = await Order.create({
-    userId: user.id,
-    status: 'open', 
-    address: req.body.address, 
-    email: req.body.email, 
-    totalPrice: 0,
-    quantity: 1,
-    title: `producto ${user.username}`
-  })
+// const order = await Order.create({
+//     userId: user.id,
+//     status: 'open', 
+//     address: req.body.address, 
+//     email: req.body.email, 
+//     totalPrice: 0,
+//     quantity: 1,
+//     title: `producto ${user.username}`
+//   })
 // console.log('order para relacionar', order)
-user.addOrder(order)
-user = await User.findAll({include:{
-  model: Order,
-  attributes: ['totalPrice', 'title', 'id', 'status']
-}})
+// user.addOrder(order)
+// user = await User.findAll({include:{
+//   model: Order,
+//   attributes: ['totalPrice', 'title', 'id', 'status']
+// }})
 
 res.json(user)
 }catch(error){
@@ -85,7 +85,7 @@ server.delete('/:id', (req, res) => {
     }).catch(error => { res.status(500).json(error); });
 });
 
-
+//    CREAR ORDEN  --------------------------------------------------------
 server.post('/:idUser/cart', async (req, res) => {
   try {
     let user = await User.findByPk(req.params.idUser)
@@ -93,6 +93,9 @@ server.post('/:idUser/cart', async (req, res) => {
     let order = await Order.findOrCreate({
       where: {
         status: 'open', 
+      },include:{
+        model: OrderBeer,
+        atritubes: ['id', 'price', 'quantity'],
       },
       default: {
         userId: req.params.idUser,
@@ -125,7 +128,7 @@ server.get('/list', async (req, res) => {
   }
   }
   )
-//creacion de orderBeer
+//CREAR ORDERBEER------------------------------------------------------------------------------------------------
 server.post('/:idUser/list', async (req,res) => {
   try {
     const idUser = req.params.idUser
@@ -140,23 +143,21 @@ server.post('/:idUser/list', async (req,res) => {
     let carrito = req.body.carrito
     let beer
     let order
+    let cart = []
     carrito.forEach( async(e) => {
       beer = await Beer.findByPk(e.id)
       order = await OrderBeer.create({
         price: e.price,
-        quantity: e.quantity
+        quantity: e.quantity,
       })
+      cart.push(order)
       console.log('order creada:', e.id)
       beer.addOrderBeer(order)
-      orden.addOrderBeer(order)
+      // orden.addOrderBeer(order) 
     })
-    
-    // await OrderBeer.findAll({
-    //   include: {
-    //     model: user
-    //   }
-    // })
-    res.json(user)
+
+    console.log(cart);
+    res.json(cart)
 
   } catch (err) {
     console.log(err)

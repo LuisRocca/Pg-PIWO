@@ -15,7 +15,7 @@ export default function Orders() {
 
    console.log(orders, '13 de orders')
    let arr = []
-  let ordenMp = orders;
+  let ordenMp = orders[0];
   console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
   // useEffect(() => { 
   //   dispatch(getId(orders));
@@ -53,11 +53,11 @@ export default function Orders() {
       )} */}
       {
         orders ? <div>
-             <h1>Total: US${orders.totalPrice}</h1>
-              <h1>Address: {orders.address}</h1>
-              <h1>Status: {orders.status}</h1>
-              <h1>Email: {orders.email}</h1>
-              <h1>Quantity: {orders.quantity}</h1>
+             <h1>Total: US${orders[0].totalPrice}</h1>
+              <h1>Address: {orders[0].address}</h1>
+              <h1>Status: {orders[0].status}</h1>
+              <h1>Email: {orders[0].email}</h1>
+              <h1>Quantity: {orders[0].quantity}</h1>
         </div>: <h1> No orders </h1>
       }
       <div>
