@@ -5,10 +5,13 @@ import {
         GET_STYLES,
         GET_REVIEW,
         GET_USERS,
+        EDIT_ORDER,
+        POST_ORDER,
         POST_USER,
         POST_PRODUCT,
         ADD_BEERS_OF_CATEGORY,
         DELETE_BEERS_CATEGORY,
+        DELETE_ORDER,
         CREATE_USERS,
         LOGIN_USER,
         LIST_USERS,
@@ -18,6 +21,9 @@ import {
         DEL_ALL_CART,
         GET_IMGS,
         DELETE_BEER,
+        UPGRADE_USER,
+        GET_ONE_USER,
+
         //  ORDENAMIENTOS
         ORDER_CATEGORY,
         ORDER_ALCOHOL,
@@ -25,20 +31,25 @@ import {
         ORDER_IBU,
         ORDER_PRICE,
         SET_CART,
+        SET_USER,
+        GET_ORDERS,
         STYLE_FILTERED,
         QUANTITY_ITEM,
-        SET_USER,
         POST_REVIEW_USER,
         PUT_REVIEW_USER,
         POST_ORDER_USER,
         GET_ORDER_USER,
         RESET_PASSWORD,
         // PASARELA DE PAGO
+<<<<<<< HEAD
         GET_ID,
         SET_MP
 
 
 
+=======
+        GET_ID
+>>>>>>> origin/tarea-admin-order
     } from "../actions"
 
 
@@ -124,6 +135,24 @@ console.log(action.payload)
                 user: action.payload
             }
         }
+        case GET_USERS: {
+            return {
+                ...state,
+                users: action.payload
+            }
+        }
+        case GET_ONE_USER: {
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
+        case UPGRADE_USER: {
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
 
         case GET_STYLES:
             const array = action.payload.sort(function(a, b) {
@@ -140,15 +169,25 @@ console.log(action.payload)
                 stylesBeer: array,
                 allStyles: array
             }
+        case GET_ORDERS:
+            return{
+                ...state,
+                orders: action.payload
+            }
+        case EDIT_ORDER:
+            return{
+                ...state,
+                orders: action.payload
+            }
+        case POST_ORDER:
+            return{
+                ...state,
+            }
         case POST_USER:
                 return {
                     ...state,
                 }
-        case GET_USERS:
-            return {
-                 ...state,
-                 users: action.payload 
-                }
+
         case POST_PRODUCT:
             return {
                 ...state,
@@ -164,6 +203,13 @@ console.log(action.payload)
                 ...state,
                 beersOfCategory: state.beersOfCategory.filter(el => el.name !== action.payload)
             }
+
+        case DELETE_ORDER:
+            return {
+                ...state,
+                orders: state.orders.filter(el => el.id !== action.payload)
+            }
+
         case DELETE_BEER:
             state.allBeers = state.allBeers.filter(el => el.id !== action.payload)
             return{

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 
-
 export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
@@ -9,10 +8,14 @@ export const GET_BEERS_NAME = 'GET_BEERS_NAME'
 export const GET_STYLES = 'GET_STYLES'
 export const GET_REVIEW = 'GET_REVIEW'
 export const GET_USERS = 'GET_USER'
+export const EDIT_ORDER = 'EDIT_ORDER'
+export const GET_ORDERS = 'GET_ORDERS'
+export const POST_ORDER = 'POST_ORDER'
 export const POST_USER = 'POST_USER'
 export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
+export const DELETE_ORDER = 'DELETE_ORDER'
 export const CREATE_BEER = 'CREATE_BEER'
 export const SET_CART = 'SET_CART'
 export const SET_USER = 'SET_USER'
@@ -346,6 +349,17 @@ export function postBeer(payload){
         }
     }
 }
+export function postOrder(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.post('http://localhost:3001/order/create', {...payload})
+            return dispatch({type: POST_ORDER, payload: data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
 
 export function delAllCart () {
     return async function (dispatch) {
@@ -371,6 +385,21 @@ export function editBeer(payload){
         }
     }
 }
+export function editOrder(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.put(`http://localhost:3001/order/edit/${payload.id}`, payload)
+            console.log(data)
+            console.log(payload)
+            return dispatch({type: EDIT_ORDER})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+};
+
+
 export function deleteBeer (id) {
     return async function (dispatch) {
         try {   
@@ -383,6 +412,21 @@ export function deleteBeer (id) {
         }
     }
 }
+
+export function deleteOrder (id) {
+    return async function (dispatch) {
+        try {
+            let {data} = await axios.delete(`http://localhost:3001/order/${id}`)
+            alert(data)
+            return dispatch({type: DELETE_ORDER})
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+};
+
+
 
 export function getImgs(){
     return async function(dispatch) {
@@ -453,17 +497,31 @@ export function setUser (payload) {
         }
     }
 }
-
-export function postReviewUser (idBeer, idUser, payload) {
+export function getOrders () {
     return async function (dispatch) {
         try {
-            await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
-            return dispatch({type: POST_REVIEW_USER, payload})
-        } catch (err) {
-            console.log(err);
+            let orders = await axios.get("http://localhost:3001/order")
+            return dispatch({
+                type: GET_ORDERS,
+                payload: orders.data
+            })
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 }
+
+export function postReviewUser (idBeer, idUser, payload) {
+                return async function (dispatch) {
+                    try {
+                        await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+                        return dispatch({type: POST_REVIEW_USER, payload})
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
 
 export function putReviewUser (idBeer, idUser, payload) {
     return async function (dispatch) {
@@ -516,6 +574,7 @@ export function getId (payload) {
         }
     }
 }
+<<<<<<< HEAD
 
 export function setMp (payload) {
     return async function (dispatch) {
@@ -527,3 +586,5 @@ export function setMp (payload) {
         }
     }
 }
+=======
+>>>>>>> origin/tarea-admin-order

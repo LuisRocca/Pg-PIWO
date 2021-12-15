@@ -12,6 +12,9 @@ import Carting from './components/Cart/Carting.jsx';
 import CreateUser from './components/Users/CreateUser';
 import Admin from './components/Admin/Admin';
 import EditBeer from './components/Admin/EditBeer';
+import EditOrder from './components/Admin/EditOrder';
+import EditOrderFull from './components/Admin/EditOrderFull'
+import UserList from './components/Admin/UserList';
 //import PasswordReset from './components/Users/CreateUser'//
 import Login from './components/Login/Login.jsx'
 import Mercadopago from './components/mercadopago/Mercadopago'
@@ -31,6 +34,9 @@ function App() {
           <Route exact path = '/admin/createCa' component = {CreateCategory}></Route>
           <Route exact path = '/admin/createBeer' component = {CreateBeer}></Route>
           <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>}></Route>
+          <Route exact path = '/admin/orderList'  component={EditOrder}></Route>
+          <Route exact path = '/admin/userList'  component={UserList}></Route>
+          <Route exact path = '/admin/editOrderFull/:id' render = {({match}) => <EditOrderFull props={match.params.id}/>}></Route>                    
           <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
           <Route exact path = '/users' component = {CreateUser}></Route>
           <Route exact path = '/users/google' component = {Login}></Route>

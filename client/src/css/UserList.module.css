@@ -1,0 +1,6 @@
+.section{
+    width: 100%;
+    overflow: scroll;
+    padding: 30px;
+    position: relative;
+}

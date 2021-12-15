@@ -63,6 +63,8 @@ export default function Home () {
         <div>
             <NavBar />
          {/* ESTOS SON LOS BOTONES QUE EL DOCTOR SILVIO DEBERIA DE PONER EN EL SIDEBAR */}
+
+         <div>
           <div className='row'>
            <div className='col-sm-1'>
                   <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderBeers} >
@@ -93,6 +95,7 @@ export default function Home () {
                   </select>
             </div>
           </div>
+                         
 
             <div>
             {beers.length>0 &&
@@ -158,6 +161,7 @@ export default function Home () {
                 </section>
                 :null)}
             </div>
+        </div>
         </div>
     )      
 }   
