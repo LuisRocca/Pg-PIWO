@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import '../css/Beers.css'
-import { addCart, createOrder, getOrder} from '../Redux/actions/index.js';
+import { addCart, createOrder, getOrder, setCart} from '../Redux/actions/index.js';
 import swal from 'sweetalert';
 
 
@@ -32,9 +32,10 @@ const handleClick = (e) => {
 const handleOnClick = (e) => {
     e.preventDefault()
     if (user.name) {
-        // dispatch(createOrder(user.id, {totalPrice: price, quantity: cart.quantity ? cart.quantity : 1}));
-        dispatch()
-        historyy.push('/order')
+        dispatch(setCart([]))
+        dispatch(addCart(id))
+        dispatch(createOrder(user.id, cart));
+        historyy.push('/cart')
     } else {
         swal("You need to sign in to proceed with this purchase", {
             buttons: false,

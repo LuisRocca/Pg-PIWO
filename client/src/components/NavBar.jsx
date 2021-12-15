@@ -27,18 +27,9 @@ function NavBar (){
   }
 
   const orderclick = () => {
-    dispatch(getOrder(user.id))
+    dispatch(createOrder(user.id, cart))
   }
 
-//   useEffect(() => {
-//     cart.length>0?
-//     window.localStorage.setItem('carrito', JSON.stringify(cart))
-//     : JSON.stringify(window.localStorage.getItem('carrito'))
-// },[cart])
-
-// useEffect(() => {
-//   carrito.length
-// })
 
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient h5" >

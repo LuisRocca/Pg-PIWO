@@ -2,9 +2,7 @@ import React from 'react'
 import {delCart, quantity_item, createOrder, getOrder} from '../../Redux/actions';
 // import Beers from '../Beers'
 // import {Link} from 'react-router-dom';
-// import { useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { useEffect } from "react";
 import "../../css/Cart.css"
 
 
@@ -16,7 +14,11 @@ export default function Cart ({id, name, price, image, quantity}) {
   const dispatch = useDispatch()
   const handleOnClick = (e) => {
     e.preventDefault();
+    let largo = cart.length
     dispatch(delCart(id))
+    if (largo !== cart.length) {
+      dispatch(createOrder(user.id, cart))
+    }
     if (JSON.parse(window.localStorage.getItem('carrito'))[0] ) {
       window.localStorage.removeItem('carrito')
     } else {
@@ -27,10 +29,8 @@ export default function Cart ({id, name, price, image, quantity}) {
     e.preventDefault()
     dispatch(quantity_item({id, cantidad: e.target.value}))
     
-    // console.log('target', e.target.value)
   }
-  // console.log('quantity ', quantity)
-
+ 
 
 
   const formato = new Intl.NumberFormat('en-US', {

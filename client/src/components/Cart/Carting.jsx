@@ -19,6 +19,12 @@ export default function Carting () {
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
+    dispatch(createOrder(user.id, cart))
+    swal("The cart was successfully clear", {
+      buttons: false,
+      icon: 'success',
+      timer: 2000,
+    });
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
@@ -46,6 +52,7 @@ export default function Carting () {
 },[cart])
 
   useEffect(() => {
+    dispatch(createOrder(user.id, cart))
     dispatch(getOrder(user.id))
   },[cart])
 
@@ -60,7 +67,7 @@ const handleClick = (e) => {
     dispatch(createOrder(user.id, cart))
     // dispatch(getOrder(user.id))
     history.push('/order')
-    window.localStorage.removeItem('carrito')
+    // window.localStorage.removeItem('carrito')
     // dispatch(setCart([]))
   } else {
     // if (user) {
@@ -73,6 +80,13 @@ const handleClick = (e) => {
     // }
   }
 
+}
+
+const handleBack = (e) => {
+  e.preventDefault()
+  dispatch(createOrder(user.id, cart))
+  // dispatch(setCart(orders.carrito))
+  history.push('/beers')
 }
 
 const formato = new Intl.NumberFormat('en-US', {
@@ -103,7 +117,7 @@ const formato = new Intl.NumberFormat('en-US', {
   </div>
   <h1>TOTAL = US{formato.format(total)}</h1>
   <div>
-    <button onClick={() => history.push('/beers')}>Back to Home</button>
+    <button onClick={(e) => handleBack(e)}>Back to Home</button>
   </div>
   <div>
           <button onClick={(e) => handleClick(e)}>Checkout</button>
