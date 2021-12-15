@@ -4,6 +4,69 @@ const { OrderBeer: OrderBeer } = require("../db.js");
 const { Beer: Beer } = require("../db.js");
 
 
+server.get('/', (req, res) => {
+    Order.findAll({
+        include: [{
+            model: OrderBeer,
+            include: [{
+                model: Beer
+            }]
+        }]
+    }).then(orders => { res.json(orders); }).catch(error => { res.status(400).json({ error }) })
+});
+
+server.get('/:id', (req, res) => {
+    OrderBeer.findAll({
+        where: { orderId: req.params.id },
+        include: [{ model: Beer }, { model: Order }]
+    }).then(orderBeer => { res.json(orderBeer); }).catch(error => { res.status(400).json({ error }) })
+});
+
+server.put('/edit/:id', (req, res) => {
+    Order.update({ status: req.body.status }, { where: { id: req.params.id } }).then(order => { res.json(order); }).catch(error => { res.status(400).json({ error }) })
+});
+
+server.delete('/:id', (req, res) => {
+    Order.destroy({ where: { id: req.params.id } }).then(order => { res.json(order); }).catch(error => { res.status(400).json({ error }) })
+});
+
+
+    
+/*server.put('/:id', (req, res) => {
+    OrderBeer.findOne({
+        where: { id: req.params.id }
+        }).then(orderBeer => {
+            orderBeer.update({
+                beerId: req.body.beerId,
+                quantity: req.body.quantity
+            }).then(orderBeer => { res.status(200).json({ orderBeer }); }).catch(error => { res.status(400).json({ error }) })
+    }).catch(error => { res.status(400).json({ error }) })
+});*/
+
+server.put('/:id/close', (req, res) => {
+        Order.findOne({
+            where: { id: req.params.id }
+        }).then(order => {
+            order.update({
+                status: "closed",
+                totalPrice: req.body.totalPrice,
+                address: req.body.address,
+                email : req.body.email
+            }).then(order => { res.status(200).json({ order }); }).catch(error => { res.status(400).json({ error }) })
+        }).catch(error => { res.status(400).json({ error }) })
+});
+
+server.post('/', (req,res) => {
+        Order.create({
+          totalPrice: req.body.totalPrice,
+          status: req.body.status,
+          address: req.body.address,
+          email: req.body.email,
+      }).then(order => { res.status(200).json({ order }); }).catch(error => { res.status(400).json({ error }) })
+});
+
+module.exports = server;
+
 // http://localhost:3001/order TRAE TODAS LAS ORDENES DE TODOS LOS USUARIOS 
 server.get("/", (req, res) => {
   Order.findAll({
