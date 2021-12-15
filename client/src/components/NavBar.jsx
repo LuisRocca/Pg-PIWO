@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router';
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
-import {createOrder, getOrder} from '../Redux/actions/index.js';
+import {createOrder, getOrder, setCart} from '../Redux/actions/index.js';
 
 
 
@@ -16,7 +16,7 @@ function NavBar (){
   const dispatch = useDispatch()
   const localCart = []
   const carrito = JSON.parse(window.localStorage.getItem('carrito')) ? JSON.parse(window.localStorage.getItem('carrito')) : []
-  const {cart }= useSelector((state) => state)
+  const {cart, orders }= useSelector((state) => state)
 
   const handleClick = () => {
     dispatch(createOrder(user.id,cart))
@@ -27,6 +27,7 @@ function NavBar (){
   }
 
   const orderclick = () => {
+    dispatch(setCart(orders.carrito))
     dispatch(createOrder(user.id, cart))
   }
 

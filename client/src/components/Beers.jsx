@@ -17,7 +17,6 @@ const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
     dispatch(createOrder(user.id, cart))
-    
     // if (!JSON.parse(window.localStorage.getItem('carrito'))) {
     //     window.localStorage.setItem('carrito',JSON.stringify(cart))
     // }

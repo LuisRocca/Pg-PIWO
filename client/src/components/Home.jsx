@@ -1,14 +1,14 @@
 import React from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter, getOrder, setCart } from "../Redux/actions";
+import {getBeers, getStylesOfBeers, createOrder, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter, getOrder, setCart } from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
 
 export default function Home () { 
     const dispatch = useDispatch();
-    const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
+    const { beers, stylesBeer, allStyles, orders, cart }= useSelector((state) => state)
     const user = window.localStorage.getItem('login')
     // const history = useHistory()
 
@@ -49,9 +49,10 @@ export default function Home () {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
-        if (orders[0]) dispatch(setCart(orders[0].carrito))
+        // if (orders) dispatch(setCart(orders.carrito))
+        if ( cart && orders.carrito && cart.length > orders.carrito.length)dispatch(createOrder(orders.carrito))
         // dispatch(setMp([]))
-    }, [dispatch, beers, user])
+    }, [dispatch, beers, user, cart])
 
     
     // console.log(orders);

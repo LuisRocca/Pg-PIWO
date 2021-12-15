@@ -104,8 +104,9 @@ server.post('/:idUser/cart', async (req, res) => {
         email: user.email, 
         title: `producto ${user.username}`,
         carrito: noc.concat(req.body),
-
+        // totalPrice: (noc.concat(req.body))[0].carrito.map((e) => (e.price * Number(e.quantity))),
     })
+
     res.status(200).json(order)
    } else {
      let order = await Order.update({

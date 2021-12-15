@@ -63,8 +63,9 @@ const initialState = {
     listUser: [],
     cart: [],
     imgs: [],
-    orders: [],
-    mpData: []
+    orders: {},
+    mpData: [],
+    allOrders: []
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -72,7 +73,6 @@ const initialState = {
 
 function rootReducer (state = initialState, action) {
     
-console.log(action.payload)
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
@@ -168,7 +168,7 @@ console.log(action.payload)
         case GET_ORDERS:
             return{
                 ...state,
-                orders: action.payload
+                allOrders: action.payload
             }
         case EDIT_ORDER:
             return{
@@ -425,7 +425,7 @@ console.log(action.payload)
         case GET_ORDER_USER:
             return {
                 ...state,
-                orders: action.payload
+                orders: action.payload[0]
             }
 
         case RESET_PASSWORD:

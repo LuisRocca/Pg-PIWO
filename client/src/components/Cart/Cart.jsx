@@ -55,7 +55,7 @@ export default function Cart ({id, name, price, image, quantity}) {
         
         <div className="quantity">
         <h3 className="price">US{formato.format(price)}</h3>
-        <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US${formato.format(price * quantity)}</h4>
+        <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US{formato.format(price * quantity)}</h4>
         </div>
         </div>
       </div>
