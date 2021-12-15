@@ -45,6 +45,7 @@ Beer.belongsToMany(User, {through: 'user_beer'})
 // Relaciones de la categoria - producto 
 Category.belongsToMany(Beer, {through: 'category_beer'}) //tabla intermedia
 Beer.belongsToMany(Category, {through: 'category_beer'})
+
 User.hasMany(Order)
 
 // Relaciones de Una orden solo puede tener 1 Usuario
@@ -59,8 +60,6 @@ Order.hasMany(OrderBeer)
 OrderBeer.belongsTo(Order)
 Beer.hasMany(OrderBeer)
 OrderBeer.belongsTo(Beer)
-
-// Pasarela Prueba
 
 
 module.exports = {
