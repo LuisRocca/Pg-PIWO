@@ -538,7 +538,7 @@ export function createOrder (idUser, payload) {
     return async function (dispatch) {
         try {
            let order = await axios.post(`http://localhost:3001/users/${idUser}/cart`, payload )
-           console.log('la data del carrito', order);
+        //    console.log('la data del carrito', order);
             return dispatch({type: POST_ORDER_USER, payload: order.data});
         } catch (err) {
             console.log(err);
