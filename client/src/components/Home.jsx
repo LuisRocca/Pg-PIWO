@@ -13,18 +13,7 @@ export default function Home () {
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
 
-<<<<<<< HEAD
-    const [orderBeers, setorderBeers] = useState('')
-    const [orderCategory, setorderCategory] = useState('')
-    const [orderAlcohol, setorderAlcohol] = useState('')
-    const [orderPrice, setorderPrice] = useState('')
-    const [orderIBU, setorderIBU] = useState('')
-
-
-     const handleOrderCategory = (e) => {
-=======
      const handleOrderStyle = (e) => {
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
         e.preventDefault()
         dispatch(orderCategory(e.target.value))
      }

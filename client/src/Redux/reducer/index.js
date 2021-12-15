@@ -21,6 +21,9 @@ import {
         DEL_ALL_CART,
         GET_IMGS,
         DELETE_BEER,
+        UPGRADE_USER,
+        GET_ONE_USER,
+
         //  ORDENAMIENTOS
         ORDER_CATEGORY,
         ORDER_ALCOHOL,
@@ -28,13 +31,10 @@ import {
         ORDER_IBU,
         ORDER_PRICE,
         SET_CART,
-<<<<<<< HEAD
         SET_USER,
         GET_ORDERS,
-=======
         STYLE_FILTERED,
         QUANTITY_ITEM,
-        SET_USER,
         POST_REVIEW_USER,
         PUT_REVIEW_USER,
         POST_ORDER_USER,
@@ -42,10 +42,6 @@ import {
         RESET_PASSWORD,
         // PASARELA DE PAGO
         GET_ID
-
-
-
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
     } from "../actions"
 
 
@@ -64,10 +60,7 @@ const initialState = {
     cart: [],
     imgs: [],
     orders: [],
-<<<<<<< HEAD
-=======
     mpData: []
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -134,6 +127,24 @@ console.log(action.payload)
                 user: action.payload
             }
         }
+        case GET_USERS: {
+            return {
+                ...state,
+                users: action.payload
+            }
+        }
+        case GET_ONE_USER: {
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
+        case UPGRADE_USER: {
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
 
         case GET_STYLES:
             const array = action.payload.sort(function(a, b) {
@@ -168,11 +179,7 @@ console.log(action.payload)
                 return {
                     ...state,
                 }
-        case GET_USERS:
-            return {
-                 ...state,
-                 users: action.payload 
-                }
+
         case POST_PRODUCT:
             return {
                 ...state,
@@ -188,24 +195,16 @@ console.log(action.payload)
                 ...state,
                 beersOfCategory: state.beersOfCategory.filter(el => el.name !== action.payload)
             }
-<<<<<<< HEAD
 
         case DELETE_ORDER:
             return {
                 ...state,
                 orders: state.orders.filter(el => el.id !== action.payload)
             }
-        
-        case ADD_CART:
-            let newItem = state.beers.find((p) => p.id === action.payload)
-            
-            let itemInCart = state.cart.find((i) => i.id === newItem.id)
-            return itemInCart ? {
-=======
+
         case DELETE_BEER:
             state.allBeers = state.allBeers.filter(el => el.id !== action.payload)
             return{
->>>>>>> 2a676164c2d83eea7f9dcf28957ce50ce6e9bb49
                 ...state,
                 beers: state.allBeers
             }

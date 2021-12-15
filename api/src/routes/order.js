@@ -4,11 +4,6 @@ const { OrderBeer: OrderBeer } = require("../db.js");
 const { Beer: Beer } = require("../db.js");
 
 
-/*server.get('/', (req, res) => {
-    Order.findAll({
-        where: { status: req.query.status }
-    }).then(orders => { res.json(orders); }).catch(error => { res.status(400).json({ error }) })
-});*/
 server.get('/', (req, res) => {
     Order.findAll({
         include: [{
@@ -71,6 +66,7 @@ server.post('/', (req,res) => {
 });
 
 module.exports = server;
+
 // http://localhost:3001/order TRAE TODAS LAS ORDENES DE TODOS LOS USUARIOS 
 server.get("/", (req, res) => {
   Order.findAll({

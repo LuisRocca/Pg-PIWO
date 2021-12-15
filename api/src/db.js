@@ -61,10 +61,6 @@ OrderBeer.belongsTo(Order)
 Beer.hasMany(OrderBeer)
 OrderBeer.belongsTo(Beer)
 
-Order.belongsToMany(Beer, {through: 'order_beer'}) //tabla intermedia
-Beer.belongsToMany(Order, {through: 'order_beer'})
-
-
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

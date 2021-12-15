@@ -1,7 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 
-
 export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
@@ -507,17 +506,21 @@ export function getOrders () {
             })
         }
         catch (err) {
-
-export function postReviewUser (idBeer, idUser, payload) {
-    return async function (dispatch) {
-        try {
-            await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
-            return dispatch({type: POST_REVIEW_USER, payload})
-        } catch (err) {
-            console.log(err);
+            console.log(err)
         }
     }
 }
+
+export function postReviewUser (idBeer, idUser, payload) {
+                return async function (dispatch) {
+                    try {
+                        await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+                        return dispatch({type: POST_REVIEW_USER, payload})
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
 
 export function putReviewUser (idBeer, idUser, payload) {
     return async function (dispatch) {

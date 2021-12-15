@@ -1,23 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders, editOrder} from "../../Redux/actions";
+import { editOrder} from "../../Redux/actions";
 import styles from '../../css/EditOrder.module.css'
+
 
 const EditOrderFull = ({props}) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   console.log('PROPS', props)
   let order  = useSelector(state => state.orders)
   console.log('ordenes ',  order)
   order = order.filter(el => el.id == props)
   
-  const {id, totalPrice, status ,address, email} = order[0]
+  const {id, quantity, totalPrice, unity_price, status ,address, email, payment_id, payment_status, merchant_order_id, title} = order[0]
   const [values, setInput] = useState({
     id: `${id}`,
-    totalPrice: totalPrice? `${totalPrice}`: '', 
+    quantity: `${quantity}`,
+    totalPrice: totalPrice? `${totalPrice}`: '',
+    unity_price: `${unity_price}`, 
     status: `${status}`,
     address: `${address}`, 
-    email: `${email}`, 
+    email: `${email}`,
+    payment_id: `${payment_id}`,
+    payment_status: `${payment_status}`,
+    merchant_order_id: `${merchant_order_id}`,
+    title: `${title}`, 
   });
 
   const handleChange = e => {
@@ -35,7 +43,7 @@ const EditOrderFull = ({props}) => {
     console.log('Estado:', values)
   }; */
       
-    function handleSubmit(e) {
+    /*function handleSubmit(e) {
         e.preventDefault();
         if (values.status !== "" && values.email !== "") {
         dispatch(editOrder(values));
@@ -49,11 +57,37 @@ const EditOrderFull = ({props}) => {
           "You must complete all the fields to add the beer !!!"
           );
         }
-    }
+    }*/
     // useEffect(() => {
     //   dispatch(getOrders());
     // }, [dispatch]);
-    
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      if (values.totalPrice !== "" && values.email !== "") {
+        dispatch(editOrder(values));
+        alert("Successfully Edit Order!!!");
+        history.push("/admin/orderList");
+
+        /*setInput({
+          id: `${id}`,
+          quantity: `${quantity}`,
+          totalPrice: totalPrice? `${totalPrice}`: '',
+          unity_price: `${unity_price}`,
+          status: `${status}`,
+          address: `${address}`,
+          email: `${email}`,
+          payment_id: `${payment_id}`,
+          payment_status: `${payment_status}`,
+          merchant_order_id: `${merchant_order_id}`,
+          title: `${title}`,
+        });*/
+      } else {
+        alert(
+          "You must complete all the fields to add the order !!!"
+        );
+      }
+    }    
     return (
       <div className={styles.create}>
         <div>
@@ -78,6 +112,19 @@ const EditOrderFull = ({props}) => {
             />
           </div>
           <div className={styles.container__form__input}>
+            <label htmlFor="quantity" className={styles.container__form__input__label}>
+              Quantity
+            </label>
+            <input
+              type="text"
+              name="quantity"
+              id="quantity"
+              value={values.quantity}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
             <label htmlFor="totalPrice" className={styles.container__form__input__label}>
               Total Price
             </label>
@@ -86,6 +133,19 @@ const EditOrderFull = ({props}) => {
               name="totalPrice"
               id="totalPrice"
               value={values.totalPrice}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="unity_price" className={styles.container__form__input__label}>
+              Unity Price
+            </label>
+            <input
+              type="text"
+              name="unity_price"
+              id="unity_price"
+              value={values.unity_price}
               onChange={handleChange}
               className={styles.container__form__input__input}
             />
@@ -129,6 +189,58 @@ const EditOrderFull = ({props}) => {
               className={styles.container__form__input__input}
             />
           </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="payment_id" className={styles.container__form__input__label}>
+              Payment Id
+            </label>
+            <input
+              type="text"
+              name="payment_id"
+              id="payment_id"
+              value={values.payment_id}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="payment_status" className={styles.container__form__input__label}>
+              Payment Status
+            </label>
+            <input
+              type="text"
+              name="payment_status"
+              id="payment_status"
+              value={values.payment_status}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="merchant_order_id" className={styles.container__form__input__label}>
+              Merchant Order Id
+            </label>
+            <input
+              type="text"
+              name="merchant_order_id"
+              id="merchant_order_id"
+              value={values.merchant_order_id}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>
+          <div className={styles.container__form__input}>
+            <label htmlFor="title" className={styles.container__form__input__label}>
+              Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              id="title"
+              value={values.title}
+              onChange={handleChange}
+              className={styles.container__form__input__input}
+            />
+          </div>          
           <button className={styles.button}>Edit Order</button>
           </form>
           </div>

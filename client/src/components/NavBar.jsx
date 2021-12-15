@@ -66,10 +66,11 @@ function NavBar (){
                         Admin
                       </a>
                       <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a className="dropdown-item" href="/admin">Admin Panel</a></li>
-                        <li><a className="dropdown-item" href="/admin/createCa">New Category's Beer</a></li>
-                        <li><a className="dropdown-item" href="/admin/createBeer">New Beer</a></li>
-                        <li><a className="dropdown-item" href="/admin/orderList">Edit Orders</a></li>
+                        <li><a className="dropdown-item" href="/admin">Beers List & Edit</a></li>
+                        <li><a className="dropdown-item" href="/admin/createCa">Beer New Category</a></li>
+                        <li><a className="dropdown-item" href="/admin/createBeer">Beer New</a></li>
+                        <li><a className="dropdown-item" href="/admin/orderList">Orders List & Edit</a></li>
+                        <li><a className="dropdown-item" href="/admin/userList">Users Upgrade</a></li>
                       </ul>  
                     </li>}
                     <div>
