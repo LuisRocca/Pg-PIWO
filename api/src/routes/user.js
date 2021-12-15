@@ -88,27 +88,39 @@ server.delete('/:id', (req, res) => {
 //    CREAR ORDEN  --------------------------------------------------------
 server.post('/:idUser/cart', async (req, res) => {
   try {
+    // let carrito = req.body
     let user = await User.findByPk(req.params.idUser)
+    let noc = []
+    // console.log("ESTE ES LO QUE LLEGA DEL FRONT", req.body)
     // console.log(user.dataValues);
-    let order = await Order.findOrCreate({
-      where: {
-        status: 'open', 
-      },include:{
-        model: OrderBeer,
-        atritubes: ['id', 'price', 'quantity'],
-      },
-      default: {
+    // console.log(await Order.findByPk(req.params.idUser))
+    var luis = await Order.findByPk(req.params.idUser)
+    // console.log(luis, "comunicate luisillo")
+   if ( luis === null )  {
+    let order = await Order.create({
         userId: req.params.idUser,
         status: 'open', 
         address: user.address, 
         email: user.email, 
-        totalPrice: req.body.totalPrice,
-        quantity: 1,
-        title: `producto ${user.username}`
-      }
-    },)
+        title: `producto ${user.username}`,
+        carrito: noc.concat(req.body),
 
+    })
     res.status(200).json(order)
+   } else {
+     let order = await Order.update({
+        address: user.address, 
+        email: user.email, 
+        title: `producto ${user.username}`,
+        carrito: noc.concat(req.body),
+     },
+     {where:{
+      userId: req.params.idUser,
+      id: luis.id
+     }})
+     let orden = await Order.findByPk(req.params.idUser)
+     res.status(200).json(orden)
+   }
   } catch (err) {
     console.log(err);
   }
@@ -172,7 +184,7 @@ server.post('/:idUser/list', async (req,res) => {
 server.get('/:idUser/cart', async (req, res) => {
   try {
    let ar = await Order.findAll({
-      where: { userId: req.params.idUser },
+       where: { userId: req.params.idUser, status: 'open' },
     })
     res.status(200).json(ar)
   } catch (err) {

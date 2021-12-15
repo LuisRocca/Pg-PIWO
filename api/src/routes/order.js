@@ -8,10 +8,10 @@ const { Beer: Beer } = require("../db.js");
 server.get("/", (req, res) => {
   Order.findAll({
     // where: { status: req.query.status },
-    include: {
-      model: OrderBeer,
-      atributes: ['quantity', 'id', 'price']
-    }
+    // include: {
+    //   model: OrderBeer,
+    //   atributes: ['quantity', 'id', 'price']
+    // }
   })
     .then((orders) => {
       res.json(orders);
@@ -22,18 +22,18 @@ server.get("/", (req, res) => {
 });
 
 // ESTE ME TRAE UNA SOLA ORDEN 
-server.get("/:id", (req, res) => {
-  OrderBeer.findAll({
-    where: { orderId: req.params.id },
-    include: [{ model: Beer }, { model: Order }],
-  })
-    .then((orderBeer) => {
-      res.json(orderBeer);
-    })
-    .catch((error) => {
-      res.status(400).json({ error });
-    });
-});
+// server.get("/:id", (req, res) => {
+//   OrderBeer.findAll({
+//     where: { orderId: req.params.id },
+//     include: [{ model: Beer }, { model: Order }],
+//   })
+//     .then((orderBeer) => {
+//       res.json(orderBeer);
+//     })
+//     .catch((error) => {
+//       res.status(400).json({ error });
+//     });
+// });
 
 // MODIFICA UNA ORDEN ??¿¿
 server.put("/:id", (req, res) => {

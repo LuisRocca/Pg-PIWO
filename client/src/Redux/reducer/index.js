@@ -34,7 +34,8 @@ import {
         GET_ORDER_USER,
         RESET_PASSWORD,
         // PASARELA DE PAGO
-        GET_ID
+        GET_ID,
+        SET_MP
 
 
 
@@ -394,6 +395,12 @@ console.log(action.payload)
             return {
                 ...state,
                 mpData: action.payload,
+            }
+
+        case SET_MP:
+            return {
+                ...state,
+                mpData: action.payload
             }
         
             

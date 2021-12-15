@@ -47,6 +47,7 @@ export const ORDER_BEERS = 'ORDER_BEERS';
 export const ORDER_PRICE = 'ORDER_PRICE';
 export const ORDER_IBU = 'ORDER_IBU';
 export const STYLE_FILTERED = 'STYLE_FILTER'
+export const SET_MP = 'SET_MP'
 
 
 export function getBeers () {
@@ -479,8 +480,7 @@ export function createOrder (idUser, payload) {
     return async function (dispatch) {
         try {
            let order = await axios.post(`http://localhost:3001/users/${idUser}/cart`, payload )
-            // let totalPrice = 0;
-            // let quantity = 1;
+           console.log('la data del carrito', order);
             return dispatch({type: POST_ORDER_USER, payload: order.data});
         } catch (err) {
             console.log(err);
@@ -512,6 +512,17 @@ export function getId (payload) {
             })
         }
         catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function setMp (payload) {
+    return async function (dispatch) {
+        try {
+            return dispatch({type: SET_MP, payload:payload})
+        }
+        catch (err) {
             console.log(err)
         }
     }

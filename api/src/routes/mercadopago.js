@@ -75,15 +75,38 @@ mercadopago.configure({
 // res.json({id: global.id, init_point: response.body.init_point})
 
 server.post('/', (req, res, next) => {
-    const {  title, totalPrice, quantity, id } = req.body
-    console.log('body', req.body);
+    // const {  title, totalPrice, quantity, id } = req.body
+    // let {carrito}  = req.body
+    let {body}  = req
+    console.log('este es el fucking body', req.body.carrito);
+    
+    // console.log('MERCADOPAGO 81 body', carrito);
+    // let title = carrito.map((e) =>  e.name)
+    
+    // let quantity = carrito.map((i) => i.quantity)
+    // let unit_price = carrito.map((r) => r.price)
+    // const gh =[ { 
+    //          title: title[0],
+    //         unit_price: unit_price[0],
+    //         quantity: quantity[0]
+    // },{
+    //      title: title[1],
+    //         unit_price: unit_price[1],
+    //         quantity: quantity[1]
+    // }]
+    const gh = body.carrito.map(e => {
+      return {
+        title: e.name,
+        quantity: Number(e.quantity),
+        unit_price: e.price
+      }
+    })
+     console.log("lindo y helmoso", gh)
     var preference = {
-        items: [{
-            title: title,
-            unit_price: totalPrice,
-            quantity: quantity
-        }],
-        external_reference : `${id}`, //`${new Date().valueOf()}`,
+        items: 
+         gh
+        ,
+        external_reference : `${req.body.id}`, //`${new Date().valueOf()}`,
         back_urls: {
             success: "http://localhost:3001/mercadopago/pagos",
             failure: "http://localhost:3001/mercadopago/pagos",
