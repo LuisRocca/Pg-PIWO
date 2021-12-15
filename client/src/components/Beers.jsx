@@ -1,21 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import {Link, useHistory} from 'react-router-dom';
 import '../css/Beers.css'
-import { addCart, createOrder} from '../Redux/actions/index.js';
+import { addCart, createOrder, getOrder, setCart} from '../Redux/actions/index.js';
 import swal from 'sweetalert';
 
 
 export default function Beers ({id, name, impression, aroma, ingredients, flavor, IBU, ABV, history, image, examples, price, stock}) {
-const {cart} = useSelector(s => s)
+const cart = useSelector(state => state.cart)
 const dispatch = useDispatch()
 const user = JSON.parse(localStorage.getItem('login'))
 const historyy = useHistory();
+// console.log('cart', cart)
 
 const handleClick = (e) => {
     e.preventDefault();
     dispatch(addCart(id))
-    console.log('cart', cart)
+    dispatch(createOrder(user.id, cart))
+    
     // if (!JSON.parse(window.localStorage.getItem('carrito'))) {
     //     window.localStorage.setItem('carrito',JSON.stringify(cart))
     // }
@@ -30,8 +32,10 @@ const handleClick = (e) => {
 const handleOnClick = (e) => {
     e.preventDefault()
     if (user.name) {
-        dispatch(createOrder(user.id, {totalPrice: price, quantity: cart.quantity ? cart.quantity : 1}));
-        historyy.push('/order')
+        dispatch(setCart([]))
+        dispatch(addCart(id))
+        dispatch(createOrder(user.id, cart));
+        historyy.push('/cart')
     } else {
         swal("You need to sign in to proceed with this purchase", {
             buttons: false,

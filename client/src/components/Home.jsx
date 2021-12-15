@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter  } from "../Redux/actions";
+import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter, getOrder, setCart } from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
@@ -9,6 +9,7 @@ import NavBar from './NavBar';
 export default function Home () { 
     const dispatch = useDispatch();
     const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
+    const user = window.localStorage.getItem('login')
     // const history = useHistory()
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
@@ -42,11 +43,15 @@ export default function Home () {
         dispatch(orderIBU(e.target.value))
      }
 
+    //  const hjk = orders[0].carrito ? orders[0].carrito : orders.carrito
+
     useEffect(() => {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
-    }, [dispatch, beers])
+        if (orders[0]) dispatch(setCart(orders[0].carrito))
+        // dispatch(setMp([]))
+    }, [dispatch, beers, user])
 
     
     // console.log(orders);

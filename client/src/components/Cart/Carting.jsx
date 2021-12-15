@@ -2,7 +2,7 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { delCart, delAllCart, setCart, createOrder, getId} from "../../Redux/actions";
+import { delCart, delAllCart, setCart, getOrder, createOrder} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 import swal from 'sweetalert';
@@ -19,6 +19,12 @@ export default function Carting () {
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
+    dispatch(createOrder(user.id, cart))
+    swal("The cart was successfully clear", {
+      buttons: false,
+      icon: 'success',
+      timer: 2000,
+    });
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
@@ -37,7 +43,7 @@ export default function Carting () {
 
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
-  }
+  } 
         
   useEffect(() => {
     cart.length>0?
@@ -45,18 +51,24 @@ export default function Carting () {
     : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
 
-useEffect(() => {                                                                                                                    
-  dispatch(getId(orders));
-}, [orders]);
+  useEffect(() => {
+    dispatch(createOrder(user.id, cart))
+    dispatch(getOrder(user.id))
+  },[cart])
+
+// useEffect(() => {                                                                                                                    
+  // dispatch(getId(orders));
+// }, [orders]);
 
 
 const handleClick = (e) => {
   if (user.name) {
     e.preventDefault()
-    dispatch(createOrder(user.id, {totalPrice: total, quantity: totalQuantity }))
+    dispatch(createOrder(user.id, cart))
+    // dispatch(getOrder(user.id))
     history.push('/order')
-    window.localStorage.removeItem('carrito')
-    dispatch(setCart([]))
+    // window.localStorage.removeItem('carrito')
+    // dispatch(setCart([]))
   } else {
     // if (user) {
       history.push('/users/google')
@@ -68,6 +80,13 @@ const handleClick = (e) => {
     // }
   }
 
+}
+
+const handleBack = (e) => {
+  e.preventDefault()
+  dispatch(createOrder(user.id, cart))
+  // dispatch(setCart(orders.carrito))
+  history.push('/beers')
 }
 
 const formato = new Intl.NumberFormat('en-US', {
@@ -98,7 +117,7 @@ const formato = new Intl.NumberFormat('en-US', {
   </div>
   <h1>TOTAL = US{formato.format(total)}</h1>
   <div>
-    <button onClick={() => history.push('/beers')}>Back to Home</button>
+    <button onClick={(e) => handleBack(e)}>Back to Home</button>
   </div>
   <div>
           <button onClick={(e) => handleClick(e)}>Checkout</button>

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router';
 import { useEffect } from "react";
 import {Link} from 'react-router-dom';
+import {createOrder, getOrder} from '../Redux/actions/index.js';
 
 
 
@@ -12,24 +13,23 @@ function NavBar (){
   // const history = useHistory()
   const user = JSON.parse(window.localStorage.getItem('login')) ? JSON.parse(window.localStorage.getItem('login')) : []
   const login = [];
+  const dispatch = useDispatch()
   const localCart = []
   const carrito = JSON.parse(window.localStorage.getItem('carrito')) ? JSON.parse(window.localStorage.getItem('carrito')) : []
   const {cart }= useSelector((state) => state)
 
   const handleClick = () => {
+    dispatch(createOrder(user.id,cart))
     window.localStorage.removeItem('login')
+    window.localStorage.setItem('login', JSON.stringify([]))
     window.localStorage.removeItem('carrito')
     window.location.reload()
   }
-//   useEffect(() => {
-//     cart.length>0?
-//     window.localStorage.setItem('carrito', JSON.stringify(cart))
-//     : JSON.stringify(window.localStorage.getItem('carrito'))
-// },[cart])
 
-// useEffect(() => {
-//   carrito.length
-// })
+  const orderclick = () => {
+    dispatch(createOrder(user.id, cart))
+  }
+
 
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient h5" >
@@ -49,14 +49,14 @@ function NavBar (){
                       <a className="nav-link" href="/users/google" onClick={window.localStorage.setItem('login', JSON.stringify(login))}>Login</a>
                     </li>
                     }
-                    <li className="nav-item">
+                    {/* <li className="nav-item"> UNITE LUIS L
                     <Link to="/order">
                       <a className="nav-link" href=" " >Orders</a>
                     </Link>
-                    </li>
-                    <li className="nav-item">
+                    </li> */}
+                    <li className="nav-item" onClick={(e) => orderclick(e)}>
                         <Link to="/cart">
-                            <a className="nav-link" href=" ">My Cart</a>
+                            <a className="nav-link" href=" " >My Cart</a>
                         </Link>
                             <h3>{cart && cart.length}</h3>
                     </li>

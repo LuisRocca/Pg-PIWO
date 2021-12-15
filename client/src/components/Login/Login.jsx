@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
-import { setUser } from "../../Redux/actions/index.js";
+import { setUser, getOrder} from "../../Redux/actions/index.js";
 import { useEffect } from "react";
 import "./Login.css";
 import NavBar from '../NavBar.jsx';
@@ -47,6 +47,7 @@ if ( !user.name && local) {
                 admin: res.data.user.admin
             }
             window.localStorage.setItem('login', JSON.stringify(user))
+            dispatch(getOrder(user.id))
             history.push('/beers')
         }
     })
