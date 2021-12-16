@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ResetPassword, logoutUser } from "../../Redux/actions/index.js"
+import { ResetPassword, logoutUser, getOrder } from "../../Redux/actions/index.js"
 import {Link, useHistory} from 'react-router-dom';
 
 const UserCard = () => {
@@ -11,7 +11,7 @@ const UserCard = () => {
   const dispatch = useDispatch()
   const [password, setPassword] = useState('');
 
-  console.log(password)
+  // console.log(password)
   function handleClick(e) {
     e.preventDefault();
     dispatch(ResetPassword(user.id, password))

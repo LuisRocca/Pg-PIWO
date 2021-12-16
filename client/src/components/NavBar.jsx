@@ -75,8 +75,10 @@ function NavBar (){
                 </li>
                 <li className='nav-link'>
                 <p className="text-md-start">
+                  {user.name && 
                   <strong>Welcome: {user.name && <Link style={{ textDecoration: 'none', color: 'orange' }} to="/me">{user.name}</Link>}
                   </strong>
+                  }
                 </p>
                 </li>
               </ul>
