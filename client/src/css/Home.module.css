@@ -1,24 +1,16 @@
 .select{
     width: 100%;
-    margin: 50px 0px 0px 20px;
+    margin: 30px 0px 40px 40px;
     overflow: auto;
     padding: 0px;
     position: relative;
 }
 .containerBeer{
     white-space: nowrap;
-    margin: 0px;
+    margin: 10px;
     padding-bottom: 10px; 
     display: flex;
     flex-direction: row;
-}
-.button {
-    border-radius: 10px;
-    font-size: 120%;
-    font-weight: bold;
-    color: white;
-    background-color: rgb(155, 110, 5);
-    margin: 3px;
 }
 .beerprod{
     display: flex;

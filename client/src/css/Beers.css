@@ -86,13 +86,13 @@ a.buy:active {
 
 a.preview {
   bottom: 20%;
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.738);
 
-  background: #3498db;
+  background: #FF8243;
   background-position: 0 -15px;
   background-size: 400px 80px;
   background-repeat: no-repeat;
-  box-shadow: 0 3px 0 #2980b9;
+  box-shadow: 0 3px 0 #FF7800;
 
   -webkit-transition: background-position 0.2s ease-in;
   -ms-transition: background-position 0.2s ease-in;
@@ -145,6 +145,7 @@ a.preview {
 .info .description {
   display: block;
   padding-bottom: 20px;
+  text-align: left;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
@@ -157,12 +158,12 @@ a.preview {
   color: #0a0a09;
   line-height: 26px;
 }
-.buy_now {
+.buy_noww {
   float: right;
   position: relative;
   top: -5px;
   display: block;
-  padding: 10px 10px;
+  padding: 10px 40px;
   border-radius: 3px;
 
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -172,7 +173,7 @@ a.preview {
   font-size: 15px;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
 
-  background: #3498db;
+  background: #f9be32;
 
   -webkit-transition: background-position 0.2s ease-in;
   -ms-transition: background-position 0.2s ease-in;
@@ -180,7 +181,7 @@ a.preview {
   -o-transition: background-position 0.2s ease-in;
   transition: background-position 0.2s ease-in;
 
-  box-shadow: 0 3px 0 #2980b9;
+  box-shadow: 0 3px 0 #cc9a25;
 }
 .details {
   border-top: 1px solid #e5e5e5;
