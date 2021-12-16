@@ -20,7 +20,7 @@ export default function DetailBeer({ props }) {
     // console.log(beersDetail);
     const user = JSON.parse(localStorage.getItem('login'))
   //  console.log('user',user.id);
-    // console.log('detail',beersDetail[0] && beersDetail[0].id);
+    // console.log('detail',beersDetail[0].image);
     
     const handleClick = (e) => {
       e.preventDefault();
@@ -79,15 +79,16 @@ export default function DetailBeer({ props }) {
         </Link>
       {Array.isArray(beersDetail) ? (
         beersDetail.map((e) => {
+          // console.log('esta es la imagen', e.image)
           return (
             <div key={e.ID} className="container">
-              <div className="left-column">
+              {/* <div className="left-column"> */}
                 <img
                   className="imagenDetail"
                   src={e.image}
                   alt="img not found"
                 />
-              </div>
+              {/* </div> */}
               <div className="right-column">
                 <div>
                   <h1 className="name"> {e.name}</h1>
