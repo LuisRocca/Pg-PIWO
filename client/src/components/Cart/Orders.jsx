@@ -34,7 +34,7 @@ export default function Orders() {
   
   //  console.log(orders, '13 de orders')
    let arr = []
-  let ordenMp = orders ? orders : orders[0];
+  let ordenMp = orders ;
   // console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
   // console.log('ESTA ES LA ORDEN', orders)
   // console.log('este es el url', mp.data.url) 
@@ -55,10 +55,10 @@ export default function Orders() {
     dispatch(getOrder(user.id));
   }, []);
   
-  if (Array.isArray(orders.carrito)) {
-    console.log('precio',orders.carrito[0].price);
-    console.log('cantidad',orders.carrito[0].quantity);
-    console.log(orders.carrito.forEach((e) => console.log('total', e.price * Number(e.quantity))));
+  if (Array.isArray(orders && orders.carrito)) {
+    // console.log('precio',orders.carrito[0].price);
+    // console.log('cantidad',orders.carrito[0].quantity);
+    // console.log(orders.carrito.forEach((e) => console.log('total', e.price * Number(e.quantity))));
   //   // var total = orders.carrito.forEach((e) => Number(e.price) * Number(e.quantity))
     let total = 0;
     var t = 0

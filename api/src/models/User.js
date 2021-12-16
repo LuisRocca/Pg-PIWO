@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
       }
     }, address: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     }, image: {
       type: DataTypes.TEXT,
       defaultValue: 'https://www.ibm.com/blogs/systems/mx-es/wp-content/themes/ibmDigitalDesign/assets/img/anonymous.jpg'

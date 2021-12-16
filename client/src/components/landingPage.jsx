@@ -1,26 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import "../css/LandingPage.css"
-import Arrow from '../css/img/arrow.svg';
-
+import React from "react"
+import { Link } from "react-router-dom"
+import LandingPageStyles from "../css/LandingPage.module.css"
 
 
 
 const LandingPage = () => {
     return (
-        <div  className="Box-LandingPage">
-            <div className="LandingPage">
-                <div className="Margin-LandingPage">
-                <h1 className="Title-LandingPage">Welcome to Piwo</h1>
-                <p className="Info-LandingPage">The place where you will find your favorite beers at a better price.</p>
-                
-              <Link to="/beers" spy={true} smooth={true}><img className="animation" alt="arrow" src={Arrow}></img></Link>
-            
+        <div>
+            <div className={LandingPageStyles.landing}>
+                <Link to='/beers'>
+                    <button type="button" class="btn btn-warning btn-lg">I'm +18 Years old</button>
+                </Link>
+                <div>
+                    <img className={LandingPageStyles.logo} src="https://i.postimg.cc/9FC2YjWV/Piwo-logo.png" alt="to home" />
                 </div>
-           
-            </div>
+                <a href="https://youtu.be/eNLjdPI9zdE?t=26">
+                    <button type="button" class="btn btn-info btn-lg">I'm -18 Years old</button>
+                </a>
+            </div>       
         </div>
     )
 }
 
-export default LandingPage
+export default LandingPage;

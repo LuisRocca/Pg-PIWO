@@ -18,6 +18,28 @@ server.get('/', (req, res,next) => {
 //crea ruta para crear usuario//
 //POST/users//
 
+server.post('/socialAuth', async (req, res, next) => {
+  const { email, familyName, givenName, googleId, imageUrl, name } = req.body
+
+  const user = await User.findOne({ where: { email } }).catch(error => { res.status(400).json({ error }) })
+
+  if(user){
+    return res.json(user)
+  }else{
+    const newUser = await User.create({
+      username: email.split('@')[0],
+      email,
+      name,
+      lastName: familyName,
+      password: googleId,
+      address: 'Otamendi 95',
+      image: imageUrl
+    })
+
+    return res.json(newUser)
+  }
+});
+
 server.post('/', async (req,res) => {  
 try{
   let user = await User.create({

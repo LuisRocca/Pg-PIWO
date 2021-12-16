@@ -49,7 +49,7 @@ export default function Home () {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
-        if (orders[0]) dispatch(setCart(orders[0].carrito))
+        if (orders && orders.carrito) dispatch(setCart(orders.carrito))
         // dispatch(setMp([]))
     }, [dispatch, beers, user])
 
@@ -67,28 +67,28 @@ export default function Home () {
          <div>
           <div className='row'>
            <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderBeers} >
+                  <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderBeers} >
                       <option value="-">Beers</option>
                       <option value="asc" >Asc</option>
                       <option value="des" >Des</option>
                   </select>
             </div>
             <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderIBU} >
+                  <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderIBU} >
                       <option value="-">IBU</option>
                       <option value="asc" >IBU Asc</option>
                       <option value="des" >IBU Des</option>
                   </select>
             </div>
             <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderPrice} >
+                  <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderPrice} >
                       <option value="-">Price</option>
                       <option value="asc" >price Asc</option>
                       <option value="des" >price Des</option>
                   </select>
             </div>
             <div className='col-sm-2'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderAlcohol} >
+                  <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderAlcohol} >
                       <option value="">Alcohol</option>
                       <option value="asc" >Asc alcohol</option>
                       <option value="des" >Des alcohol</option>
@@ -122,7 +122,7 @@ export default function Home () {
                 </section>}
                 <div className='row'>
                     <div className='col-sm-2'>
-                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
+                        <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
                             <option value="-">Style filter</option>
                             <option value="all">All styles</option>
                             {allStyles.map(el => <option value={el.name}>{el.name}</option>)}
@@ -130,7 +130,7 @@ export default function Home () {
                     </div>
                     { stylesBeer.length>1 && 
                     <div className='col-sm-2'>
-                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderStyle} >
+                        <select className="form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderStyle} >
                             <option value="-">Style order</option>
                             <option value="asc" >Asc style</option>
                             <option value="des" >Des style</option>

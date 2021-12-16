@@ -28,7 +28,7 @@ export default function Search(){
                 value={name} 
                 onChange={(e) => handleChange(e)}
             />
-            <button className="btn btn-outline-success" type= "submit"
+            <button className="btn btn-outline-warning" type= "submit"
                 onClick= {(e)=> handleSubmit(e)}
                 >Search
             </button>
