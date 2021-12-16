@@ -574,7 +574,6 @@ export function getId (payload) {
         }
     }
 }
-<<<<<<< HEAD
 
 export function setMp (payload) {
     return async function (dispatch) {
@@ -586,5 +585,3 @@ export function setMp (payload) {
         }
     }
 }
-=======
->>>>>>> origin/tarea-admin-order

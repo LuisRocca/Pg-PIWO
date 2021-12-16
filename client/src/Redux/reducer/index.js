@@ -41,15 +41,11 @@ import {
         GET_ORDER_USER,
         RESET_PASSWORD,
         // PASARELA DE PAGO
-<<<<<<< HEAD
         GET_ID,
         SET_MP
 
 
 
-=======
-        GET_ID
->>>>>>> origin/tarea-admin-order
     } from "../actions"
 
 
@@ -67,8 +63,9 @@ const initialState = {
     listUser: [],
     cart: [],
     imgs: [],
-    orders: [],
-    mpData: []
+    orders: {},
+    mpData: [],
+    allOrder: [],
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -172,7 +169,7 @@ console.log(action.payload)
         case GET_ORDERS:
             return{
                 ...state,
-                orders: action.payload
+                allOrder: action.payload
             }
         case EDIT_ORDER:
             return{
@@ -429,7 +426,7 @@ console.log(action.payload)
         case GET_ORDER_USER:
             return {
                 ...state,
-                orders: action.payload
+                orders: action.payload[0]
             }
 
         case RESET_PASSWORD:

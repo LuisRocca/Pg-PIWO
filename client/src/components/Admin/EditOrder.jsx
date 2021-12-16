@@ -7,9 +7,9 @@ import { useHistory } from 'react-router'
 
 const EditOrder = ({props}) => {
     const dispatch = useDispatch();
-    const { orders } = useSelector(state => state);
+    const { allOrder } = useSelector(state => state);
     const history = useHistory()
-    console.log('orders', orders)
+    // console.log('orders', orders)
 
 const handleClickEdit = (order) => {        
         history.push(`/admin/editOrderFull/${order.id}`)
@@ -33,7 +33,7 @@ const handleClickDelete = (order) => dispatch(deleteOrder(order.id))
                 <h1>Order List</h1>
                             </div>
                 <div className={styles.containerOrder}>
-                {orders ? orders.map((e) => {
+                {allOrder ? allOrder.map((e) => {
                     return (
                         <div className={styles.order} key={e.id}>
                             <div onClick={() => handleClickDelete(e)} className={styles.icon1}></div>
@@ -52,11 +52,11 @@ const handleClickDelete = (order) => dispatch(deleteOrder(order.id))
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label>ID:</label>
-                                            <input type="text" className="form-control" value={e.id} disabled />
+                                            <input type="text" className="form-control" value={e.userId} disabled />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
+                                {/* <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label>Quantity:</label>
@@ -79,7 +79,7 @@ const handleClickDelete = (order) => dispatch(deleteOrder(order.id))
                                             <input type="text" className="form-control" value={e.unityPrice} disabled />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
