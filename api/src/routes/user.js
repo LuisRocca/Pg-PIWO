@@ -18,6 +18,7 @@ server.get('/', (req, res,next) => {
 //crea ruta para crear usuario//
 //POST/users//
 
+
 server.post('/socialAuth', async (req, res, next) => {
   const { email, familyName, givenName, googleId, imageUrl, name } = req.body
 
@@ -126,8 +127,8 @@ server.post('/:idUser/cart', async (req, res) => {
         email: user.email, 
         title: `producto ${user.username}`,
         carrito: noc.concat(req.body),
-
     })
+
     res.status(200).json(order)
    } else {
      let order = await Order.update({

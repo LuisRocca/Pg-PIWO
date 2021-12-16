@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { setUser, getOrder} from "../../Redux/actions/index.js";
+
 import { useEffect } from "react";
 import "./Login.css";
 import NavBar from '../NavBar.jsx';
@@ -15,6 +16,7 @@ const Form = () => {
 const dispatch = useDispatch();
 const history = useHistory();
 const user = useSelector(state => state.user)
+const orders = useSelector(state => state.orders)
 const [input,setInput] = useState({
     username: '',
     password: '',
@@ -41,6 +43,7 @@ const responseGoogle = async (res) => {
 }
 // let user = JSON.parse(window.localStorage.getItem('login'));
 // console.log('este es el que acab 21liunea', user) 
+
 
 if ( !user.name && local) {
     dispatch(setUser(local))

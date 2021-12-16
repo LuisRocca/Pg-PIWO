@@ -35,6 +35,7 @@ export default function Orders() {
   //  console.log(orders, '13 de orders')
    let arr = []
   let ordenMp = orders ;
+
   // console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
   // console.log('ESTA ES LA ORDEN', orders)
   // console.log('este es el url', mp.data.url) 
