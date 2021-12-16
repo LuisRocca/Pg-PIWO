@@ -51,6 +51,7 @@ export default function Carting () {
   },[cart])
 
 
+
 const handleClick = (e) => {
   if (user.name) {
     e.preventDefault()

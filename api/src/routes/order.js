@@ -129,7 +129,7 @@ server.put("/:id/close", (req, res) => {
     .then((order) => {
       order
         .update({
-          status: "closed",
+          status: "completed",
           totalPrice: req.body.totalPrice,
           address: req.body.address,
           email: req.body.email, // <-- aqui falta agregar el telefono que puce en el model

@@ -7,8 +7,9 @@ import { useHistory } from 'react-router'
 
 const EditOrder = ({props}) => {
     const dispatch = useDispatch();
-    const { allOrders } = useSelector(state => state);
+    const { allOrder } = useSelector(state => state);
     const history = useHistory()
+    // console.log('orders', orders)
 
 const handleClickEdit = (order) => {        
         history.push(`/admin/editOrderFull/${order.id}`)
@@ -46,7 +47,8 @@ const totalPrice = () => {
                 <h1>Order List</h1>
                             </div>
                 <div className={styles.containerOrder}>
-                {allOrders ? allOrders.map((e) => {
+                  
+                {allOrder ? allOrder.map((e) => {
                     return (
                         <div className={styles.order} key={e.id}>
                             <div onClick={() => handleClickDelete(e)} className={styles.icon1}></div>
