@@ -3,16 +3,14 @@ import { getOrder, getId, setMp} from "../../Redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Checkout from "../mercadopago/Checkout";
+import NavBar from "../NavBar.jsx";
 
 export default function Orders() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders);
-  const cart = useSelector((state) => state.cart);
   const user = JSON.parse(window.localStorage.getItem("login"));
-  // const order = useSelector((state) => state.order);
   const history = useHistory();
   const mp = useSelector((state) => state.mpData);
-  // var aux = 1
 
 
   const formato = new Intl.NumberFormat('en-US', {
@@ -32,20 +30,14 @@ export default function Orders() {
     }
   }
   
-  //  console.log(orders, '13 de orders')
-   let arr = []
   let ordenMp = orders ;
-  // console.log('ACA LLEGA LA ORDEN LUIS', ordenMp);
-  // console.log('ESTA ES LA ORDEN', orders)
-  // console.log('este es el url', mp.data.url) 
+
 
   const handleClick = (e) => {
     e.preventDefault()
-    // dispatch(getOrder(user.id))
     let data = ordenMp;
-    console.log(data)
+    // console.log(data)
     dispatch(getId(data));
-    // console.log('este es el id', JSON.stringify(mp.data.url.split('=')[1]))
   }
   const handleHome = (e) => {
     dispatch(setMp([]))
@@ -56,22 +48,18 @@ export default function Orders() {
   }, []);
   
   if (Array.isArray(orders && orders.carrito)) {
-    // console.log('precio',orders.carrito[0].price);
-    // console.log('cantidad',orders.carrito[0].quantity);
-    // console.log(orders.carrito.forEach((e) => console.log('total', e.price * Number(e.quantity))));
-  //   // var total = orders.carrito.forEach((e) => Number(e.price) * Number(e.quantity))
     let total = 0;
     var t = 0
     total = orders.carrito.map((e) => Number(e.price) *  Number(e.quantity))
     for (let i = 0; i < total.length; i++) {
       t = t + total[i]
     }
-    console.log('este es el total', t)
   }
 
 
   return (
     <div>
+      <NavBar/>
      {      showOrder ?
             
               <div>
@@ -91,13 +79,13 @@ export default function Orders() {
               <h1>Status: {orders.status}</h1>
               <h1>Email: {orders.email}</h1>
               <h1>Total Price: US{formato.format(t)}</h1>
-              <button  onClick={(e) => handleShowOrder(e)}>Hide order</button>
+              <button className="btn btn-warning btn-lg" onClick={(e) => handleShowOrder(e)}>Hide order</button>
               </div>
-              : <button  onClick={(e) => handleShowOrder(e)}>View order</button>
+              : <button className="btn btn-warning btn-lg" onClick={(e) => handleShowOrder(e)}>View order</button>
             }   
      
       <div>
-        <button onClick = {(e) => handleClick(e)}>Ready to pay?</button>
+        <button className="btn btn-warning btn-lg" onClick = {(e) => handleClick(e)}>Ready to pay?</button>
       </div>
       <div>
         
@@ -109,7 +97,7 @@ export default function Orders() {
          
          }
       
-          <button onClick={(e) => handleHome(e)}>Back Home</button>
+          <button className="btn btn-warning btn-lg" onClick={(e) => handleHome(e)}>Back Home</button>
       </div>
       <div></div>
     </div>

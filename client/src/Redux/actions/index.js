@@ -23,6 +23,7 @@ export const POST_REVIEW_USER = 'POST_REVIEW_USER'
 export const PUT_REVIEW_USER = 'PUT_REVIEW_USER'
 export const POST_ORDER_USER = 'POST_ORDER_USER'
 export const GET_ORDER_USER = 'GET_ORDER_USER'
+export const GET_ORDER_BY_ID = 'GET_ORDER_BY_ID'
 
 export const CREATE_USERS = 'CREATE_USERS'
 export const LIST_USERS = 'LIST_USERS'
@@ -138,7 +139,6 @@ export function getBeersName(name){
           dispatch({ type: CREATE_USERS, payload: data })
         })
         .then(() => dispatch(listarUsers()))
-        .then(() => alert('Usuario creado '))
         .catch(error => alert(error, 'Algo salió mal al crear usuario'))
     }
 }
@@ -230,7 +230,11 @@ export function userAdmin(id) {
         .then(data => {
           dispatch({ type: UPGRADE_USER, payload: data });
         })
-        .then(() => alert('Se dieron/quitaron privilegios de administrador'))
+        .then(() => swal("The user was successfully upgraded to admin", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          }))
         .catch(error => alert(error, 'Algo esta saliendo pesimo'))
     }
   }
@@ -404,7 +408,6 @@ export function deleteBeer (id) {
     return async function (dispatch) {
         try {   
             await axios.delete(`http://localhost:3001/beers/${id}`)
-            // console.log("codigo hermoso 2 desaparecido",data)
             return dispatch({type: DELETE_BEER, payload: id})
         }
         catch (err) {
@@ -417,7 +420,6 @@ export function deleteOrder (id) {
     return async function (dispatch) {
         try {
             let {data} = await axios.delete(`http://localhost:3001/order/${id}`)
-            alert(data)
             return dispatch({type: DELETE_ORDER})
         }
         catch (err) {
@@ -581,6 +583,17 @@ export function setMp (payload) {
             return dispatch({type: SET_MP, payload:payload})
         }
         catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export function getOrderById(orderId) {
+    return async function (dispatch) {
+        try {
+            let order = await axios.get(`http://localhost:3001/order/${orderId}`)
+            return dispatch({type: GET_ORDER_BY_ID, payload: order.data})
+        } catch (err) {
             console.log(err)
         }
     }

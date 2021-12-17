@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {createUsers} from '../../Redux/actions/index.js'
 import NavBar from '../NavBar.jsx';
+import swal from 'sweetalert';
 
 const CreateUser = () => {
 
@@ -26,8 +27,14 @@ function User(e, input){
   
   dispatch(createUsers(input))
   .then(() => {
+    swal("User created! ", {
+      buttons: false,
+      icon: 'success',
+      timer: 1500,
+      }
+      )
     history.push('/users/google')
-    window.location.reload();
+    // window.location.reload();
 })
 setInput({
   username: '',

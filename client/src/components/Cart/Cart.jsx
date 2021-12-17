@@ -1,5 +1,5 @@
 import React from 'react'
-import {delCart, quantity_item, createOrder, getOrder} from '../../Redux/actions';
+import {delCart, quantity_item, createOrder} from '../../Redux/actions';
 // import Beers from '../Beers'
 // import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -38,29 +38,26 @@ export default function Cart ({id, name, price, image, quantity}) {
     currency: 'USD',
     minimumFractionDigits: 0
 })
-  return (
-    <div className="cart-cont">
-      <div  className="order">
-        <div className="shopping-cart">
-          <div className="item"> 
-        <div>
-          <button className="button-X" onClick={(e) => handleOnClick(e)}><span> X </span></button>
-        </div>
-        <div className="cart-imagen">
-        <img src={image} alt="Not found"/>
-        </div>
-        <h3 className="name-cart">{name}</h3>
-
-
-        
-        <div className="quantity">
-        <h3 className="price">US{formato.format(price)}</h3>
-        <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US${formato.format(price * quantity)}</h4>
-        </div>
-        </div>
+return (
+  <div className="cart-cont">
+    <div  className="order">
+      <div className="shopping-cart">
+        <div className="item"> 
+      <div>
+        <button className="button-X" onClick={(e) => handleOnClick(e)}><span> X </span></button>
+      </div>
+      <div className="cart-imagen">
+      <img src={image} alt="Not found"/>
+      </div>
+      <h3 className="name-cart">{name}</h3>        
+      <div className="quantity">
+      {/* <h3 className="price">US{formato.format(price)}</h3> */}
+      <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity} className='price'/>u = US{formato.format(price * quantity)}</h4>
       </div>
       </div>
     </div>
-  )
+    </div>
+  </div>
+)
 }
 

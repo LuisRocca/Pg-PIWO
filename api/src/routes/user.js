@@ -206,7 +206,7 @@ server.post('/:idUser/list', async (req,res) => {
 server.get('/:idUser/cart', async (req, res) => {
   try {
    let ar = await Order.findAll({
-       where: { userId: req.params.idUser, status: 'open' },
+       where: { userId: req.params.idUser },
     })
     res.status(200).json(ar)
   } catch (err) {
@@ -446,18 +446,19 @@ server.post('/order-mail', (req, res) => {
       } 
   }) 
 
-  const mailOptions ={
-    from : "PiwoBeers<piwobeers@gmail.com>",
+  const mailOptions = {
+    from: "PiwoBeers<piwobeers@gmail.com>",
     to: req.body.email,
-    subject: `¡Hola ${req.body.name}, gracias por tu compra en PIWO!!`,
-    html: 
-    `   <html>
-	<head>
+    subject: `¡Hola ${req.body.name}, muchas gracias por tu compra en PIWO!!`,
+    html:`
+         <html>
+    <head>
         <body>
-        <h1> ¡Hola ${req.body.name}, gracias por tu compra! </h1>
-            <h2>Total de la compra: $${req.body.total} </h2>
+        <h1> ¡Hola ${req.body.name}, agradecemos mucho que hayas confiado en nosotros! </h1>
+            <h2>Total de la compra: $${req.body.totalPrice} </h2>
+            <img src= 'https://i.postimg.cc/9FC2YjWV/Piwo-logo.png'/>
             </body>
-	</head>
+    </head>
 </html>`
 }
 transporter.sendMail(mailOptions, (error, info) => {

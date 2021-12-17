@@ -2,10 +2,12 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { delCart, delAllCart, setCart, getOrder, createOrder} from "../../Redux/actions";
+import {delAllCart, setCart, getOrder, createOrder} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 import swal from 'sweetalert';
+import NavBar from '../NavBar';
+import '../../css/Carting.css'
 
 
 export default function Carting () {
@@ -95,33 +97,43 @@ const formato = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 0
 })
 
-  return (
+return (
+  <div>
+   
+    <NavBar/>
 <div>
-  <div>
-    <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
-    {cart ? cart.map((e) => {
-        return (
+<div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
+  </div>
+  {cart ? cart.map((e) => {
+    return (
+
+      <div>
           <div>
-            <div>
-                <Cart 
-                id = {e.id}
-                name = {e.name}
-                price = {e.price}
-                image = {e.image}
-                quantity = {e.quantity}
-                />
-            </div>
+              <Cart 
+              id = {e.id}
+              name = {e.name}
+              price = {e.price}
+              image = {e.image}
+              quantity = {e.quantity}
+              />
           </div>
-            )
-    }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
-  </div>
-  <h1>TOTAL = US{formato.format(total)}</h1>
-  <div>
-    <button onClick={(e) => handleBack(e)}>Back to Home</button>
-  </div>
-  <div>
-          <button onClick={(e) => handleClick(e)}>Checkout</button>
-  </div>
-  </div>
+        </div>
           )
+        }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
+</div>
+<div className='carrito_footer'>
+<h1>TOTAL = US{formato.format(total)}</h1>
+<div className='carrito_izq'>
+  
+  <div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => handleClick(e)}>CHECKOUT</button> 
+  </div>
+  <div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => handleBack(e)}>BACK HOME</button> 
+  </div>
+</div>
+</div>
+</div>
+        )
 }

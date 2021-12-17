@@ -23,6 +23,7 @@ import {
         DELETE_BEER,
         UPGRADE_USER,
         GET_ONE_USER,
+        GET_ORDER_BY_ID,
 
         //  ORDENAMIENTOS
         ORDER_CATEGORY,
@@ -66,6 +67,7 @@ const initialState = {
     orders: {},
     mpData: [],
     allOrder: [],
+    orderId: {}
     // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
 
 }
@@ -73,7 +75,6 @@ const initialState = {
 
 function rootReducer (state = initialState, action) {
     
-console.log(action.payload)
     switch (action.type) {
         case GET_BEERS:
             state.allBeers.length = 0;
@@ -444,6 +445,11 @@ console.log(action.payload)
             return {
                 ...state,
                 mpData: action.payload
+            }
+        case GET_ORDER_BY_ID:
+            return {
+                ...state,
+                orderId: action.payload
             }
         
             

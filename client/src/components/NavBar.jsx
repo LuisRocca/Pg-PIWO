@@ -14,6 +14,7 @@ function NavBar (){
   const user = JSON.parse(window.localStorage.getItem('login')) ? JSON.parse(window.localStorage.getItem('login')) : []
   const login = [];
   const dispatch = useDispatch()
+
   const localCart = []
   const carrito = JSON.parse(window.localStorage.getItem('carrito')) ? JSON.parse(window.localStorage.getItem('carrito')) : []
   const {cart, orders }= useSelector((state) => state)
@@ -27,7 +28,9 @@ function NavBar (){
   }
 
   const orderclick = () => {
+    if (user.name) {
       dispatch(createOrder(user.id, cart))
+    }
   }
 
 
@@ -82,10 +85,6 @@ function NavBar (){
                 </p>
                 </li>
               </ul>
-              {/* <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form> */}
               <li className="nav-link" onClick={(e) => orderclick(e)}>
                   <Link to="/cart">
                     <button type="button" class="btn btn-secondary position-relative">

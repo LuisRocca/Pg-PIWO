@@ -1,33 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editOrder, getOrders} from "../../Redux/actions";
+import { editOrder} from "../../Redux/actions";
 import styles from '../../css/EditOrder.module.css'
-import swal from 'sweetalert';
 
 
 const EditOrderFull = ({props}) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // console.log('PROPS', props)
-  let allOrders  = useSelector(state => state.allOrder)
-  console.log('ordenes ',  allOrders)
-  let order = allOrders && allOrders.filter(el => el.id !== props)
-  console.log('esta es la orden',order)
+  console.log('PROPS', props)
+  let order  = useSelector(state => state.orders)
+  console.log('ordenes ',  order)
+  order = order.filter(el => el.id == props)
   
-  // const {id, quantity, totalPrice, unity_price, status ,address, email, payment_id, payment_status, merchant_order_id, title} = order
+  const {id, quantity, totalPrice, unity_price, status ,address, email, payment_id, payment_status, merchant_order_id, title} = order[0]
   const [values, setInput] = useState({
-    id: `${order[0].id}`,
-    // quantity: `${order[0].quantity}`,
-    // totalPrice: order[0].totalPrice? `${order[0].totalPrice}`: '',
-    // unity_price: `${order[0].unity_price}`, 
-    status: `${order[0].status}`,
-    address: `${order[0].address}`, 
-    email: `${order[0].email}`,
-    payment_id: `${order[0].payment_id}`,
-    payment_status: `${order[0].payment_status ? order[0].payment_status : 'Not paid'}`,
-    merchant_order_id: `${order[0].merchant_order_id}`,
-    title: `${order[0].title}`, 
+    id: `${id}`,
+    quantity: `${quantity}`,
+    totalPrice: totalPrice? `${totalPrice}`: '',
+    unity_price: `${unity_price}`, 
+    status: `${status}`,
+    address: `${address}`, 
+    email: `${email}`,
+    payment_id: `${payment_id}`,
+    payment_status: `${payment_status}`,
+    merchant_order_id: `${merchant_order_id}`,
+    title: `${title}`, 
   });
 
   const handleChange = e => {
@@ -36,33 +34,60 @@ const EditOrderFull = ({props}) => {
       [e.target.name]: e.target.value
     });
   };
+  
+  /*const handleChange = ({target: {email, value }}) => {
+    setInput({
+      ...values,
+      [email]: value,
+    });
+    console.log('Estado:', values)
+  }; */
+      
+    /*function handleSubmit(e) {
+        e.preventDefault();
+        if (values.status !== "" && values.email !== "") {
+        dispatch(editOrder(values));
+        alert("Successfully Edit Order!!!");
+        setInput({ 
+          status: "",
+          email: '',
+        });
+      } else {
+        alert(
+          "You must complete all the fields to add the beer !!!"
+          );
+        }
+    }*/
+    // useEffect(() => {
+    //   dispatch(getOrders());
+    // }, [dispatch]);
 
     function handleSubmit(e) {
       e.preventDefault();
       if (values.totalPrice !== "" && values.email !== "") {
         dispatch(editOrder(values));
-        swal("Successfully Edited Order", {
-          buttons: false,
-          icon: 'success',
-          timer: 1500,
-          }
-          )
+        alert("Successfully Edit Order!!!");
         history.push("/admin/orderList");
+
+        /*setInput({
+          id: `${id}`,
+          quantity: `${quantity}`,
+          totalPrice: totalPrice? `${totalPrice}`: '',
+          unity_price: `${unity_price}`,
+          status: `${status}`,
+          address: `${address}`,
+          email: `${email}`,
+          payment_id: `${payment_id}`,
+          payment_status: `${payment_status}`,
+          merchant_order_id: `${merchant_order_id}`,
+          title: `${title}`,
+        });*/
       } else {
-        swal("You must complete all the fields to add the order ", {
-          buttons: false,
-          icon: 'error',
-          timer: 1500,
-          }
-          )
+        alert(
+          "You must complete all the fields to add the order !!!"
+        );
       }
-    }
-
-
-    useEffect(() => {
-      dispatch(getOrders())
-    }, [])
-    
+    }    
     return (
       <div className={styles.create}>
         <div>
@@ -86,7 +111,7 @@ const EditOrderFull = ({props}) => {
               className={styles.container__form__input__input}
             />
           </div>
-          {/* <div className={styles.container__form__input}>
+          <div className={styles.container__form__input}>
             <label htmlFor="quantity" className={styles.container__form__input__label}>
               Quantity
             </label>
@@ -98,8 +123,8 @@ const EditOrderFull = ({props}) => {
               onChange={handleChange}
               className={styles.container__form__input__input}
             />
-          </div> */}
-          {/* <div className={styles.container__form__input}>
+          </div>
+          <div className={styles.container__form__input}>
             <label htmlFor="totalPrice" className={styles.container__form__input__label}>
               Total Price
             </label>
@@ -111,8 +136,8 @@ const EditOrderFull = ({props}) => {
               onChange={handleChange}
               className={styles.container__form__input__input}
             />
-          </div> */}
-          {/* <div className={styles.container__form__input}>
+          </div>
+          <div className={styles.container__form__input}>
             <label htmlFor="unity_price" className={styles.container__form__input__label}>
               Unity Price
             </label>
@@ -124,7 +149,7 @@ const EditOrderFull = ({props}) => {
               onChange={handleChange}
               className={styles.container__form__input__input}
             />
-          </div> */}
+          </div>
           <div className={styles.container__form__input}>
             <label htmlFor="status" className={styles.container__form__input__label}>
               Status
