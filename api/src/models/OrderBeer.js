@@ -1,18 +1,18 @@
-const {DataTypes,Sequelize}  = require('sequelize');
+const {DataTypes,Sequelize, UUIDV4}  = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('orderBeer', {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            primaryKey: true  
+        },
         quantity: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
         price: {
             type: DataTypes.FLOAT,
-            allowNull: false,
-            validate: { min: 0.1 },
-        },
-        name: {
-            type: DataTypes.STRING,
             allowNull: false
-        },
+        }
     });
 };

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 
-
 export const GET_ID = "GET_ID"
 export const GET_BEERS = 'GET_BEERS'
 export const GET_BEERS_BY_ID = 'GET_BEERS_BY_ID'
@@ -9,10 +8,14 @@ export const GET_BEERS_NAME = 'GET_BEERS_NAME'
 export const GET_STYLES = 'GET_STYLES'
 export const GET_REVIEW = 'GET_REVIEW'
 export const GET_USERS = 'GET_USER'
+export const EDIT_ORDER = 'EDIT_ORDER'
+export const GET_ORDERS = 'GET_ORDERS'
+export const POST_ORDER = 'POST_ORDER'
 export const POST_USER = 'POST_USER'
 export const POST_PRODUCT = 'POST_PRODUCT'
 export const ADD_BEERS_OF_CATEGORY = 'ADD_BEERS_OF_CATEGORY'
 export const DELETE_BEERS_CATEGORY = 'DELETE_BEERS_CATEGORY'
+export const DELETE_ORDER = 'DELETE_ORDER'
 export const CREATE_BEER = 'CREATE_BEER'
 export const SET_CART = 'SET_CART'
 export const SET_USER = 'SET_USER'
@@ -20,6 +23,7 @@ export const POST_REVIEW_USER = 'POST_REVIEW_USER'
 export const PUT_REVIEW_USER = 'PUT_REVIEW_USER'
 export const POST_ORDER_USER = 'POST_ORDER_USER'
 export const GET_ORDER_USER = 'GET_ORDER_USER'
+export const GET_ORDER_BY_ID = 'GET_ORDER_BY_ID'
 
 export const CREATE_USERS = 'CREATE_USERS'
 export const LIST_USERS = 'LIST_USERS'
@@ -47,6 +51,7 @@ export const ORDER_BEERS = 'ORDER_BEERS';
 export const ORDER_PRICE = 'ORDER_PRICE';
 export const ORDER_IBU = 'ORDER_IBU';
 export const STYLE_FILTERED = 'STYLE_FILTER'
+export const SET_MP = 'SET_MP'
 
 
 export function getBeers () {
@@ -134,7 +139,6 @@ export function getBeersName(name){
           dispatch({ type: CREATE_USERS, payload: data })
         })
         .then(() => dispatch(listarUsers()))
-        .then(() => alert('Usuario creado '))
         .catch(error => alert(error, 'Algo salió mal al crear usuario'))
     }
 }
@@ -226,7 +230,11 @@ export function userAdmin(id) {
         .then(data => {
           dispatch({ type: UPGRADE_USER, payload: data });
         })
-        .then(() => alert('Se dieron/quitaron privilegios de administrador'))
+        .then(() => swal("The user was successfully upgraded to admin", {
+            buttons: false,
+            icon: 'success',
+            timer: 1500,
+          }))
         .catch(error => alert(error, 'Algo esta saliendo pesimo'))
     }
   }
@@ -345,6 +353,17 @@ export function postBeer(payload){
         }
     }
 }
+export function postOrder(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.post('http://localhost:3001/order/create', {...payload})
+            return dispatch({type: POST_ORDER, payload: data})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+}
 
 export function delAllCart () {
     return async function (dispatch) {
@@ -370,11 +389,25 @@ export function editBeer(payload){
         }
     }
 }
+export function editOrder(payload){
+    return async function(dispatch){
+        try{
+            const { data } = await axios.put(`http://localhost:3001/order/edit/${payload.id}`, payload)
+            console.log(data)
+            console.log(payload)
+            return dispatch({type: EDIT_ORDER})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+};
+
+
 export function deleteBeer (id) {
     return async function (dispatch) {
         try {   
             await axios.delete(`http://localhost:3001/beers/${id}`)
-            // console.log("codigo hermoso 2 desaparecido",data)
             return dispatch({type: DELETE_BEER, payload: id})
         }
         catch (err) {
@@ -382,6 +415,20 @@ export function deleteBeer (id) {
         }
     }
 }
+
+export function deleteOrder (id) {
+    return async function (dispatch) {
+        try {
+            let {data} = await axios.delete(`http://localhost:3001/order/${id}`)
+            return dispatch({type: DELETE_ORDER})
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+};
+
+
 
 export function getImgs(){
     return async function(dispatch) {
@@ -452,17 +499,31 @@ export function setUser (payload) {
         }
     }
 }
-
-export function postReviewUser (idBeer, idUser, payload) {
+export function getOrders () {
     return async function (dispatch) {
         try {
-            await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
-            return dispatch({type: POST_REVIEW_USER, payload})
-        } catch (err) {
-            console.log(err);
+            let orders = await axios.get("http://localhost:3001/order")
+            return dispatch({
+                type: GET_ORDERS,
+                payload: orders.data
+            })
+        }
+        catch (err) {
+            console.log(err)
         }
     }
 }
+
+export function postReviewUser (idBeer, idUser, payload) {
+                return async function (dispatch) {
+                    try {
+                        await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+                        return dispatch({type: POST_REVIEW_USER, payload})
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            }
 
 export function putReviewUser (idBeer, idUser, payload) {
     return async function (dispatch) {
@@ -479,8 +540,6 @@ export function createOrder (idUser, payload) {
     return async function (dispatch) {
         try {
            let order = await axios.post(`http://localhost:3001/users/${idUser}/cart`, payload )
-            // let totalPrice = 0;
-            // let quantity = 1;
             return dispatch({type: POST_ORDER_USER, payload: order.data});
         } catch (err) {
             console.log(err);
@@ -512,6 +571,28 @@ export function getId (payload) {
             })
         }
         catch (err){
+            console.log(err)
+        }
+    }
+}
+
+export function setMp (payload) {
+    return async function (dispatch) {
+        try {
+            return dispatch({type: SET_MP, payload:payload})
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+}
+
+export function getOrderById(orderId) {
+    return async function (dispatch) {
+        try {
+            let order = await axios.get(`http://localhost:3001/order/${orderId}`)
+            return dispatch({type: GET_ORDER_BY_ID, payload: order.data})
+        } catch (err) {
             console.log(err)
         }
     }

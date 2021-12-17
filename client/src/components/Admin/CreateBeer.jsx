@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getBeers, postBeer} from "../../Redux/actions";
 import NavBar from "../NavBar";
+import {useHistory} from 'react-router-dom';
+import swal from 'sweetalert';
 
 const CreateBeer = () => {
     const dispatch = useDispatch();
-    
-    // const [errors, setErrors] = useState({});
-  
+    const history = useHistory()
     const [values, setInput] = useState({
         name: "", 
         style: "", 
@@ -15,7 +15,7 @@ const CreateBeer = () => {
         stock: "", 
         impression: "", 
         aroma: "", 
-        img: "", 
+        img: "https://i.pinimg.com/originals/9d/55/ec/9d55ec3f79262f9d08f69374450393a5.jpg", 
         IBU: "", 
         ABV: "", 
         history: "", 
@@ -29,30 +29,30 @@ const CreateBeer = () => {
           [name]: value,
       });
       console.log('Estado:', values)
-  }; //   }
-    //   setErrors(validate({ ...input, username: e.target.value }));
-    // }
-  
-    // function handleCheckAge(e) {
-    //   if (e.target.checked) {
-    //     setInput({ ...input, age: e.target.value });
-    //   }
-    //   setErrors(validate({ ...input, age: e.target.value }));
-    // }
+  };
   
     function handleSubmit(e) {
       e.preventDefault();
       if (values.name !== "" && values.style !== "") {
         dispatch(postBeer(values));
-        alert("Successfully added Beer Products!!!");
+        swal("Successfully added Beer", {
+          buttons: false,
+          icon: 'success',
+          timer: 1500,
+          }
+          )
         setInput({ 
           name: "",
           style: '',
         });
+        history.push('/admin')
       } else {
-        alert(
-          "You must complete all the fields to add the beer !!!"
-        );
+        swal("You must complete all the fields to add the beer", {
+          buttons: false,
+          icon: 'error',
+          timer: 1500,
+          }
+          )
       }
     }
     useEffect(() => {
@@ -62,53 +62,6 @@ const CreateBeer = () => {
     return (
       <div>
           <NavBar/>
-        {/* <div>
-          <Link to="/admin">
-          </Link>
-            <button className={styles.button}>Back</button>
-          <div className={styles.divForm}>
-          <h2 className={styles.h9}>ADMIN PANEL</h2>
-            <h1 className={styles.h10}>Create Beer</h1>
-            <form onSubmit={handleSubmit}>
-                <label >Name</label>
-                <input className={styles.inputform} name='name' onChange={handleChange} autoComplete='off' type='text' value={values.name}/>
-                <label >Category</label>
-                <input className={styles.inputform} name='style' onChange={handleChange} autoComplete='off' type='text' value={values.style}/>
-                <label >Price</label>
-                <input className={styles.inputform} name='price' onChange={handleChange} autoComplete='off' type='text' value={values.price} />
-                <label >Stock</label>
-                <input className={styles.inputform} name='stock' onChange={handleChange} autoComplete='off' type='text' value={values.stock} />
-                <label >Impression</label>
-                <input className={styles.inputform} name='impression' onChange={handleChange} autoComplete='off' type='text' value={values.impression} />
-                <label >Aroma</label>
-                <input className={styles.inputform} name='aroma' onChange={handleChange} autoComplete='off' type='text' value={values.aroma} />
-                <label >Image</label>
-                <input className={styles.inputform} name='img' onChange={handleChange} autoComplete='off' type='text' value={values.img} />
-                <label >IBU</label>
-                <input className={styles.inputform} name='IBU' onChange={handleChange} autoComplete='off' type='text' value={values.IBU} />
-                <label >ABV</label>
-                <input className={styles.inputform} name='ABV' onChange={handleChange} autoComplete='off' type='text' value={values.ABV} />
-                <label >History</label>
-                <input className={styles.inputform} name='history' onChange={handleChange} autoComplete='off' type='text' value={values.history} />
-                <label >Ingredients</label>
-                <input className={styles.inputform} name='ingredients' onChange={handleChange} autoComplete='off' type='text' value={values.ingredients} />
-                <button>Create Beer</button>
-            </form> */}
-            {/* <div className={styles.remove}>
-              {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={elimBeer} className={style.delete}>{beer}</li>)}
-            </div> */}
-          {/* </div>
-        </div> */}
-{/* <div class='container-lg'>
-<div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
-</div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>
-</div> */}
 
   <div class="body-background">
       <div class="container-fluid d-flex justify-content-center align-items-center h-100">

@@ -1,0 +1,29 @@
+.landing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("https://i.postimg.cc/qMNFDr0Y/Still-life-wheat-hops-beer-bottles-lantern-3840x2160.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.logo {
+  width: 480px;
+  height: 480px;
+  animation-duration: 4s;
+  animation-name: logo;
+  animation-iteration-count: infinite;
+}
+
+@keyframes logo {
+  50% {
+    width: 400px;
+    height: 400px;
+  }
+
+  50% {
+    width: 300px;
+    height: 300px;
+  }
+}

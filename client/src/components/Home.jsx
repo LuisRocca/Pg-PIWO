@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter  } from "../Redux/actions";
+import {getBeers, getStylesOfBeers, orderCategory, orderAlcohol, orderBeer, orderPrice, orderIBU, styleFilter, getOrder, setCart } from "../Redux/actions";
 import Beers from "./Beers.jsx";
 import styles from '../css/Home.module.css';
 import NavBar from './NavBar';
@@ -9,7 +9,7 @@ import NavBar from './NavBar';
 export default function Home () { 
     const dispatch = useDispatch();
     const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
-    // const history = useHistory()
+    const user = window.localStorage.getItem('login')
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
 
@@ -46,48 +46,60 @@ export default function Home () {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
-    }, [dispatch, beers])
+        if (orders && orders.carrito) dispatch(setCart(orders.carrito))
+    }, [dispatch, beers, user])
 
-    
-    // console.log(orders);
     return (
-    // console.log(beers[0])
-    // console.log(stylesBeer)
-    // console.log('encontrados',searchBeer) 
-    // console.log(''orders);
+  
         <div>
             <NavBar />
-         {/* ESTOS SON LOS BOTONES QUE EL DOCTOR SILVIO DEBERIA DE PONER EN EL SIDEBAR */}
+
+         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://i.postimg.cc/VkxHpmWB/piwo-banner1.jpg" class="d-block w-100 " alt="..."/>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.postimg.cc/DZ8JGkRH/piwo-banner2.jpg" class="d-block w-100" alt="..."/>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://i.postimg.cc/XvsP7mMp/piwo-banner3.jpg" class="d-block w-100" alt="..."/>
+                    </div>
+                </div>
+            </div>
+        <br />
+         <div>
           <div className='row'>
            <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderBeers} >
+                  <select className="m-3 form-select bg-warning form-select-sm " aria-label="Default select example" value='-' onChange={handleOrderBeers} >
                       <option value="-">Beers</option>
                       <option value="asc" >Asc</option>
                       <option value="des" >Des</option>
                   </select>
             </div>
             <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderIBU} >
+                  <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderIBU} >
                       <option value="-">IBU</option>
                       <option value="asc" >IBU Asc</option>
                       <option value="des" >IBU Des</option>
                   </select>
             </div>
             <div className='col-sm-1'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderPrice} >
+                  <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderPrice} >
                       <option value="-">Price</option>
                       <option value="asc" >price Asc</option>
                       <option value="des" >price Des</option>
                   </select>
             </div>
             <div className='col-sm-2'>
-                  <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderAlcohol} >
+                  <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderAlcohol} >
                       <option value="">Alcohol</option>
                       <option value="asc" >Asc alcohol</option>
                       <option value="des" >Des alcohol</option>
                   </select>
             </div>
           </div>
+                         
 
             <div>
             {beers.length>0 &&
@@ -107,14 +119,14 @@ export default function Home () {
                                     stock = {el.stock}
                                     examples = {el.examples}
                                     />
-                                </div>)
-                        }
+                                </div>
+                            )}
                         )}
                     </div>
                 </section>}
                 <div className='row'>
                     <div className='col-sm-2'>
-                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
+                        <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
                             <option value="-">Style filter</option>
                             <option value="all">All styles</option>
                             {allStyles.map(el => <option value={el.name}>{el.name}</option>)}
@@ -122,7 +134,7 @@ export default function Home () {
                     </div>
                     { stylesBeer.length>1 && 
                     <div className='col-sm-2'>
-                        <select className="form-select bg-secondary" aria-label="Default select example" value='-' onChange={handleOrderStyle} >
+                        <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleOrderStyle} >
                             <option value="-">Style order</option>
                             <option value="asc" >Asc style</option>
                             <option value="des" >Des style</option>
@@ -153,6 +165,7 @@ export default function Home () {
                 </section>
                 :null)}
             </div>
+        </div>
         </div>
     )      
 }   

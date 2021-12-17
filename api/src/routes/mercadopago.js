@@ -1,5 +1,6 @@
 const { Order} = require('../db');
 const server = require('express').Router();
+const nodemailer = require("nodemailer");
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
@@ -75,15 +76,38 @@ mercadopago.configure({
 // res.json({id: global.id, init_point: response.body.init_point})
 
 server.post('/', (req, res, next) => {
-    const {  title, totalPrice, quantity, id } = req.body
-    console.log('body', req.body);
+    // const {  title, totalPrice, quantity, id } = req.body
+    // let {carrito}  = req.body
+    let {body}  = req
+    // console.log('este es el fucking body', req.body.carrito);
+    
+    // console.log('MERCADOPAGO 81 body', carrito);
+    // let title = carrito.map((e) =>  e.name)
+    
+    // let quantity = carrito.map((i) => i.quantity)
+    // let unit_price = carrito.map((r) => r.price)
+    // const gh =[ { 
+    //          title: title[0],
+    //         unit_price: unit_price[0],
+    //         quantity: quantity[0]
+    // },{
+    //      title: title[1],
+    //         unit_price: unit_price[1],
+    //         quantity: quantity[1]
+    // }]
+    const gh = body.carrito.map(e => {
+      return {
+        title: e.name,
+        quantity: Number(e.quantity),
+        unit_price: e.price
+      }
+    })
+     console.log("data mercadopago", gh)
     var preference = {
-        items: [{
-            title: title,
-            unit_price: totalPrice,
-            quantity: quantity
-        }],
-        external_reference : `${id}`, //`${new Date().valueOf()}`,
+        items: 
+         gh
+        ,
+        external_reference : `${req.body.id}`, //`${new Date().valueOf()}`,
         back_urls: {
             success: "http://localhost:3001/mercadopago/pagos",
             failure: "http://localhost:3001/mercadopago/pagos",
@@ -121,6 +145,44 @@ server.get("/pagos", (req, res)=>{
     .then((_) => {
       console.info('redirect success')
       
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: "piwobeers@gmail.com",
+            pass: "Piwo1104"
+        } 
+    }) 
+  
+    const mailOptions = {
+      from: "PiwoBeers<piwobeers@gmail.com>",
+      to: 'brunosentinelli@gmail.com',
+      subject: `Muchas gracias por tu compra en PIWO!!`,
+      html:`
+           <html>
+      <head>
+          <body>
+          <h1> ¡Hola ${req.body.name},  espero que estes teniendo el mejor de tus dias!. Te agradecemos por habernos elegido. </h1>
+              <h2>Total de la compra: $${req.body.totalPrice} </h2>
+              <img src= 'https://i.postimg.cc/9FC2YjWV/Piwo-logo.png'/>
+              </body>
+      </head>
+  </html>`
+  }
+  transporter.sendMail(mailOptions, (error, info) => {
+    if(error) {
+        res.status(500).send(error.message)
+    } else {
+        console.log("¡Email enviado con éxito!")
+        res.status(200).json(req.body)
+    }
+  })
+
+
+
+
+
+
       return res.redirect("http://localhost:3000/beers")
     })
     .catch((err) =>{

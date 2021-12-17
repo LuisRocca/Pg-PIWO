@@ -7,11 +7,7 @@ const { Order } = require('../db.js');
 const { OrderBeer } = require('../db.js');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const bcrypt = require('bcryptjs');
 
-const CreadorDeEncriptado = function (contrasenia) {
-  return bcrypt.hashSync(contrasenia, bcrypt.genSaltSync(8), null);
-}; 
  
 //Crea ruta que devuelva usuarios//
 //Get/users//
@@ -22,8 +18,32 @@ server.get('/', (req, res,next) => {
 //crea ruta para crear usuario//
 //POST/users//
 
-server.post('/', (req,res) => {
-  User.create({
+
+server.post('/socialAuth', async (req, res, next) => {
+  const { email, familyName, givenName, googleId, imageUrl, name } = req.body
+
+  const user = await User.findOne({ where: { email } }).catch(error => { res.status(400).json({ error }) })
+
+  if(user){
+    return res.json(user)
+  }else{
+    const newUser = await User.create({
+      username: email.split('@')[0],
+      email,
+      name,
+      lastName: familyName,
+      password: googleId,
+      address: 'Otamendi 95',
+      image: imageUrl
+    })
+
+    return res.json(newUser)
+  }
+});
+
+server.post('/', async (req,res) => {  
+try{
+  let user = await User.create({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
@@ -32,7 +52,28 @@ server.post('/', (req,res) => {
     address: req.body.address,
     image: req.body.image,
     admin: req.body.admin,
-}).then(user => { res.status(200).json({ user }); }).catch(error => { res.status(400).json({ error }) })
+})
+// const order = await Order.create({
+//     userId: user.id,
+//     status: 'open', 
+//     address: req.body.address, 
+//     email: req.body.email, 
+//     totalPrice: 0,
+//     quantity: 1,
+//     title: `producto ${user.username}`
+//   })
+// console.log('order para relacionar', order)
+// user.addOrder(order)
+// user = await User.findAll({include:{
+//   model: Order,
+//   attributes: ['totalPrice', 'title', 'id', 'status']
+// }})
+
+res.json(user)
+}catch(error){
+  console.log(error)
+}
+// .then(user => { res.status(200).json({ user }); }).catch(error => { res.status(400).json({ error }) })
 });
 
 //Crea ruta para modificar usuario
@@ -67,45 +108,94 @@ server.delete('/:id', (req, res) => {
     }).catch(error => { res.status(500).json(error); });
 });
 
-//Crea ruta para agregar item al carrito
-//Post/users/:iduser/cart
-// server.post('/:idUser/cart', (req, res) => {
-//   Order.findOrCreate({
-//       where: { userId: req.params.idUser, status: "open" },
-//       defaults: { userId: req.params.idUser, status: "open", totalPrice: 0 }
-//   }).then(order => {
-//       OrderBeer.findOrCreate({
-//           where: { beerId: req.body.beerId, orderId: order[0].id, },
-//           defaults: { beerId: req.body.beerId, orderId: order[0].id, quantity: req.body.quantity }
-//       }).then(orderBeer => {
-//           if (orderBeer[1]) res.status(200).json(orderBeer[0])
-//           else {
-//               let cantidad = parseInt(req.body.quantity) + parseInt(orderBeer[0].quantity);
-//               orderBeer[0].update({
-//                   quantity: cantidad
-//               }).then(orderBeer => { res.status(200).json(orderBeer) }).catch(error => { res.status(400).json({ error }) })
-//           }
-//       }).catch(error => { res.status(400).json({ error }) })
-//   }).catch(error => { res.status(400).json({ error }) })
-// })
-
+//    CREAR ORDEN  --------------------------------------------------------
 server.post('/:idUser/cart', async (req, res) => {
   try {
+    // let carrito = req.body
     let user = await User.findByPk(req.params.idUser)
+    let noc = []
+    // console.log("ESTE ES LO QUE LLEGA DEL FRONT", req.body)
     // console.log(user.dataValues);
+    // console.log(await Order.findByPk(req.params.idUser))
+    var luis = await Order.findByPk(req.params.idUser)
+    // console.log(luis, "comunicate luisillo")
+   if ( luis === null )  {
     let order = await Order.create({
         userId: req.params.idUser,
         status: 'open', 
         address: user.address, 
         email: user.email, 
-        totalPrice: req.body.totalPrice,
-        unity_price: req.body.unity_price,
-        quantity: 1,
-        title: "producto 1"
+        title: `producto ${user.username}`,
+        carrito: noc.concat(req.body),
     })
+
     res.status(200).json(order)
+   } else {
+     let order = await Order.update({
+        address: user.address, 
+        email: user.email, 
+        title: `producto ${user.username}`,
+        carrito: noc.concat(req.body),
+     },
+     {where:{
+      userId: req.params.idUser,
+      id: luis.id
+     }})
+     let orden = await Order.findByPk(req.params.idUser)
+     res.status(200).json(orden)
+   }
   } catch (err) {
     console.log(err);
+  }
+})
+
+server.get('/list', async (req, res) => {
+  try {
+    let lt = await OrderBeer.findAll({
+      include: {
+        model: Beer,
+        attributes: ['name']
+      }
+    })
+    res.status(200).json(lt)
+  }catch (err) {
+    console.log(err);
+  }
+  }
+  )
+//CREAR ORDERBEER------------------------------------------------------------------------------------------------
+server.post('/:idUser/list', async (req,res) => {
+  try {
+    const idUser = req.params.idUser
+    const user = await User.findByPk(idUser, {include: {
+      model: Order,
+      attributes: ['title', 'totalPrice', 'id', 'status']
+    }})
+    let orden = user.orders.filter(el => el.status === 'open')
+    console.log('esta es la orden', orden);
+    orden = await Order.findByPk(orden[0].id)
+    console.log('user', user)
+    let carrito = req.body.carrito
+    let beer
+    let order
+    let cart = []
+    carrito.forEach( async(e) => {
+      beer = await Beer.findByPk(e.id)
+      order = await OrderBeer.create({
+        price: e.price,
+        quantity: e.quantity,
+      })
+      cart.push(order)
+      console.log('order creada:', e.id)
+      beer.addOrderBeer(order)
+      // orden.addOrderBeer(order) 
+    })
+
+    console.log(cart);
+    res.json(cart)
+
+  } catch (err) {
+    console.log(err)
   }
 })
 
@@ -117,7 +207,7 @@ server.post('/:idUser/cart', async (req, res) => {
 server.get('/:idUser/cart', async (req, res) => {
   try {
    let ar = await Order.findAll({
-      where: { userId: req.params.idUser },
+       where: { userId: req.params.idUser },
     })
     res.status(200).json(ar)
   } catch (err) {
@@ -357,19 +447,19 @@ server.post('/order-mail', (req, res) => {
       } 
   }) 
 
-  const mailOptions ={
-    from : "Bruno Sentinelli <brunosentinelli@gmail.com>",
+  const mailOptions = {
+    from: "PiwoBeers<piwobeers@gmail.com>",
     to: req.body.email,
-    subject: `¡Hola ${req.body.name}, gracias por tu compra en PIWO!!`,
-    html: 
-    `   <html>
-	<head>
+    subject: `¡Hola ${req.body.name}, muchas gracias por tu compra en PIWO!!`,
+    html:`
+         <html>
+    <head>
         <body>
-        <h1> ¡Hola ${req.body.name}, gracias por tu compra! </h1>
-            <h3>Tu pedido ha sido procesado y se encuentra pendiente de pago. Por favor, hacé click en <a href= "https://www.mercadopago.com.ar/home">este link<a/> para completarlo. </h3>
-            <h2>Total de la compra: $${req.body.total} </h2>
+        <h1> ¡Hola ${req.body.name}, agradecemos mucho que hayas confiado en nosotros! </h1>
+            <h2>Total de la compra: $${req.body.totalPrice} </h2>
+            <img src= 'https://i.postimg.cc/9FC2YjWV/Piwo-logo.png'/>
             </body>
-	</head>
+    </head>
 </html>`
 }
 transporter.sendMail(mailOptions, (error, info) => {

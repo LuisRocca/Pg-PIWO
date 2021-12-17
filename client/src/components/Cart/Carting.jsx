@@ -2,10 +2,12 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { delCart, delAllCart, setCart, createOrder, getId} from "../../Redux/actions";
+import {delAllCart, setCart, getOrder, createOrder} from "../../Redux/actions";
 import Cart from './Cart.jsx';
 import { useHistory } from 'react-router';
 import swal from 'sweetalert';
+import NavBar from '../NavBar';
+import '../../css/Carting.css'
 
 
 export default function Carting () {
@@ -14,11 +16,17 @@ export default function Carting () {
   let { cart, orders} = useSelector((state) => state)
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
   const user = JSON.parse(window.localStorage.getItem('login'))
-  console.log("aca esta el orders",  orders)
+  // console.log("aca esta el orders",  orders)
   // console.log(carrito)
   const clickToDelete = (e) => {
     e.preventDefault();
     dispatch(delAllCart())
+    dispatch(createOrder(user.id, cart))
+    swal("The cart was successfully clear", {
+      buttons: false,
+      icon: 'success',
+      timer: 2000,
+    });
     // window.localStorage.removeItem('carrito')
   }
   let total = 0;
@@ -27,17 +35,11 @@ export default function Carting () {
     total = total + (e.price * e.quantity);
     totalQuantity = Number(totalQuantity) + Number(e.quantity)
   })
-// let precioUnitario = "";
-// cart.length>0 && cart.map(i =>{
-//   precioUnitario = ""+ precioUnitario + (i.price * i.quantity)
-// })
-// let pr = precioUnitario.split()
-//   console.log("este es la line 38 del carting", precioUnitario )
-                                                            
+                                                       
 
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
-  }
+  } 
         
   useEffect(() => {
     cart.length>0?
@@ -45,18 +47,21 @@ export default function Carting () {
     : JSON.stringify(window.localStorage.getItem('carrito'))
 },[cart])
 
-useEffect(() => {                                                                                                                    
-  dispatch(getId(orders));
-}, [orders]);
+  useEffect(() => {
+    dispatch(createOrder(user.id, cart))
+    dispatch(getOrder(user.id))
+  },[cart])
+
 
 
 const handleClick = (e) => {
   if (user.name) {
     e.preventDefault()
-    dispatch(createOrder(user.id, {totalPrice: total, quantity: totalQuantity }))
+    dispatch(createOrder(user.id, cart))
+    // dispatch(getOrder(user.id))
     history.push('/order')
-    window.localStorage.removeItem('carrito')
-    dispatch(setCart([]))
+    // window.localStorage.removeItem('carrito')
+    // dispatch(setCart([]))
   } else {
     // if (user) {
       history.push('/users/google')
@@ -70,39 +75,56 @@ const handleClick = (e) => {
 
 }
 
+const handleBack = (e) => {
+  e.preventDefault()
+  dispatch(createOrder(user.id, cart))
+  // dispatch(setCart(orders.carrito))
+  history.push('/beers')
+}
+
 const formato = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
   minimumFractionDigits: 0
 })
 
-  return (
+return (
+  <div>
+   
+    <NavBar/>
 <div>
-  <div>
-    <button onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
-    {cart ? cart.map((e) => {
-        return (
+<div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => clickToDelete(e)}>CLEAR CART</button>
+  </div>
+  {cart ? cart.map((e) => {
+    return (
+
+      <div>
           <div>
-            <div>
-                <Cart 
-                id = {e.id}
-                name = {e.name}
-                price = {e.price}
-                image = {e.image}
-                quantity = {e.quantity}
-                />
-            </div>
+              <Cart 
+              id = {e.id}
+              name = {e.name}
+              price = {e.price}
+              image = {e.image}
+              quantity = {e.quantity}
+              />
           </div>
-            )
-    }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
-  </div>
-  <h1>TOTAL = US{formato.format(total)}</h1>
-  <div>
-    <button onClick={() => history.push('/beers')}>Back to Home</button>
-  </div>
-  <div>
-          <button onClick={(e) => handleClick(e)}>Checkout</button>
-  </div>
-  </div>
+        </div>
           )
+        }): <h4>NO HAY NADA EN EL CARRITO</h4>}     
+</div>
+<div className='carrito_footer'>
+<h1>TOTAL = US{formato.format(total)}</h1>
+<div className='carrito_izq'>
+  
+  <div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => handleClick(e)}>CHECKOUT</button> 
+  </div>
+  <div>
+  <button className='btn btn-warning btn-lg' onClick={(e) => handleBack(e)}>BACK HOME</button> 
+  </div>
+</div>
+</div>
+</div>
+        )
 }

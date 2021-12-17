@@ -2,18 +2,26 @@ const { DataTypes, Sequelize } = require("sequelize");
 
 module.exports = (sequelize) => {
     sequelize.define('order', {
-        quantity: {
-          type: DataTypes.FLOAT,
+        // quantity: {
+        //   type: DataTypes.FLOAT,
+        //   allowNull: true
+        // },
+        // totalPrice: {
+
+        //     type: DataTypes.FLOAT,
+
+        //     type: DataTypes.ARRAY(DataTypes.FLOAT),
+
+        //     allowNull: false
+        // },
+        // unity_price: {
+        //   type: DataTypes.FLOAT,
+        //   allowNull: true,
+        //   validate: { min: 0.1 },
+        // },
+        carrito: {
+          type: DataTypes.ARRAY(DataTypes.JSON),
           allowNull: true
-        },
-        totalPrice: {
-            type: DataTypes.FLOAT,
-            allowNull: false
-        },
-        unity_price: {
-          type: DataTypes.FLOAT,
-          allowNull: true,
-          validate: { min: 0.1 },
         },
          status: {
             type: DataTypes.ENUM('open', 'created', 'processing', 'cancelled', 'completed'),
@@ -41,7 +49,7 @@ module.exports = (sequelize) => {
         merchant_order_id: {
             type: DataTypes.BIGINT,
             defaultValue: 0
-        } ,
+        },
         title: {
           type: DataTypes.STRING
         }
