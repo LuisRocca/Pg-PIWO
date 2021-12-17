@@ -7,7 +7,11 @@ module.exports = (sequelize) => {
         //   allowNull: true
         // },
         // totalPrice: {
+
         //     type: DataTypes.FLOAT,
+
+        //     type: DataTypes.ARRAY(DataTypes.FLOAT),
+
         //     allowNull: false
         // },
         // unity_price: {

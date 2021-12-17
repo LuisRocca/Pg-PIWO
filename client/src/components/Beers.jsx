@@ -22,6 +22,9 @@ const handleClick = (e) => {
         if (Array.isArray(cart))dispatch(createOrder(user.id, [...cart, beer]))
     }
     
+//     if (Array.isArray(cart))dispatch(createOrder(user.id, [...cart, beer]))
+//     dispatch(createOrder(user.id, cart))
+
     // if (!JSON.parse(window.localStorage.getItem('carrito'))) {
     //     window.localStorage.setItem('carrito',JSON.stringify(cart))
     // }

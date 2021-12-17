@@ -68,8 +68,6 @@ const initialState = {
     mpData: [],
     allOrder: [],
     orderId: {}
-    // localCart: localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [],
-
 }
 
 
@@ -171,6 +169,7 @@ function rootReducer (state = initialState, action) {
             return{
                 ...state,
                 allOrder: action.payload
+
             }
         case EDIT_ORDER:
             return{

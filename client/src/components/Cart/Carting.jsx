@@ -16,7 +16,7 @@ export default function Carting () {
   let { cart, orders} = useSelector((state) => state)
   const carrito =  JSON.parse(window.localStorage.getItem('carrito'))
   const user = JSON.parse(window.localStorage.getItem('login'))
-  console.log("aca esta el orders",  orders)
+  // console.log("aca esta el orders",  orders)
   // console.log(carrito)
   const clickToDelete = (e) => {
     e.preventDefault();
@@ -35,13 +35,7 @@ export default function Carting () {
     total = total + (e.price * e.quantity);
     totalQuantity = Number(totalQuantity) + Number(e.quantity)
   })
-// let precioUnitario = "";
-// cart.length>0 && cart.map(i =>{
-//   precioUnitario = ""+ precioUnitario + (i.price * i.quantity)
-// })
-// let pr = precioUnitario.split()
-//   console.log("este es la line 38 del carting", precioUnitario )
-                                                            
+                                                       
 
   if ( cart.length === 0 && carrito) {
     dispatch(setCart(carrito))
@@ -58,9 +52,6 @@ export default function Carting () {
     dispatch(getOrder(user.id))
   },[cart])
 
-// useEffect(() => {                                                                                                                    
-  // dispatch(getId(orders));
-// }, [orders]);
 
 
 const handleClick = (e) => {

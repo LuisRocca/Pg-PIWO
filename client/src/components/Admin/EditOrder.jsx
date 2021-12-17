@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders, deleteOrder} from "../../Redux/actions";
+import { getOrders, deleteOrder,} from "../../Redux/actions";
 import styles from '../../css/EditOrder.module.css'
 import NavBar from "../NavBar";
 import { useHistory } from 'react-router'
@@ -32,6 +32,20 @@ const handleClickDelete = (order) => {
         dispatch(getOrders());
         }, [dispatch]);    
 
+const totalPrice = () => {
+    if (allOrders) {
+        
+        let total = 0;
+        var t = 0
+        total = allOrders.map((e) => Number(e.price) *  Number(e.quantity))
+        for (let i = 0; i < total.length; i++) {
+            t = t + total[i]
+        }
+    } else {
+        t = 0
+    }
+}
+
     return (
         <div>
             <NavBar />
@@ -44,6 +58,7 @@ const handleClickDelete = (order) => {
                 <h1>Order List</h1>
                             </div>
                 <div className={styles.containerOrder}>
+                  
                 {allOrder ? allOrder.map((e) => {
                     return (
                         <div className={styles.order} key={e.id}>
@@ -67,6 +82,31 @@ const handleClickDelete = (order) => {
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <label>Quantity:</label>
+                                            <input type="text" className="form-control" value={e.carrito.quantity} disabled />
+                                        </div>
+                                    </div>
+                                </div> */}
+//                                 <div className="row">
+//                                     <div className="col-md-12">
+//                                         <div className="form-group">
+//                                             <label>Total Price:</label>
+//                                             <input type="text" className="form-control" value={e.t} disabled />
+//                                         </div>
+//                                     </div>
+//                                 </div>
+                                {/* <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <label>Unity Price:</label>
+                                            <input type="text" className="form-control" value={e.carrito.price} disabled />
+                                        </div>
+                                    </div>
+                                </div> */}
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
