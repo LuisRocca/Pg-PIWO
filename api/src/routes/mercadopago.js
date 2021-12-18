@@ -1,5 +1,6 @@
 const { Order} = require('../db');
 const server = require('express').Router();
+const nodemailer = require("nodemailer");
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
@@ -78,7 +79,7 @@ server.post('/', (req, res, next) => {
     // const {  title, totalPrice, quantity, id } = req.body
     // let {carrito}  = req.body
     let {body}  = req
-    console.log('este es el fucking body', req.body.carrito);
+    // console.log('este es el fucking body', req.body.carrito);
     
     // console.log('MERCADOPAGO 81 body', carrito);
     // let title = carrito.map((e) =>  e.name)
@@ -101,7 +102,7 @@ server.post('/', (req, res, next) => {
         unit_price: e.price
       }
     })
-     console.log("lindo y helmoso", gh)
+     console.log("data mercadopago", gh)
     var preference = {
         items: 
          gh
@@ -144,6 +145,44 @@ server.get("/pagos", (req, res)=>{
     .then((_) => {
       console.info('redirect success')
       
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: "piwobeers@gmail.com",
+            pass: "Piwo1104"
+        } 
+    }) 
+  
+    const mailOptions = {
+      from: "PiwoBeers<piwobeers@gmail.com>",
+      to: 'brunosentinelli@gmail.com',
+      subject: `Muchas gracias por tu compra en PIWO!!`,
+      html:`
+           <html>
+      <head>
+          <body>
+          <h1> ¡Hola ${req.body.name},  espero que estes teniendo el mejor de tus dias!. Te agradecemos por habernos elegido. </h1>
+              <h2>Total de la compra: $${req.body.totalPrice} </h2>
+              <img src= 'https://i.postimg.cc/9FC2YjWV/Piwo-logo.png'/>
+              </body>
+      </head>
+  </html>`
+  }
+  transporter.sendMail(mailOptions, (error, info) => {
+    if(error) {
+        res.status(500).send(error.message)
+    } else {
+        console.log("¡Email enviado con éxito!")
+        res.status(200).json(req.body)
+    }
+  })
+
+
+
+
+
+
       return res.redirect("http://localhost:3000/beers")
     })
     .catch((err) =>{

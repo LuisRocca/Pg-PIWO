@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { UpgradeUser, listUser, getuser } from '../../Redux/actions';
 import { useSelector, useDispatch } from "react-redux";
-import {useHistory } from "react-router-dom";
 import axios from 'axios';
 import NavBar from "../NavBar";
 import styles from '../../css/UserList.module.css';
-import swal from 'sweetalert';
 
 const Upgrade = () => {
 
@@ -16,7 +14,6 @@ const Upgrade = () => {
     });
     const ListUser = useSelector(state => state.listUser)
     const dispatch = useDispatch()
-    const history = useHistory()
 
     function previousValues(e) {
         axios.get(`http://localhost:3001/users/${e}`)
@@ -39,16 +36,11 @@ const Upgrade = () => {
     function updateUser(e, user) {
         e.preventDefault();
         dispatch(UpgradeUser(user));
-        swal("The user was successfully upgraded to admin", {
-            buttons: false,
-            icon: 'success',
-            timer: 1500,
-          });
+
         setInput({
             email: "",
             admin: ""
         });
-        history.push('/admin')
     }
 
     const filteredUsers = ListUser.filter(user => {
@@ -57,7 +49,7 @@ const Upgrade = () => {
 
     return (
         <div>
-            <NavBar />
+          
             <div className={styles.section}></div>
             <div className="container">
                 <div className="row">

@@ -4,40 +4,28 @@ import { getOrders, deleteOrder,} from "../../Redux/actions";
 import styles from '../../css/EditOrder.module.css'
 import NavBar from "../NavBar";
 import { useHistory } from 'react-router'
-import swal from "sweetalert";
 
 const EditOrder = ({props}) => {
     const dispatch = useDispatch();
-    const { allOrder } = useSelector(state => state);
+    const { allOrders } = useSelector(state => state);
     const history = useHistory()
-    // console.log('orders', orders)
 
 const handleClickEdit = (order) => {        
         history.push(`/admin/editOrderFull/${order.id}`)
     }
 
-const handleClickDelete = (order) => {
-    dispatch(deleteOrder(order.id))
-    swal("Successfully deleted order", {
-        buttons: false,
-        icon: 'success',
-        timer: 1500,
-        }
-        ).then(() => {
-            window.location.reload()
-        })
-}
+const handleClickDelete = (order) => dispatch(deleteOrder(order.id))
 
     useEffect(() => {
         dispatch(getOrders());
         }, [dispatch]);    
 
 const totalPrice = () => {
-    if (allOrder) {
+    if (allOrders) {
         
         let total = 0;
         var t = 0
-        total = allOrder.map((e) => Number(e.price) *  Number(e.quantity))
+        total = allOrders.map((e) => Number(e.price) *  Number(e.quantity))
         for (let i = 0; i < total.length; i++) {
             t = t + total[i]
         }
@@ -48,7 +36,7 @@ const totalPrice = () => {
 
     return (
         <div>
-            <NavBar />
+         
             <div className={styles.section}>
             <div className="container">
                 <div className="row">
@@ -58,8 +46,7 @@ const totalPrice = () => {
                 <h1>Order List</h1>
                             </div>
                 <div className={styles.containerOrder}>
-                  
-                {allOrder ? allOrder.map((e) => {
+                {allOrders ? allOrders.map((e) => {
                     return (
                         <div className={styles.order} key={e.id}>
                             <div onClick={() => handleClickDelete(e)} className={styles.icon1}></div>
@@ -77,12 +64,11 @@ const totalPrice = () => {
                                 <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
-                                            <label>User ID:</label>
+                                            <label>ID:</label>
                                             <input type="text" className="form-control" value={e.userId} disabled />
                                         </div>
                                     </div>
                                 </div>
-
                                 {/* <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">
@@ -91,14 +77,14 @@ const totalPrice = () => {
                                         </div>
                                     </div>
                                 </div> */}
-//                                 <div className="row">
-//                                     <div className="col-md-12">
-//                                         <div className="form-group">
-//                                             <label>Total Price:</label>
-//                                             <input type="text" className="form-control" value={e.t} disabled />
-//                                         </div>
-//                                     </div>
-//                                 </div>
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <div className="form-group">
+                                            <label>Total Price:</label>
+                                            <input type="text" className="form-control" value={e.t} disabled />
+                                        </div>
+                                    </div>
+                                </div>
                                 {/* <div className="row">
                                     <div className="col-md-12">
                                         <div className="form-group">

@@ -20,32 +20,36 @@ import Login from './components/Login/Login.jsx'
 import Mercadopago from './components/mercadopago/Mercadopago'
 import Orders from './components/Cart/Orders.jsx';
 import UserCard from './components/UserCard/UserCard.jsx';
+import NavBar from './components/NavBar';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      
         <Switch>
-          <Route exact path = '/' component = {LandingPage}></Route>
-          <Route exact path = '/cart' component = {Carting}></Route>
-          <Route exact path = '/beers' component = {Home}></Route>
-          <Route exact path = '/admin' component = {Admin}></Route>
-          <Route exact path = '/admin/createCa' component = {CreateCategory}></Route>
-          <Route exact path = '/admin/createBeer' component = {CreateBeer}></Route>
-          <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>}></Route>
-          <Route exact path = '/admin/orderList'  component={EditOrder}></Route>
-          <Route exact path = '/admin/userList'  component={UserList}></Route>
-          <Route exact path = '/admin/editOrderFull/:id' render = {({match}) => <EditOrderFull props={match.params.id}/>}></Route>                    
-          <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>}></Route>
-          <Route exact path = '/users' component = {CreateUser}></Route>
-          <Route exact path = '/users/google' component = {Login}></Route>
+          <Route exact path = '/' component = {LandingPage} />
+          <Route path="/" >
+          <NavBar />
+          <Route exact path = '/cart' component = {Carting} />
+          <Route exact path = '/beers' component = {Home} />
+          <Route exact path = '/admin' component = {Admin} />
+          <Route exact path = '/admin/createCa' component = {CreateCategory} />
+          <Route exact path = '/admin/createBeer' component = {CreateBeer} />
+          <Route exact path = '/admin/editBeer/:id' render = {({match}) => <EditBeer props={match.params.id}/>} />
+          <Route exact path = '/admin/orderList'  component={EditOrder} />
+          <Route exact path = '/admin/userList'  component={UserList} />
+          <Route exact path = '/admin/editOrderFull/:id' render = {({match}) => <EditOrderFull props={match.params.id}/>} />                    
+          <Route exact path = '/beers/:id' render = {({match}) => <DetailBeer props={match.params.id}/>} />
+          <Route exact path = '/users' component = {CreateUser} />
+          <Route exact path = '/users/google' component = {Login} />
           <Route path='/createuser' render={() => <CreateUser />}  />
-          <Route exact path ="/mercadopago" component = {Mercadopago}></Route>
-          <Route exact path = '/order' component = {Orders}></Route>
-          <Route exact path = '/me' component = {UserCard}></Route>
+          <Route exact path ="/mercadopago" component = {Mercadopago} />
+          <Route exact path = '/order' component = {Orders} />
+          <Route exact path = '/me' component = {UserCard} />
+          </Route>
         </Switch>
-      </div>
+      
     </BrowserRouter>
   );
 }

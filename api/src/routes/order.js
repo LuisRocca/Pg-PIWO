@@ -16,9 +16,9 @@ server.get('/', (req, res) => {
 });
 
 server.get('/:id', (req, res) => {
-    OrderBeer.findAll({
+    Order.findAll({
         where: { orderId: req.params.id },
-        include: [{ model: Beer }, { model: Order }]
+        include: [{ model: Beer }]
     }).then(orderBeer => { res.json(orderBeer); }).catch(error => { res.status(400).json({ error }) })
 });
 

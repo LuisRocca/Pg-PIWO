@@ -28,7 +28,7 @@ const responseGoogle = async (res) => {
         if (res.error) {
             console.log(res.error)
         } else {
-            console.log('perfil de google', res.profileObj)
+            // console.log('perfil de google', res.profileObj)
 
             const response = await axios.post('http://localhost:3001/users/socialAuth', res.profileObj)
             if (response.data) {
@@ -41,8 +41,7 @@ const responseGoogle = async (res) => {
         console.log(err)
     }
 }
-// let user = JSON.parse(window.localStorage.getItem('login'));
-// console.log('este es el que acab 21liunea', user) 
+
 
 
 if ( !user.name && local) {
@@ -75,7 +74,6 @@ if ( !user.name && local) {
         }
     })
     .catch(err => 
-        // alert(err)
         swal("Error, please verify your email or password", {
         buttons: false,
         icon: 'error',
@@ -86,9 +84,14 @@ if ( !user.name && local) {
     setInput({username: '',password: ''})   
     }
 
+    const clickToRegister = (e) => {
+      e.preventDefault();
+      history.push('/createuser')
+    }
+
 return (
     <div>
-        <NavBar/>
+      
         <form onSubmit={(e) => User(e)}>
         <div className="container">
           <div class="vh-100">
@@ -145,12 +148,8 @@ return (
                           Login
                         </button>
                         <p class="form-label text-center" >OR</p>
-                        <button class="btn btn-danger btn-block continue google-button d-flex justify-content-start align-items-center">
-                          <i class="fa fa-google ml-2"></i>
-                          <span class="ml-5 px-4">Continue with Google</span>
-                        </button>
                         <GoogleLogin
-                                className='googleButton'
+                                className='googleButton w-100'
                                 clientId='550939962948-srgtakf8176b6pikq34l4l3ed68l5q2b.apps.googleusercontent.com'
                                 buttonText='Ingresa con Google'
                                 onSuccess={responseGoogle}
@@ -166,7 +165,7 @@ return (
                       </p>
                       <p>
                         Don't have an account?{" "}
-                        <a href="/createuser" class="link-info">
+                        <a href=" " class="link-info" onClick={(e) => clickToRegister(e)}>
                           Register here
                         </a>
                       </p>

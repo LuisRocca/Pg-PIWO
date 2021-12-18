@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBeers, postProduct, addBeersOfCategory, delBeersCategory } from "../../Redux/actions";
 import style from "../../css/CreateCa.module.css";
 import NavBar from "../NavBar";
+import swal from 'sweetalert';
 
 export default function Admin() {
   const dispatch = useDispatch();
   
   const {beers, beersOfCategory} = useSelector((state) => state);
-  
-  // const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     name: "",
@@ -22,30 +21,28 @@ export default function Admin() {
         [name]: value,
     });
     console.log('Estado:', input)
-}; //   }
-  //   setErrors(validate({ ...input, username: e.target.value }));
-  // }
-
-  // function handleCheckAge(e) {
-  //   if (e.target.checked) {
-  //     setInput({ ...input, age: e.target.value });
-  //   }
-  //   setErrors(validate({ ...input, age: e.target.value }));
-  // }
-
+}; 
   function handleSubmit(e) {
     e.preventDefault();
     if (input.name !== "" && input.beer !== "") {
       dispatch(postProduct({...input, beersOfCategory}));
-      alert("Successfully added Beer Products!!!");
+      swal("Successfully added Beer Category", {
+        buttons: false,
+        icon: 'success',
+        timer: 1500,
+        }
+        )
       setInput({ 
         name: "",
         beer: '',
       });
     } else {
-      alert(
-        "You must complete all the fields to add the beer !!!"
-      );
+      swal("You must complete all the fields to add the beer category", {
+        buttons: false,
+        icon: 'error',
+        timer: 1500,
+        }
+        )
     }
   }
   function handleAddBeer(e){
@@ -62,34 +59,7 @@ export default function Admin() {
 
   return (
     <div>
-    <NavBar/>
-    {/* <div>
-      <Link to="/admin">
-        <button className={style.button}>Back</button>
-      </Link>
-      <div className={style.form}>
-      <h2 className={style.h9}>ADMIN PANEL</h2>
-        <h1 className={style.h10}>Create Category</h1>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label className={style.label}>Name: </label>
-            <input className={style.inputform} type="text" value={input.name} name="name" autoComplete='off' onChange={handleChange}/>
-          </div>         
-          <label className={style.label}>Beers: </label>
-          <select name='beer' onChange={handleChange}>
-            <option value="">Select Beers</option>
-            {beers.map((beer) => ( <option key={beer.name} value={beer.name}>{beer.name}</option>))}
-          </select>
-          <div className={style.buttoncreate}>
-            <button className={style.button} type="submit">Create</button>
-          </div>
-        </form>
-        <button onClick={handleAddBeer}>+</button>
-        <div className={style.remove}>
-          {beersOfCategory.map((beer) => <li key={beer} value={beer} onClick={() => elimBeer(beer.name)} className={style.delete}>{beer}</li>)}
-        </div>
-      </div>
-    </div> */}
+    
 
     <form onSubmit={handleSubmit}>
     <div class="body-background">
@@ -116,19 +86,3 @@ export default function Admin() {
   </div>
   );
 }
-
-  // function handleCheckUsername(e) {
-  //   if (e.target.checked) {
-  //     setInput({ ...input, username: e.target.value });
- 
-
-// function validate(input) {
-//   let errors = {};
-//   if (!input.name) {
-//     errors.name = "Complete the Name Field of the Beer";
-//   }
-//   if (input.beers.length === 0) {
-//     errors.beers = "Select the corresponding beers(sub-categories)";
-//   }
-//   return errors;
-// }

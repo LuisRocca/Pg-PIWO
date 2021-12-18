@@ -11,7 +11,7 @@ const Admin = () => {
     const dispatch = useDispatch()
     // const history = useHistory()
     const { beers } = useSelector(state => state)
-    console.log('beers en Admin', beers)
+    // console.log('beers en Admin', beers)
 
 
 useEffect(() => {
@@ -20,7 +20,7 @@ useEffect(() => {
     }, [dispatch]);
     return (
         <div>
-        <NavBar/>
+       
             <Link to="/admin/createCa">
           <button>Admin Panel Ca</button>
             </Link>

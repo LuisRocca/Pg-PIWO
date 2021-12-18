@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {createUsers} from '../../Redux/actions/index.js'
 import NavBar from '../NavBar.jsx';
+import swal from 'sweetalert';
 
 const CreateUser = () => {
 
@@ -26,8 +27,14 @@ function User(e, input){
   
   dispatch(createUsers(input))
   .then(() => {
+    swal("User created! ", {
+      buttons: false,
+      icon: 'success',
+      timer: 1500,
+      }
+      )
     history.push('/users/google')
-    window.location.reload();
+    // window.location.reload();
 })
 setInput({
   username: '',
@@ -63,7 +70,7 @@ const getBase64 = file => {
 console.log("create",input)
   return (
     <div>
-    <NavBar />
+    
 <form onSubmit={(e) => User(e, input)}>
   <div class="body-background">
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">

@@ -22,13 +22,12 @@ const handleClickDelete = () => {
     })
     .then((value) => {
         switch (value) {
-       
           case "confirm":
             swal(`${name} elimined`);
             dispatch(deleteBeer(id))
             break;
           default:
-            swal("Deletion canceled!");
+            swal("Delete canceled!");
         }
       });
 }

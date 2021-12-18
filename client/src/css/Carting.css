@@ -1,0 +1,28 @@
+.naav{
+    justify-content: space-between;
+}
+.home{
+    background-color: transparent;
+    border: transparent;
+    color: white;
+    font-size: 25px;
+    justify-content: center;
+}
+.carrito_footer{
+    display: flex;
+    justify-content: space-between;
+}
+.carrito_button{
+    background-color: transparent;
+    justify-content: space-between;
+    /* border: transparent; */
+    color: #f9be32;
+}
+.carrito_izq{
+    width: 18%;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 100px;
+    margin-right: 100px;
+}
