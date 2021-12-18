@@ -20,7 +20,7 @@ useEffect(() => {
     }, [dispatch]);
     return (
         <div>
-        <NavBar/>
+       
             <Link to="/admin/createCa">
           <button>Admin Panel Ca</button>
             </Link>

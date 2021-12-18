@@ -33,11 +33,11 @@ const handleClickDelete = (order) => {
         }, [dispatch]);    
 
 const totalPrice = () => {
-    if (allOrders) {
+    if (allOrder) {
         
         let total = 0;
         var t = 0
-        total = allOrders.map((e) => Number(e.price) *  Number(e.quantity))
+        total = allOrder.map((e) => Number(e.price) *  Number(e.quantity))
         for (let i = 0; i < total.length; i++) {
             t = t + total[i]
         }

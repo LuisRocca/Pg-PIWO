@@ -91,7 +91,7 @@ if ( !user.name && local) {
 
 return (
     <div>
-        <NavBar/>
+      
         <form onSubmit={(e) => User(e)}>
         <div className="container">
           <div class="vh-100">

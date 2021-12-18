@@ -70,7 +70,7 @@ const getBase64 = file => {
 console.log("create",input)
   return (
     <div>
-    <NavBar />
+    
 <form onSubmit={(e) => User(e, input)}>
   <div class="body-background">
     <div class="container-fluid d-flex justify-content-center align-items-center h-100">

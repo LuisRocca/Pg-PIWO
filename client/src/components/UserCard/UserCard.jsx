@@ -31,7 +31,7 @@ const UserCard = () => {
   return (
 
     <div>
-      <NavBar />
+   
       <div>
         <Link to='/beers'>
           <button type="button" className="btn m-3 btn-warning btn-lg"> Back home</button>

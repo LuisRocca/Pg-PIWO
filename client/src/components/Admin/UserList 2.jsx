@@ -49,7 +49,7 @@ const Upgrade = () => {
 
     return (
         <div>
-            <NavBar />
+          
             <div className={styles.section}></div>
             <div className="container">
                 <div className="row">

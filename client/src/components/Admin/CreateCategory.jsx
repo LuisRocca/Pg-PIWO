@@ -59,7 +59,7 @@ export default function Admin() {
 
   return (
     <div>
-    <NavBar/>
+    
 
     <form onSubmit={handleSubmit}>
     <div class="body-background">

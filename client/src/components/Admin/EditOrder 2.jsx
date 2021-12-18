@@ -36,7 +36,7 @@ const totalPrice = () => {
 
     return (
         <div>
-            <NavBar />
+         
             <div className={styles.section}>
             <div className="container">
                 <div className="row">

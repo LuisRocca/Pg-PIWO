@@ -49,26 +49,6 @@ return (
       </div>
       <div className="cart-imagen">
       <img src={image} alt="Not found"/>
-//   return (
-//     <div className="cart-cont">
-//       <div  className="order">
-//         <div className="shopping-cart">
-//           <div className="item"> 
-//         <div>
-//           <button className="button-X" onClick={(e) => handleOnClick(e)}><span> X </span></button>
-//         </div>
-//         <div className="cart-imagen">
-//         <img src={image} alt="Not found"/>
-//         </div>
-//         <h3 className="name-cart">{name}</h3>
-
-
-        
-//         <div className="quantity">
-//         <h3 className="price">US{formato.format(price)}</h3>
-//         <h4>US${price} x <input type="number" min='1' max='30' value={quantity} onChange={handleQuantity}/>u = US{formato.format(price * quantity)}</h4>
-//         </div>
-//         </div>
       </div>
       <h3 className="name-cart">{name}</h3>        
       <div className="quantity">

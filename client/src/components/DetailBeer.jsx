@@ -75,7 +75,7 @@ export default function DetailBeer({ props }) {
     
     return (
       <div>
-        <NavBar />
+      
         {/* <Link to="/beers">
             <button className="cart-btn" >Back to home</button>
           </Link>

@@ -91,7 +91,7 @@ const formato = new Intl.NumberFormat('en-US', {
 return (
   <div>
    
-    <NavBar/>
+   
 <div>
 <div>
   <button className='btn btn-warning btn-lg' onClick={(e) => clickToDelete(e)}>CLEAR CART</button>

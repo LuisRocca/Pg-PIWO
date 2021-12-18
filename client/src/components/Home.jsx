@@ -52,8 +52,6 @@ export default function Home () {
     return (
   
         <div>
-            <NavBar />
-
          <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -124,6 +122,9 @@ export default function Home () {
                         )}
                     </div>
                 </section>}
+                  <br></br>
+                <h1 className='' > Categories </h1>
+                <br/>
                 <div className='row'>
                     <div className='col-sm-2'>
                         <select className="m-3 form-select bg-warning form-select-sm" aria-label="Default select example" value='-' onChange={handleStyleFilter} >
