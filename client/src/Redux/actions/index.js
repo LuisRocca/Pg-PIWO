@@ -503,6 +503,7 @@ export function getOrders () {
     return async function (dispatch) {
         try {
             let orders = await axios.get("http://localhost:3001/order")
+            
             return dispatch({
                 type: GET_ORDERS,
                 payload: orders.data

@@ -77,7 +77,7 @@ const handleClick = (e) => {
 
 const handleBack = (e) => {
   e.preventDefault()
-  dispatch(createOrder(user.id, cart))
+  // dispatch(createOrder(user.id, cart))
   // dispatch(setCart(orders.carrito))
   history.push('/beers')
 }

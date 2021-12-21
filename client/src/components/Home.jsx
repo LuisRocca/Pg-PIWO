@@ -46,6 +46,7 @@ export default function Home () {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
+        dispatch(getOrder(user.id))
         if (orders && orders.carrito) dispatch(setCart(orders.carrito))
     }, [dispatch, beers, user])
 
