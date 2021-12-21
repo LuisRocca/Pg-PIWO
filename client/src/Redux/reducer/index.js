@@ -426,7 +426,8 @@ function rootReducer (state = initialState, action) {
         case GET_ORDER_USER:
             return {
                 ...state,
-                orders: action.payload[0]
+                orders: action.payload,
+                cart: action.payload.carrito.length > state.cart.length ? action.payload.carrito : state.cart,
             }
 
         case RESET_PASSWORD:

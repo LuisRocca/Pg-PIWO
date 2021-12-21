@@ -1,10 +1,19 @@
 # Pg-PIWO Beer-Market
  
-
 # Descripcion
+ <h3>Proyecto grupal de instacia evaluativa final para el bootcamp de <a href="https://www.soyhenry.com/about-us">SoyHenry</a></h3>
+<p>Les presentamos nuestro proyecto grupal es un e-commerce, "Piwo Beer Market", basado en la guía internacional de cervezas  <a href="https://www.thebeertimes.com/guia-de-estilos-de-cerveza-bjcp-2015-espanol/">(BJCP)</a> con 34 categorías y 120 subcategorías/cervezas, implementado como parte del trayecto de nuestra carrera profecional, imprementado metodologia SCRUM.</p>
+ <br/>
  
- <h2>Este es el proyecto grupal del grupo5 del corte 18a</h2>
-Les presentamos nuestro proyecto grupal es un e-commerce, "Piwo Beer Market", basado en la guía internacional de cervezas  <a href="https://www.thebeertimes.com/guia-de-estilos-de-cerveza-bjcp-2015-espanol/">(BJCP)</a> con 34 categorías y 120 subcategorías/cervezas, implementado como parte del trayecto de nuestra carrera profecional, imprementado metodologia SCRUM.
+# Vistas previas
+
+<p align="center" >
+<img src="https://i.postimg.cc/PxVDQh79/Captura-web-21-12-2021-8214-localhost.jpg" />
+</p>
+
+<p align="center" >
+<img src="https://i.postimg.cc/PqgWgdyD/Captura-web-21-12-2021-92148-localhost.jpg" />
+</p>
 
 # Tecnologias 
 
@@ -35,7 +44,7 @@ Les presentamos nuestro proyecto grupal es un e-commerce, "Piwo Beer Market", ba
  - (como usuario) percistencia de la orden en estado OPEN 
  - auntenticacion o creacion de usuario con google
 
-# ApiRESSFUL 
+# ApiRESSFULL
 
 para lograr nuestro objetivo como equipo con el catalogo de cervezas que usamos nos escontramos con la tarea de usar json-server y hacer nuestra propia "fake-api" por lo tanto para correrla necesitaras seguir los siguentes pasos: 
 

@@ -70,9 +70,12 @@ if ( !user.name && local) {
                 admin: res.data.user.admin
             }
             window.localStorage.setItem('login', JSON.stringify(user))
-            dispatch(getOrder(user.id))
+            
+            
             history.push('/beers')
         }
+        console.log(user.id)
+        dispatch(getOrder(user.id))
     })
     .catch(err => 
         swal("Error, please verify your email or password", {
