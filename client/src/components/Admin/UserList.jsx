@@ -19,7 +19,7 @@ const Upgrade = () => {
     const history = useHistory()
 
     function previousValues(e) {
-        axios.get(`http://localhost:3001/users/${e}`)
+        axios.get(`/users/${e}`)
             .then(res => {
                 console.log(res);
                 const c = res.data;

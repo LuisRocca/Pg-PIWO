@@ -30,7 +30,7 @@ const responseGoogle = async (res) => {
         } else {
             // console.log('perfil de google', res.profileObj)
 
-            const response = await axios.post('http://localhost:3001/users/socialAuth', res.profileObj)
+            const response = await axios.post('/users/socialAuth', res.profileObj)
             if (response.data) {
                 window.localStorage.setItem('login', JSON.stringify(response.data))
                 history.push('/beers')
@@ -57,7 +57,7 @@ if ( !user.name && local) {
 
     function User (e) {
     e.preventDefault();
-    axios.post("http://localhost:3001/users/google", input)
+    axios.post("/users/google", input)
     .then(res =>{
         if(res.status === 200){
             let user = {
