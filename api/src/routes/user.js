@@ -206,9 +206,8 @@ server.post('/:idUser/list', async (req,res) => {
 
 server.get('/:idUser/cart', async (req, res) => {
   try {
-   let ar = await Order.findAll({
-       where: { userId: req.params.idUser },
-    })
+    console.log(req.params, "este es el req.body del 29")
+   let ar = await Order.findByPk(req.params.idUser) // AQUI TIENES QUE SER FIENDBYPK PORQUE LE ESTAMOS DICIENDO QUE ENCUENTRE TODAS LAS ORDENER Y NO CREA UNA COPIA
     res.status(200).json(ar)
   } catch (err) {
     res.json({msg: err})

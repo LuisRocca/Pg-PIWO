@@ -8,8 +8,8 @@ import NavBar from './NavBar';
 
 export default function Home () { 
     const dispatch = useDispatch();
-    const { beers, stylesBeer, allStyles, orders }= useSelector((state) => state)
-    const user = window.localStorage.getItem('login')
+    const { beers, stylesBeer, allStyles, orders, cart }= useSelector((state) => state)
+    const user = JSON.parse(window.localStorage.getItem('login')) 
 
     // POR ACA DEJO LA "LOGICA" DEL ORDENADO 
 
@@ -41,14 +41,18 @@ export default function Home () {
         e.preventDefault()
         dispatch(orderIBU(e.target.value))
      }
-
+// console.log( orders.carrito, "estes es el order.carrito del l44 en Home")
     useEffect(() => {
         beers.length>0?console.log()
         :dispatch(getBeers())
         dispatch(getStylesOfBeers())
-        dispatch(getOrder(user.id))
-        if (orders && orders.carrito) dispatch(setCart(orders.carrito))
-    }, [dispatch, beers, user])
+        if (user.name) dispatch(getOrder(user.id))   
+    },[])
+
+    // useEffect(()=>{
+    //     if (orders && orders.carrito && orders.carrito.length > cart.length) dispatch(setCart(orders.carrito))
+    // },[])
+    
 
     return (
   
