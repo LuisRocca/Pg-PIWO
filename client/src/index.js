@@ -5,8 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
+import axios from 'axios';
 import {store} from './Redux/store';
+import dotenv from "dotenv";
 import * as bootstrap from 'bootstrap';
+dotenv.config();
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 ReactDOM.render(
   <Provider store={store}>

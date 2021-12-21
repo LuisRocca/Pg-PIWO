@@ -57,7 +57,7 @@ export const SET_MP = 'SET_MP'
 export function getBeers () {
     return async function (dispatch) {
         try {
-            let beers = await axios.get("http://localhost:3001/beers")
+            let beers = await axios.get("/beers")
             return dispatch({
                 type: GET_BEERS,
                 payload: beers.data
@@ -72,7 +72,7 @@ export function getBeers () {
 export function getBeersDetails (id) {
     return async function (dispatch) {
         try {
-            let beerId = await axios.get(`http://localhost:3001/beers/${id}`)
+            let beerId = await axios.get(`/beers/${id}`)
             // console.log("codigo hermoso desaparecido",beerId.data)
             return dispatch({
                 type: GET_BEERS_BY_ID,
@@ -88,7 +88,7 @@ export function getBeersDetails (id) {
 export function getReviews (id) {
     return async function (dispatch) {
         try {
-            let {data} = await axios.get(`http://localhost:3001/review/beer/${id}`)
+            let {data} = await axios.get(`/review/beer/${id}`)
             return dispatch({
                 type: GET_REVIEW,
                 payload: data
@@ -103,7 +103,7 @@ export function getReviews (id) {
 export function getBeersName(name){
     return async function(dispatch){
         try{
-            let b = await axios (`http://localhost:3001/beers/?name=${name}`)
+            let b = await axios (`/beers/?name=${name}`)
             return dispatch ({
                 type: GET_BEERS_NAME,
                 payload: b.data})
@@ -117,7 +117,7 @@ export function getBeersName(name){
     export function getStylesOfBeers(){
         return async function (dispatch){
             try{
-                const { data }= await axios (`http://localhost:3001/beers/categories`) 
+                const { data }= await axios (`/beers/categories`) 
                 // console.log('ESTILOS DE LA ACTION', data)
                 return dispatch({
                     type: GET_STYLES, 
@@ -131,7 +131,7 @@ export function getBeersName(name){
     }
     export function createUsers(input) {
         return function (dispatch) {
-            const url = "http://localhost:3001/users";
+            const url = "/users";
             
       return axios.post(url, input)
       .then(res => res.data)
@@ -144,7 +144,7 @@ export function getBeersName(name){
 }
 export function listarUsers() {
     return function (dispatch) {
-        axios.get(`http://localhost:3001/users`)
+        axios.get(`/users`)
         .then(res => res.data)
         .then(data => {
           dispatch({ type: LIST_USERS, payload: data })
@@ -154,7 +154,7 @@ export function listarUsers() {
 }
 export function listUser() {
     return function (dispatch) {
-        axios.get('http://localhost:3001/users')
+        axios.get('/users')
         .then((res) => res.data)
         .then(data => {
             dispatch({ type: LIST_USER, payload: data });
@@ -164,7 +164,7 @@ export function listUser() {
 }
 export function userAdmin(id) {
     return function (dispatch) {
-      const url = `http://localhost:3001/users/promote/${id}`;
+      const url = `/users/promote/${id}`;
       return axios.put(url)
         .then(res => res.data)
         .then(data => {
@@ -175,7 +175,7 @@ export function userAdmin(id) {
   }
   export function logoutUser() {
     return function (dispatch) {
-      const url = "http://localhost:3001/users/logout";
+      const url = "/users/logout";
       return axios.post(url)
         .then(() => alert('La sesión se ha cerrado'))
         .catch(error => alert(error, 'algo salio muy mal'))
@@ -183,7 +183,7 @@ export function userAdmin(id) {
   }
   export function loginUser(input) {
     return function (dispatch) {
-      const url = "http://localhost:3001/users/google";
+      const url = "/users/google";
       return axios.post(url, {username: input.username, password: input.password})
       .then(res => {
           console.log('res:', res)
@@ -204,7 +204,7 @@ export function userAdmin(id) {
   
   export function currentUser() {
     return function (dispatch) {
-       axios.get('http://localhost:3001/users/me')
+       axios.get('/users/me')
         .then((res) => res.data)
         .then(data => {
           dispatch({ type: CURRENT_USER, payload: data });
@@ -214,7 +214,7 @@ export function userAdmin(id) {
   }
   export function getuser(payload) {
     return function (dispatch) {
-      return axios.get(`http://localhost:3001/users/${payload}`)
+      return axios.get(`/users/${payload}`)
         .then(response => {
           dispatch({ type: GET_ONE_USER, payload: response.data });
         })
@@ -225,7 +225,7 @@ export function userAdmin(id) {
   }
   export function UpgradeUser(payload) {
     return function (dispatch) {
-       axios.put(`http://localhost:3001/users/promote/${payload}`)
+       axios.put(`/users/promote/${payload}`)
         .then((res) => res.data)
         .then(data => {
           dispatch({ type: UPGRADE_USER, payload: data });
@@ -241,7 +241,7 @@ export function userAdmin(id) {
 
   export function ResetPassword(id, password) {
     return function (dispatch) {
-      const url = `http://localhost:3001/users/${id}/passwordReset`;
+      const url = `/users/${id}/passwordReset`;
       return axios.put(url, {password: password})
         .then(res => res.data)
         .then(data => {
@@ -284,7 +284,7 @@ export const quantity_item = (payload) => dispatch => {
 export function postUser(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.post('http://localhost:3001/users', payload)
+            const { data } = await axios.post('/users', payload)
             return dispatch({type: POST_USER, payload: data})
         }
         catch(err){
@@ -296,7 +296,7 @@ export function postUser(payload){
 export function getUsers(){
     return async function(dispatch){
         try{
-            var info = await axios.get ("http://localhost:3001/users");
+            var info = await axios.get ("/users");
             return dispatch ({
                 type: GET_USERS,
                 payload: info.data
@@ -310,7 +310,7 @@ export function getUsers(){
 export function postProduct(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.post('http://localhost:3001/categories/create', {...payload})
+            const { data } = await axios.post('/categories/create', {...payload})
             return dispatch({type: POST_PRODUCT, payload: data})
         }
         catch(err){
@@ -345,7 +345,7 @@ export function delBeersCategory(beer){
 export function postBeer(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.post('http://localhost:3001/beers/create', {...payload})
+            const { data } = await axios.post('/beers/create', {...payload})
             return dispatch({type: CREATE_BEER, payload: data})
         }
         catch(err){
@@ -356,7 +356,7 @@ export function postBeer(payload){
 export function postOrder(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.post('http://localhost:3001/order/create', {...payload})
+            const { data } = await axios.post('/order/create', {...payload})
             return dispatch({type: POST_ORDER, payload: data})
         }
         catch(err){
@@ -380,7 +380,7 @@ export function delAllCart () {
 export function editBeer(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.put(`http://localhost:3001/beers/edit/${payload.id}`, {...payload})
+            const { data } = await axios.put(`/beers/edit/${payload.id}`, {...payload})
             alert(data)
             return dispatch({type: EDIT_BEER})
         }
@@ -392,7 +392,7 @@ export function editBeer(payload){
 export function editOrder(payload){
     return async function(dispatch){
         try{
-            const { data } = await axios.put(`http://localhost:3001/order/edit/${payload.id}`, payload)
+            const { data } = await axios.put(`/order/edit/${payload.id}`, payload)
             console.log(data)
             console.log(payload)
             return dispatch({type: EDIT_ORDER})
@@ -407,7 +407,7 @@ export function editOrder(payload){
 export function deleteBeer (id) {
     return async function (dispatch) {
         try {   
-            await axios.delete(`http://localhost:3001/beers/${id}`)
+            await axios.delete(`/beers/${id}`)
             return dispatch({type: DELETE_BEER, payload: id})
         }
         catch (err) {
@@ -419,7 +419,7 @@ export function deleteBeer (id) {
 export function deleteOrder (id) {
     return async function (dispatch) {
         try {
-            let {data} = await axios.delete(`http://localhost:3001/order/${id}`)
+            let {data} = await axios.delete(`/order/${id}`)
             return dispatch({type: DELETE_ORDER})
         }
         catch (err) {
@@ -433,7 +433,7 @@ export function deleteOrder (id) {
 export function getImgs(){
     return async function(dispatch) {
         try {
-            const {data} = await axios.get(`http://localhost:3001/beers/images`)
+            const {data} = await axios.get(`/beers/images`)
             return dispatch({type: GET_IMGS, payload: data})
         } catch (error) {
             console.log(error)
@@ -502,7 +502,7 @@ export function setUser (payload) {
 export function getOrders () {
     return async function (dispatch) {
         try {
-            let orders = await axios.get("http://localhost:3001/order")
+            let orders = await axios.get("/order")
             
             return dispatch({
                 type: GET_ORDERS,
@@ -518,7 +518,7 @@ export function getOrders () {
 export function postReviewUser (idBeer, idUser, payload) {
                 return async function (dispatch) {
                     try {
-                        await axios.post(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+                        await axios.post(`/review/beer/${idBeer}/user/${idUser}`, payload )
                         return dispatch({type: POST_REVIEW_USER, payload})
                     } catch (err) {
                         console.log(err);
@@ -529,7 +529,7 @@ export function postReviewUser (idBeer, idUser, payload) {
 export function putReviewUser (idBeer, idUser, payload) {
     return async function (dispatch) {
         try {
-            await axios.put(`http://localhost:3001/review/beer/${idBeer}/user/${idUser}`, payload )
+            await axios.put(`/review/beer/${idBeer}/user/${idUser}`, payload )
             return dispatch({type: PUT_REVIEW_USER, payload})
         } catch (err) {
             console.log(err);
@@ -540,7 +540,7 @@ export function putReviewUser (idBeer, idUser, payload) {
 export function createOrder (idUser, payload) {
     return async function (dispatch) {
         try {
-           let order = await axios.post(`http://localhost:3001/users/${idUser}/cart`, payload )
+           let order = await axios.post(`/users/${idUser}/cart`, payload )
             return dispatch({type: POST_ORDER_USER, payload: order.data});
         } catch (err) {
             console.log(err);
@@ -551,7 +551,7 @@ export function createOrder (idUser, payload) {
 export function getOrder (idUser) {
     return async function (dispatch) {
         try {
-            let orders = await axios.get(`http://localhost:3001/users/${idUser}/cart`)
+            let orders = await axios.get(`/users/${idUser}/cart`)
             return dispatch({
                 type: GET_ORDER_USER,
                 payload: orders.data
@@ -564,7 +564,7 @@ export function getOrder (idUser) {
 export function getId (payload) {
     return async function (dispatch){
         try{
-            let datos = await axios.post("http://localhost:3001/mercadopago", payload)
+            let datos = await axios.post("/mercadopago", payload)
             console.log('la data de mercadopago', payload)
             return dispatch({
                 type: GET_ID,
@@ -591,7 +591,7 @@ export function setMp (payload) {
 export function getOrderById(orderId) {
     return async function (dispatch) {
         try {
-            let order = await axios.get(`http://localhost:3001/order/${orderId}`)
+            let order = await axios.get(`/order/${orderId}`)
             return dispatch({type: GET_ORDER_BY_ID, payload: order.data})
         } catch (err) {
             console.log(err)
