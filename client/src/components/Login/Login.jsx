@@ -34,6 +34,7 @@ const responseGoogle = async (res) => {
             if (response.data) {
                 window.localStorage.setItem('login', JSON.stringify(response.data))
                 history.push('/beers')
+                // dispatch(getOrder(local.id))
             }
 
         }
