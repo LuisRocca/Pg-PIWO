@@ -44,7 +44,7 @@
  - (como usuario) percistencia de la orden en estado OPEN 
  - auntenticacion o creacion de usuario con google
 
-# ApiRESSFULL
+# ApiRESTFUL
 
 para lograr nuestro objetivo como equipo con el catalogo de cervezas que usamos nos escontramos con la tarea de usar json-server y hacer nuestra propia "fake-api" por lo tanto para correrla necesitaras seguir los siguentes pasos: 
 
