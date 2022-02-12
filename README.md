@@ -5,7 +5,7 @@
 <p>Les presentamos nuestro proyecto grupal es un e-commerce, "Piwo Beer Market", basado en la guía internacional de cervezas  <a href="https://www.thebeertimes.com/guia-de-estilos-de-cerveza-bjcp-2015-espanol/">(BJCP)</a> con 34 categorías y 120 subcategorías/cervezas, implementado como parte del trayecto de nuestra carrera profecional, imprementado metodologia SCRUM.</p>
  <br/>
  # url
- https://pg-piwo.vercel.app/cart
+<a href="https://pg-piwo.vercel.app/cart" target="black" >here</a>
  
 # Vistas previas
 
