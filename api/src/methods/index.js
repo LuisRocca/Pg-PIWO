@@ -1,12 +1,15 @@
 const {default: axios} = require("axios");
 // const Beer = require("../models/Beer");
 // const Category = require("../models/Category")
+const { styleguide} = require('../../api.json')
 const { conn } = require("../db");
 const { Beer, Category } = conn.models;
 
 module.exports = {
     showAll: async() => {
-        let {data} = await axios.get(`http://localhost:4000/styleguide`)
+        // let {data} = await axios.get(`http://localhost:4000/styleguide`)
+           let data = styleguide
+        //    console.log(data)
             let beersData = [];
             let beersData2 = [];
             data.class[0].category.forEach(e => beersData2.push(e.subcategory))
@@ -47,8 +50,9 @@ module.exports = {
     },
     getImgs: async() => {
         try {
-            let {data} = await axios.get(`http://localhost:4000/styleguide`)
+            // let {data} = await axios.get(`http://localhost:4000/styleguide`)
             // console.log(data.image)
+            let data = styleguide   
             return data.image
         } catch (error) {
             console.log(error)
